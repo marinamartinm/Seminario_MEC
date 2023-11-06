@@ -5,6 +5,20 @@ date: "`r Sys.Date()`"
 output: html_document
 ---
 
+```{r}
+library(readr)
+library(ggplot2)
+library(dplyr)
+library(tidyverse)
+library(ggplot2)
+library(forcats)
+library(hrbrthemes)
+library(viridis)
+library(rjson)
+library(XML)
+```
+
+
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
@@ -15,9 +29,14 @@ This is an R Markdown document. Markdown is a simple formatting syntax for autho
 
 When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
 
-```{r cars}
-summary(cars)
-```
+
+###Diferencia JSON y CSV
+La principal diferencia entre los datos CSV (Comma-Separated Values) y JSON (JavaScript Object Notation) radica en la forma en que organizan y representan la información.
+CSV es un formato tabular simple que utiliza comas (u otros delimitadores) para separar los valores de diferentes columnas. Es especialmente útil para datos tabulares, como hojas de cálculo, y es fácil de entender y manipular en programas de hojas de cálculo y bases de datos.
+JSON, por otro lado, es un formato de intercambio de datos que utiliza una estructura de objetos legible por humanos. Consiste en pares de clave-valor y puede anidar objetos y arrays. Es más versátil que CSV y se utiliza comúnmente para representar datos estructurados en aplicaciones web y servicios web, ya que es fácil de entender y procesar mediante código.
+En resumen, CSV es más simple y adecuado para datos tabulares, mientras que JSON es más flexible y se utiliza para estructuras de datos más complejas.
+
+
  
  
 ```{r}
@@ -32,11 +51,29 @@ URLs:
 - Depresión por CCAA --> "https://datos.gob.es/es/catalogo/ea0010587-prevalencia-de-cuadros-depresivos-activos-segun-sexo-y-comunidad-autonoma-poblacion-de-15-y-mas-anos-identificador-api-t15-p420-a2019-p04-l0-13010-px1" (Json)
 
 
+##Importación
 
 ```{r}
-
+DepresionCCAA <- fromJSON(file = "Data/DepresionCCAA.json")
+DepresionCCAA
+#C:/Users/Usuario/Desktop/4º Ing de la Salud/1º Cuatri/Fuentes/Seminario_MEC/Data/DepresionCCAA.json
+```
+```{r}
+EnfermedadesCronicas <- fromJSON(file = "C:/Users/Usuario/Desktop/4º Ing de la Salud/1º Cuatri/Fuentes/Seminario_MEC/Data/EnfermedadesCronicas.json")
+EnfermedadesCronicas
 ```
 
+
+```{r}
+PIB <- fromJSON(file = "C:/Users/Usuario/Desktop/4º Ing de la Salud/1º Cuatri/Fuentes/Seminario_MEC/Data/PIB.json")
+PIB
+```
+
+```{r}
+Suicidio <- read_delim("C:/Users/Usuario/Desktop/4º Ing de la Salud/1º Cuatri/Fuentes/Seminario_MEC/Data/Suicidio.csv", delim = ";", show_col_types = FALSE)
+Suicidio
+
+```
 
 
 
