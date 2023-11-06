@@ -1,0 +1,790 @@
+[
+    {
+        "COD": "CRE47041",
+        "Nombre": "Total Nacional. Dato base. Tasa de crecimiento anual del PIB real per cápita. ",
+        "T3_Unidad": "Porcentaje",
+        "T3_Escala": " ",
+        "MetaData": [
+            {
+                "Id": 16473,
+                "Variable": {
+                    "Id": 349,
+                    "Nombre": "Totales Territoriales",
+                    "Codigo": "3"
+                },
+                "Nombre": "Total Nacional",
+                "Codigo": "73"
+            },
+            {
+                "Id": 72,
+                "Variable": {
+                    "Id": 3,
+                    "Nombre": "Tipo de dato",
+                    "Codigo": "18"
+                },
+                "Nombre": "Dato base",
+                "Codigo": ""
+            },
+            {
+                "Id": 383015,
+                "Variable": {
+                    "Id": 616,
+                    "Nombre": "Indicadores de Desarrollo Sostenible (ODS)",
+                    "Codigo": ""
+                },
+                "Nombre": "Tasa de crecimiento anual del PIB real per cápita",
+                "Codigo": ""
+            }
+        ],
+        "Data": [
+            {
+                "Fecha": "2021-01-01T00:00:00.000+01:00",
+                "T3_TipoDato": "Primera estimación",
+                "T3_Periodo": "A",
+                "Anyo": 2021,
+                "Valor": 5.179
+            }
+        ]
+    },
+    {
+        "COD": "CRE47040",
+        "Nombre": "Andalucía. Dato base. Tasa de crecimiento anual del PIB real per cápita. ",
+        "T3_Unidad": "Porcentaje",
+        "T3_Escala": " ",
+        "MetaData": [
+            {
+                "Id": 8997,
+                "Variable": {
+                    "Id": 70,
+                    "Nombre": "Comunidades y Ciudades Autónomas",
+                    "Codigo": "1"
+                },
+                "Nombre": "Andalucía",
+                "Codigo": "01"
+            },
+            {
+                "Id": 72,
+                "Variable": {
+                    "Id": 3,
+                    "Nombre": "Tipo de dato",
+                    "Codigo": "18"
+                },
+                "Nombre": "Dato base",
+                "Codigo": ""
+            },
+            {
+                "Id": 383015,
+                "Variable": {
+                    "Id": 616,
+                    "Nombre": "Indicadores de Desarrollo Sostenible (ODS)",
+                    "Codigo": ""
+                },
+                "Nombre": "Tasa de crecimiento anual del PIB real per cápita",
+                "Codigo": ""
+            }
+        ],
+        "Data": []
+    },
+    {
+        "COD": "CRE47039",
+        "Nombre": "Aragón. Dato base. Tasa de crecimiento anual del PIB real per cápita. ",
+        "T3_Unidad": "Porcentaje",
+        "T3_Escala": " ",
+        "MetaData": [
+            {
+                "Id": 8998,
+                "Variable": {
+                    "Id": 70,
+                    "Nombre": "Comunidades y Ciudades Autónomas",
+                    "Codigo": "1"
+                },
+                "Nombre": "Aragón",
+                "Codigo": "02"
+            },
+            {
+                "Id": 72,
+                "Variable": {
+                    "Id": 3,
+                    "Nombre": "Tipo de dato",
+                    "Codigo": "18"
+                },
+                "Nombre": "Dato base",
+                "Codigo": ""
+            },
+            {
+                "Id": 383015,
+                "Variable": {
+                    "Id": 616,
+                    "Nombre": "Indicadores de Desarrollo Sostenible (ODS)",
+                    "Codigo": ""
+                },
+                "Nombre": "Tasa de crecimiento anual del PIB real per cápita",
+                "Codigo": ""
+            }
+        ],
+        "Data": []
+    },
+    {
+        "COD": "CRE47038",
+        "Nombre": "Asturias, Principado de. Dato base. Tasa de crecimiento anual del PIB real per cápita. ",
+        "T3_Unidad": "Porcentaje",
+        "T3_Escala": " ",
+        "MetaData": [
+            {
+                "Id": 8999,
+                "Variable": {
+                    "Id": 70,
+                    "Nombre": "Comunidades y Ciudades Autónomas",
+                    "Codigo": "1"
+                },
+                "Nombre": "Asturias, Principado de",
+                "Codigo": "03"
+            },
+            {
+                "Id": 72,
+                "Variable": {
+                    "Id": 3,
+                    "Nombre": "Tipo de dato",
+                    "Codigo": "18"
+                },
+                "Nombre": "Dato base",
+                "Codigo": ""
+            },
+            {
+                "Id": 383015,
+                "Variable": {
+                    "Id": 616,
+                    "Nombre": "Indicadores de Desarrollo Sostenible (ODS)",
+                    "Codigo": ""
+                },
+                "Nombre": "Tasa de crecimiento anual del PIB real per cápita",
+                "Codigo": ""
+            }
+        ],
+        "Data": []
+    },
+    {
+        "COD": "CRE47037",
+        "Nombre": "Balears, Illes. Dato base. Tasa de crecimiento anual del PIB real per cápita. ",
+        "T3_Unidad": "Porcentaje",
+        "T3_Escala": " ",
+        "MetaData": [
+            {
+                "Id": 9000,
+                "Variable": {
+                    "Id": 70,
+                    "Nombre": "Comunidades y Ciudades Autónomas",
+                    "Codigo": "1"
+                },
+                "Nombre": "Balears, Illes",
+                "Codigo": "04"
+            },
+            {
+                "Id": 72,
+                "Variable": {
+                    "Id": 3,
+                    "Nombre": "Tipo de dato",
+                    "Codigo": "18"
+                },
+                "Nombre": "Dato base",
+                "Codigo": ""
+            },
+            {
+                "Id": 383015,
+                "Variable": {
+                    "Id": 616,
+                    "Nombre": "Indicadores de Desarrollo Sostenible (ODS)",
+                    "Codigo": ""
+                },
+                "Nombre": "Tasa de crecimiento anual del PIB real per cápita",
+                "Codigo": ""
+            }
+        ],
+        "Data": []
+    },
+    {
+        "COD": "CRE47036",
+        "Nombre": "Canarias. Dato base. Tasa de crecimiento anual del PIB real per cápita. ",
+        "T3_Unidad": "Porcentaje",
+        "T3_Escala": " ",
+        "MetaData": [
+            {
+                "Id": 9001,
+                "Variable": {
+                    "Id": 70,
+                    "Nombre": "Comunidades y Ciudades Autónomas",
+                    "Codigo": "1"
+                },
+                "Nombre": "Canarias",
+                "Codigo": "05"
+            },
+            {
+                "Id": 72,
+                "Variable": {
+                    "Id": 3,
+                    "Nombre": "Tipo de dato",
+                    "Codigo": "18"
+                },
+                "Nombre": "Dato base",
+                "Codigo": ""
+            },
+            {
+                "Id": 383015,
+                "Variable": {
+                    "Id": 616,
+                    "Nombre": "Indicadores de Desarrollo Sostenible (ODS)",
+                    "Codigo": ""
+                },
+                "Nombre": "Tasa de crecimiento anual del PIB real per cápita",
+                "Codigo": ""
+            }
+        ],
+        "Data": []
+    },
+    {
+        "COD": "CRE47035",
+        "Nombre": "Cantabria. Dato base. Tasa de crecimiento anual del PIB real per cápita. ",
+        "T3_Unidad": "Porcentaje",
+        "T3_Escala": " ",
+        "MetaData": [
+            {
+                "Id": 9002,
+                "Variable": {
+                    "Id": 70,
+                    "Nombre": "Comunidades y Ciudades Autónomas",
+                    "Codigo": "1"
+                },
+                "Nombre": "Cantabria",
+                "Codigo": "06"
+            },
+            {
+                "Id": 72,
+                "Variable": {
+                    "Id": 3,
+                    "Nombre": "Tipo de dato",
+                    "Codigo": "18"
+                },
+                "Nombre": "Dato base",
+                "Codigo": ""
+            },
+            {
+                "Id": 383015,
+                "Variable": {
+                    "Id": 616,
+                    "Nombre": "Indicadores de Desarrollo Sostenible (ODS)",
+                    "Codigo": ""
+                },
+                "Nombre": "Tasa de crecimiento anual del PIB real per cápita",
+                "Codigo": ""
+            }
+        ],
+        "Data": []
+    },
+    {
+        "COD": "CRE47034",
+        "Nombre": "Castilla y León. Dato base. Tasa de crecimiento anual del PIB real per cápita. ",
+        "T3_Unidad": "Porcentaje",
+        "T3_Escala": " ",
+        "MetaData": [
+            {
+                "Id": 9003,
+                "Variable": {
+                    "Id": 70,
+                    "Nombre": "Comunidades y Ciudades Autónomas",
+                    "Codigo": "1"
+                },
+                "Nombre": "Castilla y León",
+                "Codigo": "07"
+            },
+            {
+                "Id": 72,
+                "Variable": {
+                    "Id": 3,
+                    "Nombre": "Tipo de dato",
+                    "Codigo": "18"
+                },
+                "Nombre": "Dato base",
+                "Codigo": ""
+            },
+            {
+                "Id": 383015,
+                "Variable": {
+                    "Id": 616,
+                    "Nombre": "Indicadores de Desarrollo Sostenible (ODS)",
+                    "Codigo": ""
+                },
+                "Nombre": "Tasa de crecimiento anual del PIB real per cápita",
+                "Codigo": ""
+            }
+        ],
+        "Data": []
+    },
+    {
+        "COD": "CRE47033",
+        "Nombre": "Castilla - La Mancha. Dato base. Tasa de crecimiento anual del PIB real per cápita. ",
+        "T3_Unidad": "Porcentaje",
+        "T3_Escala": " ",
+        "MetaData": [
+            {
+                "Id": 9004,
+                "Variable": {
+                    "Id": 70,
+                    "Nombre": "Comunidades y Ciudades Autónomas",
+                    "Codigo": "1"
+                },
+                "Nombre": "Castilla - La Mancha",
+                "Codigo": "08"
+            },
+            {
+                "Id": 72,
+                "Variable": {
+                    "Id": 3,
+                    "Nombre": "Tipo de dato",
+                    "Codigo": "18"
+                },
+                "Nombre": "Dato base",
+                "Codigo": ""
+            },
+            {
+                "Id": 383015,
+                "Variable": {
+                    "Id": 616,
+                    "Nombre": "Indicadores de Desarrollo Sostenible (ODS)",
+                    "Codigo": ""
+                },
+                "Nombre": "Tasa de crecimiento anual del PIB real per cápita",
+                "Codigo": ""
+            }
+        ],
+        "Data": []
+    },
+    {
+        "COD": "CRE47032",
+        "Nombre": "Cataluña. Dato base. Tasa de crecimiento anual del PIB real per cápita. ",
+        "T3_Unidad": "Porcentaje",
+        "T3_Escala": " ",
+        "MetaData": [
+            {
+                "Id": 9005,
+                "Variable": {
+                    "Id": 70,
+                    "Nombre": "Comunidades y Ciudades Autónomas",
+                    "Codigo": "1"
+                },
+                "Nombre": "Cataluña",
+                "Codigo": "09"
+            },
+            {
+                "Id": 72,
+                "Variable": {
+                    "Id": 3,
+                    "Nombre": "Tipo de dato",
+                    "Codigo": "18"
+                },
+                "Nombre": "Dato base",
+                "Codigo": ""
+            },
+            {
+                "Id": 383015,
+                "Variable": {
+                    "Id": 616,
+                    "Nombre": "Indicadores de Desarrollo Sostenible (ODS)",
+                    "Codigo": ""
+                },
+                "Nombre": "Tasa de crecimiento anual del PIB real per cápita",
+                "Codigo": ""
+            }
+        ],
+        "Data": []
+    },
+    {
+        "COD": "CRE47031",
+        "Nombre": "Comunitat Valenciana. Dato base. Tasa de crecimiento anual del PIB real per cápita. ",
+        "T3_Unidad": "Porcentaje",
+        "T3_Escala": " ",
+        "MetaData": [
+            {
+                "Id": 9006,
+                "Variable": {
+                    "Id": 70,
+                    "Nombre": "Comunidades y Ciudades Autónomas",
+                    "Codigo": "1"
+                },
+                "Nombre": "Comunitat Valenciana",
+                "Codigo": "10"
+            },
+            {
+                "Id": 72,
+                "Variable": {
+                    "Id": 3,
+                    "Nombre": "Tipo de dato",
+                    "Codigo": "18"
+                },
+                "Nombre": "Dato base",
+                "Codigo": ""
+            },
+            {
+                "Id": 383015,
+                "Variable": {
+                    "Id": 616,
+                    "Nombre": "Indicadores de Desarrollo Sostenible (ODS)",
+                    "Codigo": ""
+                },
+                "Nombre": "Tasa de crecimiento anual del PIB real per cápita",
+                "Codigo": ""
+            }
+        ],
+        "Data": []
+    },
+    {
+        "COD": "CRE47030",
+        "Nombre": "Extremadura. Dato base. Tasa de crecimiento anual del PIB real per cápita. ",
+        "T3_Unidad": "Porcentaje",
+        "T3_Escala": " ",
+        "MetaData": [
+            {
+                "Id": 9007,
+                "Variable": {
+                    "Id": 70,
+                    "Nombre": "Comunidades y Ciudades Autónomas",
+                    "Codigo": "1"
+                },
+                "Nombre": "Extremadura",
+                "Codigo": "11"
+            },
+            {
+                "Id": 72,
+                "Variable": {
+                    "Id": 3,
+                    "Nombre": "Tipo de dato",
+                    "Codigo": "18"
+                },
+                "Nombre": "Dato base",
+                "Codigo": ""
+            },
+            {
+                "Id": 383015,
+                "Variable": {
+                    "Id": 616,
+                    "Nombre": "Indicadores de Desarrollo Sostenible (ODS)",
+                    "Codigo": ""
+                },
+                "Nombre": "Tasa de crecimiento anual del PIB real per cápita",
+                "Codigo": ""
+            }
+        ],
+        "Data": []
+    },
+    {
+        "COD": "CRE47029",
+        "Nombre": "Galicia. Dato base. Tasa de crecimiento anual del PIB real per cápita. ",
+        "T3_Unidad": "Porcentaje",
+        "T3_Escala": " ",
+        "MetaData": [
+            {
+                "Id": 9008,
+                "Variable": {
+                    "Id": 70,
+                    "Nombre": "Comunidades y Ciudades Autónomas",
+                    "Codigo": "1"
+                },
+                "Nombre": "Galicia",
+                "Codigo": "12"
+            },
+            {
+                "Id": 72,
+                "Variable": {
+                    "Id": 3,
+                    "Nombre": "Tipo de dato",
+                    "Codigo": "18"
+                },
+                "Nombre": "Dato base",
+                "Codigo": ""
+            },
+            {
+                "Id": 383015,
+                "Variable": {
+                    "Id": 616,
+                    "Nombre": "Indicadores de Desarrollo Sostenible (ODS)",
+                    "Codigo": ""
+                },
+                "Nombre": "Tasa de crecimiento anual del PIB real per cápita",
+                "Codigo": ""
+            }
+        ],
+        "Data": []
+    },
+    {
+        "COD": "CRE47028",
+        "Nombre": "Madrid, Comunidad de. Dato base. Tasa de crecimiento anual del PIB real per cápita. ",
+        "T3_Unidad": "Porcentaje",
+        "T3_Escala": " ",
+        "MetaData": [
+            {
+                "Id": 9009,
+                "Variable": {
+                    "Id": 70,
+                    "Nombre": "Comunidades y Ciudades Autónomas",
+                    "Codigo": "1"
+                },
+                "Nombre": "Madrid, Comunidad de",
+                "Codigo": "13"
+            },
+            {
+                "Id": 72,
+                "Variable": {
+                    "Id": 3,
+                    "Nombre": "Tipo de dato",
+                    "Codigo": "18"
+                },
+                "Nombre": "Dato base",
+                "Codigo": ""
+            },
+            {
+                "Id": 383015,
+                "Variable": {
+                    "Id": 616,
+                    "Nombre": "Indicadores de Desarrollo Sostenible (ODS)",
+                    "Codigo": ""
+                },
+                "Nombre": "Tasa de crecimiento anual del PIB real per cápita",
+                "Codigo": ""
+            }
+        ],
+        "Data": []
+    },
+    {
+        "COD": "CRE47027",
+        "Nombre": "Murcia, Región de. Dato base. Tasa de crecimiento anual del PIB real per cápita. ",
+        "T3_Unidad": "Porcentaje",
+        "T3_Escala": " ",
+        "MetaData": [
+            {
+                "Id": 9010,
+                "Variable": {
+                    "Id": 70,
+                    "Nombre": "Comunidades y Ciudades Autónomas",
+                    "Codigo": "1"
+                },
+                "Nombre": "Murcia, Región de",
+                "Codigo": "14"
+            },
+            {
+                "Id": 72,
+                "Variable": {
+                    "Id": 3,
+                    "Nombre": "Tipo de dato",
+                    "Codigo": "18"
+                },
+                "Nombre": "Dato base",
+                "Codigo": ""
+            },
+            {
+                "Id": 383015,
+                "Variable": {
+                    "Id": 616,
+                    "Nombre": "Indicadores de Desarrollo Sostenible (ODS)",
+                    "Codigo": ""
+                },
+                "Nombre": "Tasa de crecimiento anual del PIB real per cápita",
+                "Codigo": ""
+            }
+        ],
+        "Data": []
+    },
+    {
+        "COD": "CRE47026",
+        "Nombre": "Navarra, Comunidad Foral de. Dato base. Tasa de crecimiento anual del PIB real per cápita. ",
+        "T3_Unidad": "Porcentaje",
+        "T3_Escala": " ",
+        "MetaData": [
+            {
+                "Id": 9011,
+                "Variable": {
+                    "Id": 70,
+                    "Nombre": "Comunidades y Ciudades Autónomas",
+                    "Codigo": "1"
+                },
+                "Nombre": "Navarra, Comunidad Foral de",
+                "Codigo": "15"
+            },
+            {
+                "Id": 72,
+                "Variable": {
+                    "Id": 3,
+                    "Nombre": "Tipo de dato",
+                    "Codigo": "18"
+                },
+                "Nombre": "Dato base",
+                "Codigo": ""
+            },
+            {
+                "Id": 383015,
+                "Variable": {
+                    "Id": 616,
+                    "Nombre": "Indicadores de Desarrollo Sostenible (ODS)",
+                    "Codigo": ""
+                },
+                "Nombre": "Tasa de crecimiento anual del PIB real per cápita",
+                "Codigo": ""
+            }
+        ],
+        "Data": []
+    },
+    {
+        "COD": "CRE47025",
+        "Nombre": "País Vasco. Dato base. Tasa de crecimiento anual del PIB real per cápita. ",
+        "T3_Unidad": "Porcentaje",
+        "T3_Escala": " ",
+        "MetaData": [
+            {
+                "Id": 9012,
+                "Variable": {
+                    "Id": 70,
+                    "Nombre": "Comunidades y Ciudades Autónomas",
+                    "Codigo": "1"
+                },
+                "Nombre": "País Vasco",
+                "Codigo": "16"
+            },
+            {
+                "Id": 72,
+                "Variable": {
+                    "Id": 3,
+                    "Nombre": "Tipo de dato",
+                    "Codigo": "18"
+                },
+                "Nombre": "Dato base",
+                "Codigo": ""
+            },
+            {
+                "Id": 383015,
+                "Variable": {
+                    "Id": 616,
+                    "Nombre": "Indicadores de Desarrollo Sostenible (ODS)",
+                    "Codigo": ""
+                },
+                "Nombre": "Tasa de crecimiento anual del PIB real per cápita",
+                "Codigo": ""
+            }
+        ],
+        "Data": []
+    },
+    {
+        "COD": "CRE47024",
+        "Nombre": "Rioja, La. Dato base. Tasa de crecimiento anual del PIB real per cápita. ",
+        "T3_Unidad": "Porcentaje",
+        "T3_Escala": " ",
+        "MetaData": [
+            {
+                "Id": 9013,
+                "Variable": {
+                    "Id": 70,
+                    "Nombre": "Comunidades y Ciudades Autónomas",
+                    "Codigo": "1"
+                },
+                "Nombre": "Rioja, La",
+                "Codigo": "17"
+            },
+            {
+                "Id": 72,
+                "Variable": {
+                    "Id": 3,
+                    "Nombre": "Tipo de dato",
+                    "Codigo": "18"
+                },
+                "Nombre": "Dato base",
+                "Codigo": ""
+            },
+            {
+                "Id": 383015,
+                "Variable": {
+                    "Id": 616,
+                    "Nombre": "Indicadores de Desarrollo Sostenible (ODS)",
+                    "Codigo": ""
+                },
+                "Nombre": "Tasa de crecimiento anual del PIB real per cápita",
+                "Codigo": ""
+            }
+        ],
+        "Data": []
+    },
+    {
+        "COD": "CRE47023",
+        "Nombre": "Ceuta. Dato base. Tasa de crecimiento anual del PIB real per cápita. ",
+        "T3_Unidad": "Porcentaje",
+        "T3_Escala": " ",
+        "MetaData": [
+            {
+                "Id": 9015,
+                "Variable": {
+                    "Id": 70,
+                    "Nombre": "Comunidades y Ciudades Autónomas",
+                    "Codigo": "1"
+                },
+                "Nombre": "Ceuta",
+                "Codigo": "18"
+            },
+            {
+                "Id": 72,
+                "Variable": {
+                    "Id": 3,
+                    "Nombre": "Tipo de dato",
+                    "Codigo": "18"
+                },
+                "Nombre": "Dato base",
+                "Codigo": ""
+            },
+            {
+                "Id": 383015,
+                "Variable": {
+                    "Id": 616,
+                    "Nombre": "Indicadores de Desarrollo Sostenible (ODS)",
+                    "Codigo": ""
+                },
+                "Nombre": "Tasa de crecimiento anual del PIB real per cápita",
+                "Codigo": ""
+            }
+        ],
+        "Data": []
+    },
+    {
+        "COD": "CRE47022",
+        "Nombre": "Melilla. Dato base. Tasa de crecimiento anual del PIB real per cápita. ",
+        "T3_Unidad": "Porcentaje",
+        "T3_Escala": " ",
+        "MetaData": [
+            {
+                "Id": 8995,
+                "Variable": {
+                    "Id": 70,
+                    "Nombre": "Comunidades y Ciudades Autónomas",
+                    "Codigo": "1"
+                },
+                "Nombre": "Melilla",
+                "Codigo": "19"
+            },
+            {
+                "Id": 72,
+                "Variable": {
+                    "Id": 3,
+                    "Nombre": "Tipo de dato",
+                    "Codigo": "18"
+                },
+                "Nombre": "Dato base",
+                "Codigo": ""
+            },
+            {
+                "Id": 383015,
+                "Variable": {
+                    "Id": 616,
+                    "Nombre": "Indicadores de Desarrollo Sostenible (ODS)",
+                    "Codigo": ""
+                },
+                "Nombre": "Tasa de crecimiento anual del PIB real per cápita",
+                "Codigo": ""
+            }
+        ],
+        "Data": []
+    }
+]

@@ -11,7 +11,7 @@ library(viridis)
 library(rjson)
 library(XML)
 
-#Ejemplos Walid de como importar
+#Ejemplos de como importar
 ##Datos importados por CSV
 enfermedades <- read_delim(file = "input/enfermedades_cronicas1.csv",delim = ";",show_col_types = FALSE)
 
@@ -52,10 +52,13 @@ x51756 <- read_delim("C:/Users/Usuario/Downloads/51756.csv", delim = ";", escape
 
 View(x51756)
 
+###
 ### DEPRESIÓN, sexo, comunidad autonoma
-x47797 <- read_delim("C:/Users/Usuario/Downloads/47797.csv", delim = ";", escape_double = FALSE, trim_ws = TRUE)
-
-View(x47797)
+DrepresionCCAA <- read.csv2("C:/Users/Usuario/Desktop/4º Ing de la Salud/1º Cuatri/Fuentes/Seminario_MEC/DrepresionCCAA.csv")
+View(DrepresionCCAA)
+DepreCCAA <- read_delim("C:/Users/Usuario/Desktop/4º Ing de la Salud/1º Cuatri/Fuentes/Seminario_MEC/DrepresionCCAA.csv", delim = ";", escape_double = FALSE, trim_ws = TRUE)
+DepreCCAA
+###
 
 ###DEPRESION, actividad economica
 x47277 <- read_delim("C:/Users/Usuario/Downloads/47277.csv", delim = ";", escape_double = FALSE, trim_ws = TRUE)
@@ -72,17 +75,36 @@ x47274 <- read_delim("C:/Users/Usuario/Downloads/47274.csv", delim = ";", escape
 
 View(x47274)
 
+##Tasa de suicidio, por fecha y CCAA (Solo lo hay en CSV)
+Suicidio <- read.csv2("C:/Users/Usuario/Desktop/4º Ing de la Salud/1º Cuatri/Fuentes/Seminario_MEC/Suicidio.csv", header=FALSE, comment.char="#")
+View(Suicidio)
 
+Suicidi <- read_delim("C:/Users/Usuario/Desktop/4º Ing de la Salud/1º Cuatri/Fuentes/Seminario_MEC/Suicidio.csv",delim = ";",show_col_types = FALSE)
+View(Suicidi)
 
-#Intento con json DEPRESION
+##Enfermedades crónicas diagnosticadas por CCAA y sexo
 
-library(tidyverse)
-library(rjson)
+EnferCroni <- read.csv2("C:/Users/Usuario/Desktop/4º Ing de la Salud/1º Cuatri/Fuentes/Seminario_MEC/EnferCroni.csv", header=FALSE, comment.char="#")
+View(EnferCroni)
 
-Depresion <- fromJSON(file = "https://servicios.ine.es/wstempus/jsCache/es/DATOS_TABLA/47798?tip=AM")
+EnfCron <- read_delim("C:/Users/Usuario/Desktop/4º Ing de la Salud/1º Cuatri/Fuentes/Seminario_MEC/EnferCroni.csv",delim = ";",show_col_types = FALSE)
+View(EnfCron)
 
-Depresion
-head(Depresion)
-View(Depresion)  
+EnfermedadesCronicas <- read.csv("C:/Users/Usuario/Desktop/4º Ing de la Salud/1º Cuatri/Fuentes/Seminario_MEC/EnfermedadesCronicas.json", header=FALSE)
+View(EnfermedadesCronicas)
+
+enfermedadesCro <- fromJSON(file = "C:/Users/Usuario/Desktop/4º Ing de la Salud/1º Cuatri/Fuentes/Seminario_MEC/EnfermedadesCronicas.json")
+View(enfermedadesCro)
+
+## PIB por CCAA
+
+PIB <- read.csv2("C:/Users/Usuario/Desktop/4º Ing de la Salud/1º Cuatri/Fuentes/Seminario_MEC/PIB.csv", header=FALSE, comment.char="#")
+
+PIB <- read_delim("C:/Users/Usuario/Desktop/4º Ing de la Salud/1º Cuatri/Fuentes/Seminario_MEC/PIB.csv", delim = ";", escape_double = FALSE, trim_ws = TRUE)
+PIB
+
+View(PIB)
+
+PIB <- fromJSON(file = "PIB.json")
 
 
