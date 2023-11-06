@@ -65,9 +65,12 @@ EnfermedadesCronicas
 
 
 ```{r}
-PIB <- fromJSON(file = "C:/Users/Usuario/Desktop/4º Ing de la Salud/1º Cuatri/Fuentes/Seminario_MEC/Data/PIB.json")
-PIB
+PIB <- fromJSON(file = "Data/PIB.json")
+
+glimpse(PIB)
+# formatear con spread_all()
 ```
+
 
 ```{r}
 Suicidio <- read_delim("C:/Users/Usuario/Desktop/4º Ing de la Salud/1º Cuatri/Fuentes/Seminario_MEC/Data/Suicidio.csv", delim = ";", show_col_types = FALSE)
