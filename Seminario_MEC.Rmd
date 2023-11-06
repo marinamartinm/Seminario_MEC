@@ -24,6 +24,43 @@ summary(cars)
 date()
 ```
 
+##Datos
+URLs:
+- PIB por CCAA --> "https://www.ine.es/jaxiT3/Datos.htm?t=45599" (Json)
+- Enfermedades Cronicas por CCAA (Depresión y Ansiedad) --> "https://www.ine.es/jaxiT3/Datos.htm?tpx=51400" (Json)
+- Tasa de suicidio por CCAA --> "https://www.ine.es/jaxi/Datos.htm?tpx=46688" (CSV con ;)
+- Depresión por CCAA --> "https://datos.gob.es/es/catalogo/ea0010587-prevalencia-de-cuadros-depresivos-activos-segun-sexo-y-comunidad-autonoma-poblacion-de-15-y-mas-anos-identificador-api-t15-p420-a2019-p04-l0-13010-px1" (Json)
+
+
+
+```{r}
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ## Including Plots
 
 You can also embed plots, for example:
