@@ -53,15 +53,19 @@ URLs:
 
 ##Importación
 
+
 ```{r}
 DepresionCCAA <- fromJSON(file = "Data/DepresionCCAA.json")
 DepresionCCAA
 #C:/Users/Usuario/Desktop/4º Ing de la Salud/1º Cuatri/Fuentes/Seminario_MEC/Data/DepresionCCAA.json
 ```
+
+
 ```{r}
 EnfermedadesCronicas <- fromJSON(file = "C:/Users/Usuario/Desktop/4º Ing de la Salud/1º Cuatri/Fuentes/Seminario_MEC/Data/EnfermedadesCronicas.json")
 EnfermedadesCronicas
 ```
+
 
 
 ```{r}
@@ -69,6 +73,8 @@ PIB <- fromJSON(file = "C:/Users/Usuario/Desktop/4º Ing de la Salud/1º Cuatri/
 PIB
 str(PIB)
 ```
+
+
 
 ```{r}
 Suicidio <- read_delim("C:/Users/Usuario/Desktop/4º Ing de la Salud/1º Cuatri/Fuentes/Seminario_MEC/Data/Suicidio.csv", delim = ";", show_col_types = FALSE)
