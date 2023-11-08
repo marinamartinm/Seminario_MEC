@@ -67,6 +67,7 @@ EnfermedadesCronicas
 ```{r}
 PIB <- fromJSON(file = "C:/Users/Usuario/Desktop/4º Ing de la Salud/1º Cuatri/Fuentes/Seminario_MEC/Data/PIB.json")
 PIB
+str(PIB)
 ```
 
 ```{r}
