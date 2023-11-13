@@ -52,18 +52,18 @@ URLs:
 
 
 ##Importación
-
+DEPRESIÓN POR CCAA Y ENFERMEDADES CRÓNICAS
 ```{r}
 DepresionCCAA <- fromJSON(file = "Data/DepresionCCAA.json")
 DepresionCCAA
 #C:/Users/Usuario/Desktop/4º Ing de la Salud/1º Cuatri/Fuentes/Seminario_MEC/Data/DepresionCCAA.json
 ```
 ```{r}
-EnfermedadesCronicas <- fromJSON(file = "C:/Users/Usuario/Desktop/4º Ing de la Salud/1º Cuatri/Fuentes/Seminario_MEC/Data/EnfermedadesCronicas.json")
+EnfermedadesCronicas <- fromJSON(file = "Data/EnfermedadesCronicas.json")
 EnfermedadesCronicas
 ```
 
-
+PIB POR CCA
 ```{r}
 PIB <- fromJSON(file = "Data/PIB.json")
 
