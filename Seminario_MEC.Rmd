@@ -46,8 +46,8 @@ date()
 ##Datos
 URLs:
 - PIB por CCAA --> "https://www.ine.es/jaxiT3/Datos.htm?t=45599" (Json)
-- Enfermedades Cronicas por CCAA (Depresión y Ansiedad) --> "https://www.ine.es/jaxiT3/Datos.htm?tpx=51400" (Json)
-- Tasa de suicidio por CCAA --> "https://www.ine.es/jaxi/Datos.htm?tpx=46688" (CSV con ;)
+- Enfermedades Mentales por CCAA --> "https://www.ine.es/jaxiT3/Datos.htm?tpx=51400" (Json)
+- Tasa de suicidio por CCAA --> "https://www.ine.es/jaxiT3/Datos.htm?tpx=46688" (Json)
 - Depresión por CCAA --> "https://datos.gob.es/es/catalogo/ea0010587-prevalencia-de-cuadros-depresivos-activos-segun-sexo-y-comunidad-autonoma-poblacion-de-15-y-mas-anos-identificador-api-t15-p420-a2019-p04-l0-13010-px1" (Json)
 
 
@@ -61,13 +61,16 @@ DEPRESIÓN POR CCAA Y ENFERMEDADES CRÓNICAS
 ```{r}
 DepresionCCAA <- fromJSON(file = "Data/DepresionCCAA.json")
 DepresionCCAA
-#C:/Users/Usuario/Desktop/4º Ing de la Salud/1º Cuatri/Fuentes/Seminario_MEC/Data/DepresionCCAA.json
+DepresiónCCAA.csv <- read_delim("Data/DepresionCCAA.csv", delim = ";", show_col_types = FALSE)
+DepresiónCCAA.csv
 ```
 
 
 ```{r}
 EnfermedadesCronicas <- fromJSON(file = "Data/EnfermedadesCronicas.json")
 EnfermedadesCronicas
+EnfermedadesCronicas.csv <- read_delim("Data/EnfermedadesCronicas.csv", delim = ";", show_col_types = FALSE)
+EnfermedadesCronicas.csv
 ```
 
 <<<<<<< HEAD
@@ -87,7 +90,7 @@ str(PIB)
 
 
 ```{r}
-Suicidio <- read_delim("C:/Users/Usuario/Desktop/4º Ing de la Salud/1º Cuatri/Fuentes/Seminario_MEC/Data/Suicidio.csv", delim = ";", show_col_types = FALSE)
+Suicidio <- read_delim("Data/Suicidio.csv", delim = ";", show_col_types = FALSE)
 Suicidio
 
 ```
