@@ -52,12 +52,8 @@ URLs:
 
 
 ##Importación
-<<<<<<< HEAD
-DEPRESIÓN POR CCAA Y ENFERMEDADES CRÓNICAS
-=======
 
-
->>>>>>> 902c5ac5205f39c92e40d1e7625ea87f014dcf04
+Depresión por CCAA
 ```{r}
 DepresionCCAA <- fromJSON(file = "Data/DepresionCCAA.json")
 DepresionCCAA
@@ -66,32 +62,29 @@ DepresiónCCAA.csv
 ```
 
 
+Enfermedades Mentales por CCAA
 ```{r}
-EnfermedadesCronicas <- fromJSON(file = "Data/EnfermedadesCronicas.json")
-EnfermedadesCronicas
-EnfermedadesCronicas.csv <- read_delim("Data/EnfermedadesCronicas.csv", delim = ";", show_col_types = FALSE)
-EnfermedadesCronicas.csv
+EnfermedadesMentales <- fromJSON(file = "Data/EnfermedadesMentales.json")
+EnfermedadesMentales
+EnfermedadesMentales.csv <- read_delim("Data/EnfermedadesMentales.csv", delim = ";", show_col_types = FALSE)
+EnfermedadesMentales.csv
 ```
 
-<<<<<<< HEAD
-PIB POR CCA
+PIB por CCAA
 ```{r}
 PIB <- fromJSON(file = "Data/PIB.json")
-=======
-
->>>>>>> 902c5ac5205f39c92e40d1e7625ea87f014dcf04
-
-```{r}
-PIB <- fromJSON(file = "C:/Users/Usuario/Desktop/4º Ing de la Salud/1º Cuatri/Fuentes/Seminario_MEC/Data/PIB.json")
 PIB
+PIB.csv <- read_delim(file = "Data/PIB.csv", delim = ";", show_col_types = FALSE)
+PIB.csv
 str(PIB)
 ```
 
-
-
+Tasa de suicidio por CCAA
 ```{r}
-Suicidio <- read_delim("Data/Suicidio.csv", delim = ";", show_col_types = FALSE)
+Suicidio <- fromJSON(file = "Data/Suicidio.json")
 Suicidio
+Suicidio.csv <- read_delim("Data/Suicidio.csv", delim = ";", show_col_types = FALSE)
+Suicidio.csv
 
 ```
 
