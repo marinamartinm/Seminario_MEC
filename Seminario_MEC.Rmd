@@ -130,8 +130,8 @@ URLs:
 
 Depresión por CCAA
 ```{r}
-DepresionCCAA <- fromJSON(file = "Data/DepresionCCAA.json")
-DepresionCCAA
+#DepresionCCAA <- fromJSON(file = "Data/DepresionCCAA.json")
+#DepresionCCAA
 DepresiónCCAA.csv <- read_delim("Data/DepresionCCAA.csv", delim = ";", show_col_types = FALSE)
 DepresiónCCAA.csv
 ```
