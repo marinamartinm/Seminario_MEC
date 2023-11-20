@@ -23,12 +23,86 @@ library(XML)
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## Introduccion
+# Introduccion
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+La salud mental en España es cada vez más preocupante, se ha disparado el número de jóvenes que ha tenido problemas de salud mental. En 2017 el primer Barómetro registraba un 28,4% de jóvenes con problemas de salud mental y en 2023 llega al 59,3%. 
+```{r}
+# Crear un data frame con los datos
+datos_salud_mental <- data.frame(
+  Año = c(2017, 2023),
+  Porcentaje = c(28.4, 59.3)
+)
 
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+# Crear el gráfico de barras
+grafico <- ggplot(datos_salud_mental, aes(x = factor(Año), y = Porcentaje, fill = factor(Año))) +
+  geom_bar(stat = "identity", position = "dodge", width = 0.7) +
+  labs(title = "Problemas de Salud Mental en Jóvenes (2017-2023)",
+       x = "Año",
+       y = "Porcentaje") +
+  scale_fill_manual(values = c("#66c2a5", "#fc8d62")) +  # Colores personalizados
+  theme_minimal()
 
+# Mostrar el gráfico
+print(grafico)
+```
+
+La brecha de género también existe en salud mental. Hay más hombres que mujeres que nunca han experimentado trastornos (42,4%, frente al 30,9% de ellas).
+```{r}
+# Crear un data frame con los datos
+datos_salud_mental_genero <- data.frame(
+  Genero = c("Hombres", "Mujeres"),
+  Porcentaje = c(42.4, 30.9)
+)
+
+# Crear el gráfico de barras apiladas
+grafico_genero <- ggplot(datos_salud_mental_genero, aes(x = factor(Genero), y = Porcentaje, fill = factor(Genero))) +
+  geom_bar(stat = "identity", width = 0.7) +
+  labs(title = "Brecha de Género en Salud Mental",
+       x = "Género",
+       y = "Porcentaje") +
+  scale_fill_manual(values = c("#66c2a5", "#fc8d62")) +  # Colores personalizados
+  theme_minimal()
+
+# Mostrar el gráfico
+print(grafico_genero)
+
+```
+
+Los datos no son positivos de por sí, pero son aún peores cuando los cruzamos con variables socioeconómicas y corroboramos que la vulnerabilidad frente a enfermedades y trastornos mentales está relacionada con las carencias materiales que se tienen, y también las posibilidades de reducir esa vulnerabilidad.
+
+Los datos de este barómetro en 2023 también evidencian el incremento en la ideación suicida. 1 de cada 4 jóvenes ha experimentado alguna vez ideas suicidas (23,8%), un 11,3% piensa en el suicidio con cierta frecuencia y el 13,8% experimenta ideas de suicidio con mucha frecuencia o continuamente.
+
+```{r}
+# Crear un data frame con los datos
+datos_ideacion_suicida <- data.frame(
+  Categoria = c("Nunca", "Con cierta frecuencia", "Con mucha frecuencia o continuamente"),
+  Porcentaje = c(23.8, 11.3, 13.8)
+)
+
+# Crear el diagrama de tarta
+grafico_ideacion_suicida <- ggplot(datos_ideacion_suicida, aes(x = "", y = Porcentaje, fill = Categoria)) +
+  geom_bar(stat = "identity", width = 1) +
+  coord_polar(theta = "y") +
+  labs(title = "Ideación Suicida en Jóvenes (2023)",
+       fill = "Frecuencia",
+       x = NULL,
+       y = NULL) +
+  theme_minimal() +
+  theme(legend.position = "bottom")  # Mover la leyenda a la parte inferior
+
+# Mostrar el diagrama de tarta
+print(grafico_ideacion_suicida)
+
+```
+
+
+Por todo ello, hemos creido conveniente estudiar el caso. Esta vez vamos a cruzar los datos de las enfermedades mentales más frecuentes en nuestro país (depresión y ansiedad) con el PIB de cada comunidad autónoma y el sendentarismo, ya que creemos que pueden tener relación directa. Ya que aquellas comunidades autónomas que tengan un PIB más alto, permitiran que sus provincias puedan tener un mayor acceso a actividades cotidianas que ayudan a las personas a caer en menor medida en este tipo de transtornos.
+
+# Objetivos
+
+- Averiguar si existe relación entre el PIB con los datos sobre enfermedades mentales en España y estudiar si en aquellas comunidades autónomas en las que el PIB sea más bajo tienen influencia sobre la tasa de suicidio de estas.
+- Estudiar la relación entre la tasa de sedentarismo y las enfermedades mentales por comunidad autónoma.
+- Realizar un estudio general con todas las variables para encontrar una posible relación con la tasa de suicidio.
 
 ###Diferencia JSON y CSV
 La principal diferencia entre los datos CSV (Comma-Separated Values) y JSON (JavaScript Object Notation) radica en la forma en que organizan y representan la información.
