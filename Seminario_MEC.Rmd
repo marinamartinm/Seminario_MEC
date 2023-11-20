@@ -139,8 +139,8 @@ DepresiónCCAA.csv
 
 Enfermedades Mentales por CCAA
 ```{r}
-EnfermedadesMentales <- fromJSON(file = "Data/EnfermedadesMentales.json")
-EnfermedadesMentales
+#EnfermedadesMentales <- fromJSON(file = "Data/EnfermedadesMentales.json")
+#EnfermedadesMentales
 EnfermedadesMentales.csv <- read_delim("Data/EnfermedadesMentales.csv", delim = ";", show_col_types = FALSE)
 EnfermedadesMentales.csv
 ```
