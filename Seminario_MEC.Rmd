@@ -130,17 +130,29 @@ URLs:
 
 Depresión por CCAA
 ```{r}
-#DepresionCCAA <- fromJSON(file = "Data/DepresionCCAA.json")
+DepresionCCAA <- fromJSON(file = "Data/DepresionCCAA.json")
 #DepresionCCAA
-DepresiónCCAA.csv <- read_delim("Data/DepresionCCAA.csv", delim = ";", show_col_types = FALSE)
-DepresiónCCAA.csv
+```
+
+
+```{r}
+DepresionCCAAcsv <- read_delim("Data/DepresionCCAA.csv", delim = ";", show_col_types = FALSE)
+DepresionCCAAcsv
+```
+
+
+```{r}
 ```
 
 
 Enfermedades Mentales por CCAA
 ```{r}
-#EnfermedadesMentales <- fromJSON(file = "Data/EnfermedadesMentales.json")
-#EnfermedadesMentales
+EnfermedadesMentales <- fromJSON(file = "Data/EnfermedadesMentales.json")
+EnfermedadesMentales
+```
+
+
+```{r}
 EnfermedadesMentales.csv <- read_delim("Data/EnfermedadesMentales.csv", delim = ";", show_col_types = FALSE)
 EnfermedadesMentales.csv
 ```
@@ -149,6 +161,10 @@ PIB por CCAA
 ```{r}
 PIB <- fromJSON(file = "Data/PIB.json")
 PIB
+```
+
+
+```{r}
 PIB.csv <- read_delim(file = "Data/PIB.csv", delim = ";", show_col_types = FALSE)
 PIB.csv
 str(PIB)
@@ -158,6 +174,10 @@ Tasa de suicidio por CCAA
 ```{r}
 Suicidio <- fromJSON(file = "Data/Suicidio.json")
 Suicidio
+```
+
+
+```{r}
 Suicidio.csv <- read_delim("Data/Suicidio.csv", delim = ";", show_col_types = FALSE)
 Suicidio.csv
 
