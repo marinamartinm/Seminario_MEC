@@ -104,20 +104,10 @@ Por todo ello, hemos creido conveniente estudiar el caso. Esta vez vamos a cruza
 - Estudiar la relación entre la tasa de sedentarismo y las enfermedades mentales por comunidad autónoma.
 - Realizar un estudio general con todas las variables para encontrar una posible relación con la tasa de suicidio.
 
-###Diferencia JSON y CSV
-La principal diferencia entre los datos CSV (Comma-Separated Values) y JSON (JavaScript Object Notation) radica en la forma en que organizan y representan la información.
-CSV es un formato tabular simple que utiliza comas (u otros delimitadores) para separar los valores de diferentes columnas. Es especialmente útil para datos tabulares, como hojas de cálculo, y es fácil de entender y manipular en programas de hojas de cálculo y bases de datos.
-JSON, por otro lado, es un formato de intercambio de datos que utiliza una estructura de objetos legible por humanos. Consiste en pares de clave-valor y puede anidar objetos y arrays. Es más versátil que CSV y se utiliza comúnmente para representar datos estructurados en aplicaciones web y servicios web, ya que es fácil de entender y procesar mediante código.
-En resumen, CSV es más simple y adecuado para datos tabulares, mientras que JSON es más flexible y se utiliza para estructuras de datos más complejas.
+#Datos
+Los archivos escogidos pertenecen a dos fuentes de datos: el Instituto Nacional de Estadística (INE) y la página oficial del Gobierno de España (gob.es)
+El formato de datos escogido son tanto .csv como .json.
 
-
- 
- 
-```{r}
-date()
-```
-
-##Datos
 URLs:
 - PIB por CCAA --> "https://www.ine.es/jaxiT3/Datos.htm?t=45599" (Json)
 - Enfermedades Mentales por CCAA --> "https://www.ine.es/jaxiT3/Datos.htm?tpx=51400" (Json)
