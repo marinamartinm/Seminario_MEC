@@ -16,6 +16,7 @@ library(hrbrthemes)
 library(viridis)
 library(rjson)
 library(XML)
+library(tidyjson)
 ```
 
 
@@ -124,14 +125,12 @@ DepresionCCAA <- fromJSON(file = "Data/DepresionCCAA.json")
 #DepresionCCAA
 ```
 
-
 ```{r}
 DepresionCCAAcsv <- read_delim("Data/DepresionCCAA.csv", delim = ";", show_col_types = FALSE)
 DepresionCCAAcsv
 ```
-
-
 ```{r}
+depresionCCAA <- spread_all
 ```
 
 
