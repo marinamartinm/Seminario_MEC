@@ -124,13 +124,26 @@ Depresión por CCAA
 DepresionCCAA <- fromJSON(file = "Data/DepresionCCAA.json")
 #DepresionCCAA
 ```
-
 ```{r}
 DepresionCCAAcsv <- read_delim("Data/DepresionCCAA.csv", delim = ";", show_col_types = FALSE)
 DepresionCCAAcsv
 ```
 ```{r}
-depresionCCAA <- spread_all
+depresionCCAA <- spread_all(DepresionCCAA)
+depresionCCAA
+```
+```{r}
+depresionCCAA %>% 
+  gather_object %>% 
+  json_types %>% 
+  count(name, type)
+```
+```{r}
+DepresionCCAA %>%
+  enter_object(Data) %>%
+  gather_array %>%
+  spread_all #%>%   #para que lo reconozca y lo ponga como columnas(lo separa)
+  #select(-document.id, -array.index)
 ```
 
 
@@ -139,37 +152,85 @@ Enfermedades Mentales por CCAA
 EnfermedadesMentales <- fromJSON(file = "Data/EnfermedadesMentales.json")
 EnfermedadesMentales
 ```
-
-
 ```{r}
 EnfermedadesMentales.csv <- read_delim("Data/EnfermedadesMentales.csv", delim = ";", show_col_types = FALSE)
 EnfermedadesMentales.csv
 ```
+
+```{r}
+enfermedadesMentales <- spread_all(EnfermedadesMentales)
+```
+```{r}
+enfermedadesMentales %>% 
+  gather_object %>% 
+  json_types %>% 
+  count(name, type)
+```
+```{r}
+EnfermedadesMentales %>%
+  enter_object(Data) %>%
+  gather_array %>%
+  spread_all #%>%   #para que lo reconozca y lo ponga como columnas(lo separa)
+  #select(-document.id, -array.index)
+```
+
+
 
 PIB por CCAA
 ```{r}
 PIB <- fromJSON(file = "Data/PIB.json")
 PIB
 ```
-
-
 ```{r}
 PIB.csv <- read_delim(file = "Data/PIB.csv", delim = ";", show_col_types = FALSE)
 PIB.csv
 str(PIB)
 ```
 
+```{r}
+pib <- spread_all(PIB)
+```
+```{r}
+pib %>% 
+  gather_object %>% 
+  json_types %>% 
+  count(name, type)
+```
+```{r}
+PIB %>%
+  enter_object(Data) %>%
+  gather_array %>%
+  spread_all #%>%   #para que lo reconozca y lo ponga como columnas(lo separa)
+  #select(-document.id, -array.index)
+```
+
+
 Tasa de suicidio por CCAA
 ```{r}
 Suicidio <- fromJSON(file = "Data/Suicidio.json")
 Suicidio
 ```
-
-
 ```{r}
 Suicidio.csv <- read_delim("Data/Suicidio.csv", delim = ";", show_col_types = FALSE)
 Suicidio.csv
+```
 
+```{r}
+suicidio <- spread_all(Suicidio)
+```
+
+```{r}
+suicidio %>% 
+  gather_object %>% 
+  json_types %>% 
+  count(name, type)
+```
+```{r}
+Suicidio %>%
+  enter_object(Data) %>%
+  gather_array %>%
+  spread_all #%>%   #para que lo reconozca y lo ponga como columnas(lo separa)
+  #select(-document.id, -array.index)
 ```
 
 
