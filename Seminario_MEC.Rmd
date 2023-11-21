@@ -124,16 +124,14 @@ Depresión por CCAA
 ```{r}
 DepresionCCAA <- fromJSON(file = "Data/DepresionCCAA.json")
 #DepresionCCAA
-
 ```
-
 ```{r}
 DepresionCCAAcsv <- read_delim("Data/DepresionCCAA.csv", delim = ";", show_col_types = FALSE)
 DepresionCCAAcsv
 ```
 ```{r}
 depresionCCAA <- spread_all(DepresionCCAA)
-depresionCCAA
+View(depresionCCAA)
 ```
 ```{r}
 depresionCCAA %>% 
@@ -183,6 +181,7 @@ EnfermedadesMentales.csv
 ```{r}
 enfermedadesMentales <- spread_all(EnfermedadesMentales)
 enfermedadesMentales
+View(enfermedadesMentales)
 ```
 
 ```{r}
@@ -228,6 +227,7 @@ str(PIB)
 
 ```{r}
 pib <- spread_all(PIB)
+View(pib)
 ```
 ```{r}
 pib %>% 
@@ -242,6 +242,12 @@ PIB %>%
   spread_all #%>%   #para que lo reconozca y lo ponga como columnas(lo separa)
   #select(-document.id, -array.index)
 ```
+```{r}
+pibCCAA <- pib %>%
+  separate(Nombre, into = c("Comunidad", "Dato_Base", "Tasa_PIB"), sep = ".") 
+View(pibCCAA)
+```
+
 
 
 Tasa de suicidio por CCAA
@@ -257,6 +263,7 @@ Suicidio.csv
 
 ```{r}
 suicidio <- spread_all(Suicidio)
+View(suicidio)
 ```
 
 ```{r}
@@ -271,6 +278,11 @@ Suicidio %>%
   gather_array %>%
   spread_all #%>%   #para que lo reconozca y lo ponga como columnas(lo separa)
   #select(-document.id, -array.index)
+```
+```{r}
+TasaSuicidio <- suicidio %>%
+  separate(Nombre, into = c("Comunidad", "Edad", "Sexo"), sep = ",") 
+TasaSuicidio
 ```
 
 
