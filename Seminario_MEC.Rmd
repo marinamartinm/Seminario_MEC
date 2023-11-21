@@ -158,6 +158,10 @@ depresionCCAA_separado <- depresionCCAA %>%
 depresionCCAA_separado
 
 ```
+```{r}
+# Union tablas de depresion
+
+```
 
 
 Enfermedades Mentales por CCAA
