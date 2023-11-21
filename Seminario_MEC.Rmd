@@ -124,7 +124,9 @@ Depresión por CCAA
 ```{r}
 DepresionCCAA <- fromJSON(file = "Data/DepresionCCAA.json")
 #DepresionCCAA
+
 ```
+
 ```{r}
 DepresionCCAAcsv <- read_delim("Data/DepresionCCAA.csv", delim = ";", show_col_types = FALSE)
 DepresionCCAAcsv
@@ -147,19 +149,22 @@ DepresionCCAA %>%
   #select(-document.id, -array.index)
 ```
 ```{r}
-DepresionCCAA %>%
+meta <- DepresionCCAA %>%
   enter_object(MetaData) %>%
   gather_array %>%
   spread_all
 ```
 ```{r}
-depresionCCAA_separado <- depresionCCAA %>%
+nombre_separado <- depresionCCAA %>%
   separate(Nombre, into = c("Sexo", "Comunidad", "GradoDepresion"), sep = ",") 
-depresionCCAA_separado
+nombre_separado
 
 ```
+
 ```{r}
 # Union tablas de depresion
+union <- merge (nombre_separado,meta,by = "document.id", all = TRUE)
+union
 
 ```
 
@@ -167,8 +172,9 @@ depresionCCAA_separado
 Enfermedades Mentales por CCAA
 ```{r}
 EnfermedadesMentales <- fromJSON(file = "Data/EnfermedadesMentales.json")
-#EnfermedadesMentales
+
 ```
+
 ```{r}
 EnfermedadesMentales.csv <- read_delim("Data/EnfermedadesMentales.csv", delim = ";", show_col_types = FALSE)
 EnfermedadesMentales.csv
@@ -176,7 +182,9 @@ EnfermedadesMentales.csv
 
 ```{r}
 enfermedadesMentales <- spread_all(EnfermedadesMentales)
+enfermedadesMentales
 ```
+
 ```{r}
 enfermedadesMentales %>% 
   gather_object %>% 
@@ -184,13 +192,27 @@ enfermedadesMentales %>%
   count(name, type)
 ```
 ```{r}
-EnfermedadesMentales %>%
+dataM <- EnfermedadesMentales %>%
   enter_object(Data) %>%
   gather_array %>%
   spread_all #%>%   #para que lo reconozca y lo ponga como columnas(lo separa)
   #select(-document.id, -array.index)
+dataM
 ```
 
+
+```{r}
+metaM <- EnfermedadesMentales %>%
+  enter_object(MetaData) %>%
+  gather_array %>%
+  spread_all
+metaM
+```
+```{r}
+nombreMental <- enfermedadesMentales %>%
+  separate(Nombre, into = c("Comunidad", "Sexo", "EnfermedadMetal"), sep = ",") 
+nombreMental
+```
 
 
 PIB por CCAA
@@ -225,8 +247,9 @@ PIB %>%
 Tasa de suicidio por CCAA
 ```{r}
 Suicidio <- fromJSON(file = "Data/Suicidio.json")
-Suicidio
+#Suicidio
 ```
+
 ```{r}
 Suicidio.csv <- read_delim("Data/Suicidio.csv", delim = ";", show_col_types = FALSE)
 Suicidio.csv
