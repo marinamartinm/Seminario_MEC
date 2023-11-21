@@ -17,6 +17,7 @@ library(viridis)
 library(rjson)
 library(XML)
 library(tidyjson)
+library(tidyr)
 ```
 
 
@@ -145,12 +146,24 @@ DepresionCCAA %>%
   spread_all #%>%   #para que lo reconozca y lo ponga como columnas(lo separa)
   #select(-document.id, -array.index)
 ```
+```{r}
+DepresionCCAA %>%
+  enter_object(MetaData) %>%
+  gather_array %>%
+  spread_all
+```
+```{r}
+depresionCCAA_separado <- depresionCCAA %>%
+  separate(Nombre, into = c("Sexo", "Comunidad", "GradoDepresion"), sep = ",") 
+depresionCCAA_separado
+
+```
 
 
 Enfermedades Mentales por CCAA
 ```{r}
 EnfermedadesMentales <- fromJSON(file = "Data/EnfermedadesMentales.json")
-EnfermedadesMentales
+#EnfermedadesMentales
 ```
 ```{r}
 EnfermedadesMentales.csv <- read_delim("Data/EnfermedadesMentales.csv", delim = ";", show_col_types = FALSE)
@@ -179,7 +192,7 @@ EnfermedadesMentales %>%
 PIB por CCAA
 ```{r}
 PIB <- fromJSON(file = "Data/PIB.json")
-PIB
+#PIB
 ```
 ```{r}
 PIB.csv <- read_delim(file = "Data/PIB.csv", delim = ";", show_col_types = FALSE)
