@@ -174,8 +174,8 @@ EnfermedadesMentales <- fromJSON(file = "Data/EnfermedadesMentales.json")
 ```
 
 ```{r}
-EnfermedadesMentales.csv <- read_delim("Data/EnfermedadesMentales.csv", delim = ";", show_col_types = FALSE)
-EnfermedadesMentales.csv
+#EnfermedadesMentales.csv <- read_delim("Data/EnfermedadesMentales.csv", delim = ";", show_col_types = FALSE)
+#EnfermedadesMentales.csv
 ```
 
 ```{r}
@@ -220,9 +220,9 @@ PIB <- fromJSON(file = "Data/PIB.json")
 #PIB
 ```
 ```{r}
-PIB.csv <- read_delim(file = "Data/PIB.csv", delim = ";", show_col_types = FALSE)
-PIB.csv
-str(PIB)
+#PIB.csv <- read_delim(file = "Data/PIB.csv", delim = ";", show_col_types = FALSE)
+#PIB.csv
+#str(PIB)
 ```
 
 ```{r}
@@ -257,8 +257,8 @@ Suicidio <- fromJSON(file = "Data/Suicidio.json")
 ```
 
 ```{r}
-Suicidio.csv <- read_delim("Data/Suicidio.csv", delim = ";", show_col_types = FALSE)
-Suicidio.csv
+#Suicidio.csv <- read_delim("Data/Suicidio.csv", delim = ";", show_col_types = FALSE)
+#Suicidio.csv
 ```
 
 ```{r}
