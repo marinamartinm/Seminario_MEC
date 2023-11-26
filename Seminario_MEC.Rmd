@@ -140,14 +140,14 @@ depresionCCAA %>%
   count(name, type)
 ```
 ```{r}
-Datad <- depresionCCAA %>%
+datad<- depresionCCAA %>%
   enter_object(Data) %>%
   gather_array %>%
   spread_all #%>%   #para que lo reconozca y lo ponga como columnas(lo separa)
   #select(-document.id, -array.index)
 ```
 ```{r}
-metad <- DepresionCCAA %>%
+meta <- DepresionCCAA %>%
   enter_object(MetaData) %>%
   gather_array %>%
   spread_all
@@ -166,7 +166,6 @@ nombre_separado
 # Union tablas de depresion
 union <- merge (nombre_separado,meta,by = "document.id", all = TRUE)
 union
-
 ```
 
 
@@ -214,6 +213,11 @@ metaM
 nombreMental <- enfermedadesMentales %>%
   separate(Nombre, into = c("Comunidad", "Sexo", "EnfermedadMetal"), sep = ",") 
 nombreMental
+```
+```{r}
+# Union tablas de depresion
+Union <- merge(nombreMental,metaM,by = "document.id", all = TRUE)
+Union
 ```
 
 
