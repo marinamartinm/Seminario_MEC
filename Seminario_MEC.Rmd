@@ -280,8 +280,8 @@ suicidio %>%
   count(name, type)
 ```
 ```{r}
-Suicidio %>%
-  enter_object(Data) %>%
+MetaS <- Suicidio %>%
+  enter_object(MetaData) %>%
   gather_array %>%
   spread_all #%>%   #para que lo reconozca y lo ponga como columnas(lo separa)
   #select(-document.id, -array.index)
@@ -291,6 +291,11 @@ TasaSuicidio <- suicidio %>%
   separate(Nombre, into = c("Comunidad", "Edad", "Sexo"), sep = ",") 
 TasaSuicidio
 ```
+```{r}
+UnionS <- merge(TasaSuicidio,MetaS,by = "document.id", all = TRUE)
+UnionS
+```
+
 
 
 
