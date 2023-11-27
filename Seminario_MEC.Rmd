@@ -131,7 +131,7 @@ DepresionCCAAcsv
 ```
 ```{r}
 depresionCCAA <- spread_all(DepresionCCAA)
-depresionCCAA
+View(depresionCCAA)
 ```
 ```{r}
 depresionCCAA %>% 
@@ -155,24 +155,31 @@ meta <- DepresionCCAA %>%
 ```{r}
 nombre_separado <- depresionCCAA %>%
   separate(Nombre, into = c("Sexo", "Comunidad", "GradoDepresion"), sep = ",") 
-nombre_separado
+View(nombre_separado)
 ```
-```{r}
-
-```
-
-
 ```{r}
 # Union tablas de depresion
-union <- merge (nombre_separado,meta,by = "document.id", all = TRUE)
-union
+union <- merge(nombre_separado,meta,by = "document.id", all = TRUE)
+View(union)
 ```
+```{r}
+union2 <- merge(union,datad,by = "document.id", all = TRUE)
+View(union2)
+```
+```{r}
+union2 <- select(union2, -JSON)
+```
+
+```{r}
+DEPRESION <- select(.data = union2, document.id:GradoDepresion)#, Varieble.Nombre)#, Variable.id, Valor)
+Depre <- select(.data = DEPRESION, )
+```
+
 
 
 Enfermedades Mentales por CCAA
 ```{r}
 EnfermedadesMentales <- fromJSON(file = "Data/EnfermedadesMentales.json")
-
 ```
 
 ```{r}
