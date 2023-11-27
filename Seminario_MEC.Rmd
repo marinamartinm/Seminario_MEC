@@ -140,14 +140,14 @@ depresionCCAA %>%
   count(name, type)
 ```
 ```{r}
-datad<- depresionCCAA %>%
+dataD<- depresionCCAA %>%
   enter_object(Data) %>%
   gather_array %>%
   spread_all #%>%   #para que lo reconozca y lo ponga como columnas(lo separa)
   #select(-document.id, -array.index)
 ```
 ```{r}
-meta <- DepresionCCAA %>%
+metaD <- DepresionCCAA %>%
   enter_object(MetaData) %>%
   gather_array %>%
   spread_all
@@ -165,14 +165,6 @@ View(union)
 ```{r}
 union2 <- merge(union,datad,by = "document.id", all = TRUE)
 View(union2)
-```
-```{r}
-union2 <- select(union2, -JSON)
-```
-
-```{r}
-DEPRESION <- select(.data = union2, document.id:GradoDepresion)#, Varieble.Nombre)#, Variable.id, Valor)
-Depre <- select(.data = DEPRESION, )
 ```
 
 
@@ -225,7 +217,10 @@ nombreMental
 # Union tablas de depresion
 Union <- merge(nombreMental,metaM,by = "document.id", all = TRUE)
 Union
+unionM <- merge(Union,metaM,by = "document.id", all = TRUE)
+View(unionM)
 ```
+
 
 
 PIB por CCAA
