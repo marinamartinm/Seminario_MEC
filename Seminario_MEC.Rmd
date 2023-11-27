@@ -289,13 +289,20 @@ MetaS <- Suicidio %>%
   #select(-document.id, -array.index)
 ```
 ```{r}
+DataS <- Suicidio %>%
+  enter_object(Data) %>%
+  gather_array %>%
+  spread_all
+```
+
+```{r}
 TasaSuicidio <- suicidio %>%
   separate(Nombre, into = c("Comunidad", "Edad", "Sexo"), sep = ",") 
 TasaSuicidio
 ```
 ```{r}
 UnionS <- merge(TasaSuicidio,MetaS,by = "document.id", all = TRUE)
-UnionS
+UnionS2 <- merge(UnionS, DataS, by = "document.id", all = TRUE)
 ```
 
 
