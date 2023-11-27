@@ -131,7 +131,7 @@ DepresionCCAAcsv
 ```
 ```{r}
 depresionCCAA <- spread_all(DepresionCCAA)
-View(depresionCCAA)
+#View(depresionCCAA)
 ```
 ```{r}
 depresionCCAA %>% 
@@ -153,6 +153,7 @@ meta <- DepresionCCAA %>%
   spread_all
 ```
 ```{r}
+#Separación variable nombre (tipo string)
 nombre_separado <- depresionCCAA %>%
   separate(Nombre, into = c("Sexo", "Comunidad", "GradoDepresion"), sep = ",") 
 nombre_separado
@@ -283,6 +284,10 @@ Suicidio %>%
 TasaSuicidio <- suicidio %>%
   separate(Nombre, into = c("Comunidad", "Edad", "Sexo"), sep = ",") 
 TasaSuicidio
+```
+```{r}
+# UNIR TABLAS PARA COMENZAR ANALISIS
+# union <-
 ```
 
 
