@@ -325,10 +325,6 @@ TasaSuicidio <- suicidio %>%
   separate(Nombre, into = c("Comunidad", "Edad", "Sexo"), sep = ",") 
 TasaSuicidio
 ```
-```{r}
-# UNIR TABLAS PARA COMENZAR ANALISIS
-# union <-
-```
 
 
 
