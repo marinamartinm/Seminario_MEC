@@ -174,8 +174,15 @@ union_final
 ```
 Seleccion de columnas 
 ```{r}
-depr_final <- select(.data=union_final,c(document.id,GradoDepresion,Sexo,Valor))
-depr_final
+depr_final <- select(.data=union_final,c(document.id,GradoDepresion,Sexo,Valor,Comunidad))
+View(depr_final)
+```
+
+
+```{r}
+#Eliminar duplicados
+depr <- distinct(depr_final)
+depr
 ```
 
 
