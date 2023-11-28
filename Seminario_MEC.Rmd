@@ -233,6 +233,27 @@ nombreMental <- enfermedadesMentales %>%
 nombreMental
 ```
 
+```{r}
+# Union tablas de depresion
+union2 <- merge (dataM,metaM,by = "document.id", all = TRUE)
+union2
+```
+```{r}
+unionEnfMentales <- merge (union2,nombreMental,by = "document.id", all = TRUE)
+unionEnfMentales
+```
+```{r}
+#Seleccion columnas
+enfMent_final <- select(.data=unionEnfMentales,c(document.id,Sexo,Valor,Comunidad,EnfermedadMetal))
+enfMent_final
+
+#Eliminar duplicados
+mental <- distinct(enfMent_final)
+mental
+
+```
+
+
 
 PIB por CCAA
 ```{r}
