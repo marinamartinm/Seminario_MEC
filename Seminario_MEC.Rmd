@@ -172,6 +172,12 @@ union
 union_final <- merge(union, valor,by = "document.id", all = TRUE)
 union_final
 ```
+Seleccion de columnas 
+```{r}
+depr_final <- select(.data=union_final,c(document.id,GradoDepresion,Sexo,Valor))
+depr_final
+```
+
 
 2º CONJUNTO DE DATOS
 Enfermedades Mentales por CCAA
