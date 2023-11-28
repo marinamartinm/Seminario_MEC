@@ -120,6 +120,7 @@ URLs:
 
 ##Importación
 
+1º CONJUNTO DE DATOS
 Depresión por CCAA
 ```{r}
 DepresionCCAA <- fromJSON(file = "Data/DepresionCCAA.json")
@@ -140,7 +141,7 @@ depresionCCAA %>%
   count(name, type)
 ```
 ```{r}
-DepresionCCAA %>%
+valor <- DepresionCCAA %>%
   enter_object(Data) %>%
   gather_array %>%
   spread_all #%>%   #para que lo reconozca y lo ponga como columnas(lo separa)
@@ -164,10 +165,15 @@ nombre_separado
 # Union tablas de depresion
 union <- merge (nombre_separado,meta,by = "document.id", all = TRUE)
 union
-
 ```
 
 
+```{r}
+union_final <- merge(union, valor,by = "document.id", all = TRUE)
+union_final
+```
+
+2º CONJUNTO DE DATOS
 Enfermedades Mentales por CCAA
 ```{r}
 EnfermedadesMentales <- fromJSON(file = "Data/EnfermedadesMentales.json")
