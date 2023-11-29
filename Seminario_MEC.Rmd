@@ -254,11 +254,11 @@ mental
 ```
 
 
-
+3º CONJUNTO DE DATOS
 PIB por CCAA
 ```{r}
 PIB <- fromJSON(file = "Data/PIB.json")
-#PIB
+PIB
 ```
 ```{r}
 #PIB.csv <- read_delim(file = "Data/PIB.csv", delim = ";", show_col_types = FALSE)
@@ -277,12 +277,20 @@ pib %>%
   count(name, type)
 ```
 ```{r}
-PIB %>%
+pib %>%
   enter_object(Data) %>%
   gather_array %>%
   spread_all #%>%   #para que lo reconozca y lo ponga como columnas(lo separa)
   #select(-document.id, -array.index)
 ```
+```{r}
+pib %>%
+  enter_object(MetaData) %>%
+  gather_array %>%
+  spread_all 
+```
+
+
 ```{r}
 pibCCAA <- pib %>%
   separate(Nombre, into = c("Comunidad", "Dato_Base", "Tasa_PIB"), sep = ".") 
