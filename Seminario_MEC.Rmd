@@ -126,20 +126,24 @@ Depresión por CCAA
 DepresionCCAA <- fromJSON(file = "Data/DepresionCCAA.json")
 #DepresionCCAA
 ```
+
 ```{r}
 DepresionCCAAcsv <- read_delim("Data/DepresionCCAA.csv", delim = ";", show_col_types = FALSE)
 DepresionCCAAcsv
 ```
+
 ```{r}
 depresionCCAA <- spread_all(DepresionCCAA)
 #View(depresionCCAA)
 ```
+
 ```{r}
 depresionCCAA %>% 
   gather_object %>% 
   json_types %>% 
   count(name, type)
 ```
+
 ```{r}
 valor <- DepresionCCAA %>%
   enter_object(Data) %>%
@@ -147,12 +151,14 @@ valor <- DepresionCCAA %>%
   spread_all #%>%   #para que lo reconozca y lo ponga como columnas(lo separa)
   #select(-document.id, -array.index)
 ```
+
 ```{r}
 meta <- DepresionCCAA %>%
   enter_object(MetaData) %>%
   gather_array %>%
   spread_all
 ```
+
 ```{r}
 #Separación variable nombre (tipo string)
 nombre_separado <- depresionCCAA %>%
@@ -210,6 +216,7 @@ enfermedadesMentales %>%
   json_types %>% 
   count(name, type)
 ```
+
 ```{r}
 dataM <- EnfermedadesMentales %>%
   enter_object(Data) %>%
@@ -227,6 +234,7 @@ metaM <- EnfermedadesMentales %>%
   spread_all
 metaM
 ```
+
 ```{r}
 nombreMental <- enfermedadesMentales %>%
   separate(Nombre, into = c("Comunidad", "Sexo", "EnfermedadMetal"), sep = ",") 
@@ -238,10 +246,12 @@ nombreMental
 union2 <- merge (dataM,metaM,by = "document.id", all = TRUE)
 union2
 ```
+
 ```{r}
 unionEnfMentales <- merge (union2,nombreMental,by = "document.id", all = TRUE)
 unionEnfMentales
 ```
+
 ```{r}
 #Seleccion columnas
 enfMent_final <- select(.data=unionEnfMentales,c(document.id,Sexo,Valor,Comunidad,EnfermedadMetal))
@@ -270,12 +280,14 @@ PIB
 pib <- spread_all(PIB)
 View(pib)
 ```
+
 ```{r}
 pib %>% 
   gather_object %>% 
   json_types %>% 
   count(name, type)
 ```
+
 ```{r}
 pib %>%
   enter_object(Data) %>%
@@ -283,6 +295,7 @@ pib %>%
   spread_all #%>%   #para que lo reconozca y lo ponga como columnas(lo separa)
   #select(-document.id, -array.index)
 ```
+
 ```{r}
 pib %>%
   enter_object(MetaData) %>%
@@ -321,6 +334,7 @@ suicidio %>%
   json_types %>% 
   count(name, type)
 ```
+
 ```{r}
 Suicidio %>%
   enter_object(Data) %>%
@@ -328,6 +342,7 @@ Suicidio %>%
   spread_all #%>%   #para que lo reconozca y lo ponga como columnas(lo separa)
   #select(-document.id, -array.index)
 ```
+
 ```{r}
 TasaSuicidio <- suicidio %>%
   separate(Nombre, into = c("Comunidad", "Edad", "Sexo"), sep = ",") 
