@@ -268,7 +268,7 @@ mental
 PIB por CCAA
 ```{r}
 PIB <- fromJSON(file = "Data/PIB.json")
-PIB
+#PIB
 ```
 ```{r}
 #PIB.csv <- read_delim(file = "Data/PIB.csv", delim = ";", show_col_types = FALSE)
@@ -325,7 +325,16 @@ Suicidio <- fromJSON(file = "Data/Suicidio.json")
 
 ```{r}
 suicidio <- spread_all(Suicidio)
-View(suicidio)
+```
+
+
+```{r}
+TasaSuicidio <- suicidio %>%
+  separate(Nombre, into = c("Comunidad", "Edad", "Sexo"), sep = ",") %>%
+  select(document.id,Comunidad,Edad,Sexo)
+
+TasaSuicidio
+
 ```
 
 ```{r}
@@ -336,20 +345,40 @@ suicidio %>%
 ```
 
 ```{r}
-Suicidio %>%
+data <- Suicidio %>%
   enter_object(Data) %>%
   gather_array %>%
-  spread_all #%>%   #para que lo reconozca y lo ponga como columnas(lo separa)
-  #select(-document.id, -array.index)
+  spread_all %>%   #para que lo reconozca y lo ponga como columnas(lo separa)
+  select(document.id,NombrePeriodo,Valor)
+#s <- select(.data = data,c(document.id,NombrePeriodo,Valor))
+#s
 ```
 
 ```{r}
-TasaSuicidio <- suicidio %>%
-  separate(Nombre, into = c("Comunidad", "Edad", "Sexo"), sep = ",") 
-TasaSuicidio
+union_suicidio <- full_join (TasaSuicidio,data, by="document.id")
+
+```
+En data no hay nada util
+# El valor es el tanto por cien mil
+
+
+```{r}
+meta <- Suicidio %>%
+  enter_object(MetaData) %>%
+  gather_array %>%
+  spread_all
 ```
 
+Union data y metadata
+```{r}
+s <- full_join(data,meta,by="document.id")
+s
+```
 
+UNION DEPRESIÓN Y SUICIDIO
+```{r}
+#depr_y_suicidio <- left.join(x = depr, y=  
+```
 
 
 
