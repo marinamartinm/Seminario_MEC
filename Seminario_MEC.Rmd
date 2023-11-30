@@ -355,7 +355,8 @@ data <- Suicidio %>%
 ```
 
 ```{r}
-union_suicidio <- full_join (TasaSuicidio,data, by="document.id")
+# esto no va y no sabemos por que
+union_suicidio <- full_join (data,TasaSuicidio, by="document.id")
 
 ```
 En data no hay nada util
