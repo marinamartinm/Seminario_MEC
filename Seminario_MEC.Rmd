@@ -136,6 +136,13 @@ DepresionCCAAcsv
 depresionCCAA <- spread_all(DepresionCCAA)
 #View(depresionCCAA)
 ```
+```{r}
+Depresion <- depresionCCAA %>%
+  separate(Nombre, into = c("Sexo", "Comunidad", "Prevalencia"), sep = ",") %>%
+  select(document.id,Sexo,Comunidad,Prevalencia)
+
+Depresion
+```
 
 ```{r}
 depresionCCAA %>% 
@@ -145,14 +152,16 @@ depresionCCAA %>%
 ```
 
 ```{r}
-valor <- DepresionCCAA %>%
+dataD <- DepresionCCAA %>%
   enter_object(Data) %>%
   gather_array %>%
-  spread_all #%>%   #para que lo reconozca y lo ponga como columnas(lo separa)
-  #select(-document.id, -array.index)
+  spread_all %>%   #para que lo reconozca y lo ponga como columnas(lo separa)
+  select(document.id, Valor)
+dataD
 ```
 
 ```{r}
+#no necesario
 meta <- DepresionCCAA %>%
   enter_object(MetaData) %>%
   gather_array %>%
@@ -160,17 +169,9 @@ meta <- DepresionCCAA %>%
 ```
 
 ```{r}
-#Separación variable nombre (tipo string)
-nombre_separado <- depresionCCAA %>%
-  separate(Nombre, into = c("Sexo", "Comunidad", "GradoDepresion"), sep = ",") 
-nombre_separado
-
-```
-
-```{r}
 # Union tablas de depresion
-union <- merge (nombre_separado,meta,by = "document.id", all = TRUE)
-union
+union_depresion <- full_join(Depresion,dataD,by="document.id")
+union_depresion
 ```
 
 
@@ -332,10 +333,9 @@ suicidio <- spread_all(Suicidio)
 TasaSuicidio <- suicidio %>%
   separate(Nombre, into = c("Comunidad", "Edad", "Sexo"), sep = ",") %>%
   select(document.id,Comunidad,Edad,Sexo)
-
 TasaSuicidio
-
 ```
+
 
 ```{r}
 suicidio %>% 
@@ -356,7 +356,7 @@ data <- Suicidio %>%
 
 ```{r}
 # esto no va y no sabemos por que
-union_suicidio <- full_join (data,TasaSuicidio, by="document.id")
+union_suicidio <- full_join(data,TasaSuicidio, by="document.id")
 
 ```
 En data no hay nada util
