@@ -190,8 +190,15 @@ EnfermedadesMentales <- fromJSON(file = "Data/EnfermedadesMentales.json")
 ```{r}
 enfermedadesMentales <- spread_all(EnfermedadesMentales)
 enfermedadesMentales
-View(enfermedadesMentales)
 ```
+```{r}
+EnfMentales <- enfermedadesMentales %>%
+  separate(Nombre, into = c("Comunidad","Sexo","Enfermedad"), sep = ",") %>%
+  select(document.id,Comunidad,Sexo,Enfermedad)
+
+EnfMentales
+```
+
 
 ```{r}
 enfermedadesMentales %>% 
@@ -204,13 +211,14 @@ enfermedadesMentales %>%
 dataM <- EnfermedadesMentales %>%
   enter_object(Data) %>%
   gather_array %>%
-  spread_all #%>%   #para que lo reconozca y lo ponga como columnas(lo separa)
-  #select(-document.id, -array.index)
+  spread_all %>%   #para que lo reconozca y lo ponga como columnas(lo separa)
+  select(document.id, Valor)
 dataM
 ```
 
 
 ```{r}
+#NOoo
 metaM <- EnfermedadesMentales %>%
   enter_object(MetaData) %>%
   gather_array %>%
@@ -219,32 +227,10 @@ metaM
 ```
 
 ```{r}
-nombreMental <- enfermedadesMentales %>%
-  separate(Nombre, into = c("Comunidad", "Sexo", "EnfermedadMetal"), sep = ",") 
-nombreMental
+union_enfMentales <- full_join(dataM,EnfMentales,by="document.id")
+union_enfMentales
 ```
 
-```{r}
-# Union tablas de depresion
-union2 <- merge (dataM,metaM,by = "document.id", all = TRUE)
-union2
-```
-
-```{r}
-unionEnfMentales <- merge (union2,nombreMental,by = "document.id", all = TRUE)
-unionEnfMentales
-```
-
-```{r}
-#Seleccion columnas
-enfMent_final <- select(.data=unionEnfMentales,c(document.id,Sexo,Valor,Comunidad,EnfermedadMetal))
-enfMent_final
-
-#Eliminar duplicados
-mental <- distinct(enfMent_final)
-mental
-
-```
 
 
 3º CONJUNTO DE DATOS
