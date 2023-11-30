@@ -170,26 +170,8 @@ meta <- DepresionCCAA %>%
 
 ```{r}
 # Union tablas de depresion
-union_depresion <- full_join(Depresion,dataD,by="document.id")
+union_depresion <- full_join(dataD,Depresion,by="document.id")
 union_depresion
-```
-
-
-```{r}
-union_final <- merge(union, valor,by = "document.id", all = TRUE)
-union_final
-```
-Seleccion de columnas 
-```{r}
-depr_final <- select(.data=union_final,c(document.id,GradoDepresion,Sexo,Valor,Comunidad))
-View(depr_final)
-```
-
-
-```{r}
-#Eliminar duplicados
-depr <- distinct(depr_final)
-depr
 ```
 
 
@@ -372,7 +354,7 @@ meta <- Suicidio %>%
 
 Union data y metadata
 ```{r}
-s <- full_join(data,meta,by="document.id")
+s <- full_join(data,TasaSuicidio,by="document.id")
 s
 ```
 
