@@ -329,8 +329,9 @@ data <- Suicidio %>%
 ```
 
 ```{r}
-# esto no va y no sabemos por que
+# TABLA FINAL SUICIDIO
 union_suicidio <- full_join(data,TasaSuicidio, by="document.id")
+union_suicidio
 
 ```
 En data no hay nada util
@@ -352,7 +353,8 @@ s
 
 UNION DEPRESIÓN Y SUICIDIO
 ```{r}
-#depr_y_suicidio <- left.join(x = depr, y=  
+#depr_y_suicidio <- full_join(union_depresion, union_suicidio, by = "Comunidad")
+#depr_y_suicidio
 ```
 
 
