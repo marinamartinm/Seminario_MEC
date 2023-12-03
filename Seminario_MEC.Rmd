@@ -5,7 +5,7 @@ date: "`r Sys.Date()`"
 output: html_document
 ---
 
-```{r, echo = FALSE}
+```{r, echo = FALSE, message=FALSE, warning=FALSE}
 library(readr)
 library(ggplot2)
 library(dplyr)
@@ -106,7 +106,7 @@ Por todo ello, hemos creido conveniente estudiar el caso. Esta vez vamos a cruza
 - Estudiar la relación entre la tasa de sedentarismo y las enfermedades mentales por comunidad autónoma.
 - Realizar un estudio general con todas las variables para encontrar una posible relación con la tasa de suicidio.
 
-#Datos
+# Datos
 Los archivos escogidos pertenecen a dos fuentes de datos: el Instituto Nacional de Estadística (INE) y la página oficial del Gobierno de España (gob.es)
 El formato de datos escogido son tanto .csv como .json.
 
@@ -238,7 +238,7 @@ union_enfMentales
 PIB por CCAA
 ```{r}
 PIB <- fromJSON(file = "Data/PIB.json")
-#PIB
+View(PIB)
 ```
 
 ```{r}
@@ -255,9 +255,16 @@ pib
 
 ```{r}
 PIb <- pib %>%
-  separate(Nombre, into = c("Comunidad","DB","Tasa de crecimiento"), sep = ".") %>%
-  select(document.id,Comunidad)
+  separate(Nombre, into = c("Comunidad","DB","Tasa de crecimiento"), sep = ". ")   %>% select(document.id,Comunidad)
 PIb
+```
+
+```{r}
+
+COD <- pib %>%
+  separate(COD, into(), sep =".")
+COD
+
 ```
 
 ```{r}
