@@ -1,9 +1,40 @@
 ---
-title: "Seminario_MEC"
-author: "César Tejido, Elena Ruiz, Marina Martin"
+title: "<font size = 8> APARICIÓN DE DEPRESIÓN, SUICIDIO, PIB</font>"
+subtitle: "<font size = 3> Repositorio: [GitHub](https://github.com/marinamartinm/Seminario_MEC) </font>"
+author:
+- name: "CÉSAR TEJIDO, ELENA RUIZ, MARINA MARTÍN"
+
 date: "`r Sys.Date()`"
-output: html_document
+output: 
+  html_document:
+    toc: true
+    toc_float: true
+    toc_depth: 6
 ---
+<script>
+   $(document).ready(function() {
+     $head = $('#header');
+     $head.prepend('<img src=https://www.ubu.es/sites/all/themes/ubu_theme_sub/images/EscudoUBU-TL.png style=\"float: right;width: 300px;\"/>')
+   });
+</script>
+
+<style>
+.column-left{
+  float: left;
+  width: 50%;
+  text-align: left;
+}
+.column-center{
+  display: inline-block;
+  width: 33%;
+  text-align: center;
+}
+.column-right{
+  float: right;
+  width: 50%;
+  text-align:right;
+}
+</style>
 
 ```{r, echo = FALSE, message=FALSE, warning=FALSE}
 library(readr)
@@ -22,7 +53,7 @@ library(tidyr)
 
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = FALSE)
 ```
 
 # Introduccion
@@ -107,18 +138,16 @@ Por todo ello, hemos creido conveniente estudiar el caso. Esta vez vamos a cruza
 - Realizar un estudio general con todas las variables para encontrar una posible relación con la tasa de suicidio.
 
 # Datos
+
+- PIB por CCAA: "https://www.ine.es/jaxiT3/Datos.htm?t=45599" (Json)
+- Enfermedades Mentales por CCAA: "https://www.ine.es/jaxiT3/Datos.htm?tpx=51400" (Json)
+- Tasa de suicidio por CCAA: "https://www.ine.es/jaxiT3/Datos.htm?tpx=46688" (Json)
+- Depresión por CCAA: "https://datos.gob.es/es/catalogo/ea0010587-prevalencia-de-cuadros-depresivos-activos-segun-sexo-y-comunidad-autonoma-poblacion-de-15-y-mas-anos-identificador-api-t15-p420-a2019-p04-l0-13010-px1" (Json)
+
 Los archivos escogidos pertenecen a dos fuentes de datos: el Instituto Nacional de Estadística (INE) y la página oficial del Gobierno de España (gob.es)
 El formato de datos escogido son tanto .csv como .json.
 
-URLs:
-- PIB por CCAA --> "https://www.ine.es/jaxiT3/Datos.htm?t=45599" (Json)
-- Enfermedades Mentales por CCAA --> "https://www.ine.es/jaxiT3/Datos.htm?tpx=51400" (Json)
-- Tasa de suicidio por CCAA --> "https://www.ine.es/jaxiT3/Datos.htm?tpx=46688" (Json)
-- Depresión por CCAA --> "https://datos.gob.es/es/catalogo/ea0010587-prevalencia-de-cuadros-depresivos-activos-segun-sexo-y-comunidad-autonoma-poblacion-de-15-y-mas-anos-identificador-api-t15-p420-a2019-p04-l0-13010-px1" (Json)
-
-
-
-##Importación
+## Importación
 
 1º CONJUNTO DE DATOS
 Depresión por CCAA
@@ -238,7 +267,7 @@ union_enfMentales
 PIB por CCAA
 ```{r}
 PIB <- fromJSON(file = "Data/PIB.json")
-View(PIB)
+#View(PIB)
 ```
 
 ```{r}
@@ -259,13 +288,6 @@ PIb <- pib %>%
 PIb
 ```
 
-```{r}
-
-COD <- pib %>%
-  separate(COD, into(), sep =".")
-COD
-
-```
 
 ```{r}
 pib %>% 
@@ -364,8 +386,8 @@ s
 
 UNION DEPRESIÓN Y SUICIDIO
 ```{r}
-#depr_y_suicidio <- full_join(union_depresion, union_suicidio, by = "Comunidad")
-#depr_y_suicidio
+depr_y_suicidio <- left_join(union_depresion, union_suicidio, by = "Comunidad")
+depr_y_suicidio
 ```
 
 
