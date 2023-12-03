@@ -365,7 +365,17 @@ data <- Suicidio %>%
 # TABLA FINAL SUICIDIO
 union_suicidio <- full_join(data,TasaSuicidio, by="document.id")
 union_suicidio
+```
 
+
+```{r}
+# renombrar columnas
+Suicidio <- rename (.data = union_suicidio, 'AnoSuicidio'= NombrePeriodo,
+                    'Valor_Suicidio'=Valor, 'Edad_Suicidio'= Edad, 'Sexo_Sui'=Sexo)
+Suicidio
+
+suicidio2020 <- Suicidio %>% filter(AnoSuicidio=="2020")
+suicidio2020
 ```
 En data no hay nada util
 # El valor es el tanto por cien mil
@@ -386,8 +396,8 @@ s
 
 UNION DEPRESIÓN Y SUICIDIO
 ```{r}
-depr_y_suicidio <- left_join(union_depresion, union_suicidio, by = "Comunidad")
-depr_y_suicidio
+depr_y_suicidio <- right_join(union_depresion, suicidio2020, by = "document.id")
+
 ```
 
 
