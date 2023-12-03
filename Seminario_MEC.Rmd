@@ -146,12 +146,6 @@ Por todo ello, hemos creido conveniente estudiar el caso. Esta vez vamos a cruza
 </div class="column-left"></font>
 ![](https://amiif.org/wp-content/uploads/2022/02/depresion.png){width=350px}
 
-
-
-
-
-
-
 # Datos
 
 - PIB por CCAA: "https://www.ine.es/jaxiT3/Datos.htm?t=45599" (Json)
@@ -161,6 +155,11 @@ Por todo ello, hemos creido conveniente estudiar el caso. Esta vez vamos a cruza
 
 Los archivos escogidos pertenecen a dos fuentes de datos: el Instituto Nacional de Estadística (INE) y la página oficial del Gobierno de España (gob.es)
 El formato de datos escogido son tanto .csv como .json.
+
+<br>
+<center>
+  ![](https://www.ine.es/infografias/calidadvida/img/logoinecaja.jpg){width=500px}
+<br>
 
 ## Importación
 
