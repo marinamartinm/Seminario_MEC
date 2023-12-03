@@ -148,10 +148,6 @@ Por todo ello, hemos creido conveniente estudiar el caso. Esta vez vamos a cruza
 
 
 
-
-
-
-
 # Datos
 
 - PIB por CCAA: "https://www.ine.es/jaxiT3/Datos.htm?t=45599" (Json)
@@ -215,7 +211,8 @@ meta <- DepresionCCAA %>%
 
 ```{r}
 # Union tablas de depresion
-union_depresion <- full_join(dataD,Depresion,by="document.id")
+union_depresion <- full_join(dataD,Depresion,by="document.id")%>%
+  relocate(Valor, .after = Prevalencia)
 union_depresion
 ```
 
@@ -272,7 +269,8 @@ metaM
 ```
 
 ```{r}
-union_enfMentales <- full_join(dataM,EnfMentales,by="document.id")
+union_enfMentales <- full_join(dataM,EnfMentales,by="document.id") %>%
+  relocate(Valor, .after = Enfermedad)
 union_enfMentales
 ```
 
@@ -378,7 +376,8 @@ data <- Suicidio %>%
 
 ```{r}
 # TABLA FINAL SUICIDIO
-union_suicidio <- full_join(data,TasaSuicidio, by="document.id")
+union_suicidio <- full_join(data,TasaSuicidio, by="document.id")%>%
+  relocate(Valor, .after = Sexo)
 union_suicidio
 ```
 
@@ -398,8 +397,9 @@ suicidio2020
 
 Union data y TSuicido
 ```{r}
-s <- full_join(data,TasaSuicidio,by="document.id")
-s
+union_suicidio <- full_join(data,TasaSuicidio,by="document.id") %>%
+  relocate(Valor, .after = Prevalencia)
+union_suicidio
 ```
 
 UNION DEPRESIÓN Y SUICIDIO
