@@ -240,6 +240,7 @@ PIB por CCAA
 PIB <- fromJSON(file = "Data/PIB.json")
 #PIB
 ```
+
 ```{r}
 #PIB.csv <- read_delim(file = "Data/PIB.csv", delim = ";", show_col_types = FALSE)
 #PIB.csv
@@ -250,6 +251,8 @@ PIB <- fromJSON(file = "Data/PIB.json")
 pib <- spread_all(PIB)
 pib
 ```
+
+
 ```{r}
 PIb <- pib %>%
   separate(Nombre, into = c("Comunidad","DB","Tasa de crecimiento"), sep = ".") %>%
@@ -264,13 +267,13 @@ pib %>%
   count(name, type)
 ```
 
-```{r}
+```{r, echo = FALSE}
 dataP <- pib %>%
   enter_object(Data) %>%
   gather_array %>%
   spread_all #%>%   #para que lo reconozca y lo ponga como columnas(lo separa)
   #select(document.id, Valor)
-dataP
+#dataP
 ```
 
 ```{r}
