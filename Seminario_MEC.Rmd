@@ -133,9 +133,24 @@ Por todo ello, hemos creido conveniente estudiar el caso. Esta vez vamos a cruza
 
 # Objetivos
 
-- Averiguar si existe relación entre el PIB con los datos sobre enfermedades mentales en España y estudiar si en aquellas comunidades autónomas en las que el PIB sea más bajo tienen influencia sobre la tasa de suicidio de estas.
-- Estudiar la relación entre la tasa de sedentarismo y las enfermedades mentales por comunidad autónoma.
-- Realizar un estudio general con todas las variables para encontrar una posible relación con la tasa de suicidio.
+<br>
+<div class="column-left">
+-	Estudiar la relación entre la aparición de enfermedades frente al sexo. 
+<br>
+-	Averiguar si existe relación entre el PIB con los datos sobre enfermedades mentales en España y estudiar si en aquellas comunidades autónomas en las que el PIB sea más bajo tienen influencia sobre la tasa de suicidio de estas.
+<br>
+-	Estudiar la relación entre la tasa de sedentarismo y las enfermedades mentales por comunidad autónoma.
+<br>
+-	Realizar un estudio general con todas las variables para encontrar una posible relación con la tasa de suicidio.
+
+</div class="column-left"></font>
+![](https://amiif.org/wp-content/uploads/2022/02/depresion.png){width=350px}
+
+
+
+
+
+
 
 # Datos
 
@@ -377,16 +392,9 @@ Suicidio
 suicidio2020 <- Suicidio %>% filter(AnoSuicidio=="2020")
 suicidio2020
 ```
-En data no hay nada util
-# El valor es el tanto por cien mil
+ El valor es el tanto por cien mil
 
-
-```{r}
-meta <- Suicidio %>%
-  enter_object(MetaData) %>%
-  gather_array %>%
-  spread_all
-```
+### CASO 1: Depresión y Suicidio en España
 
 Union data y TSuicido
 ```{r}
@@ -397,7 +405,7 @@ s
 UNION DEPRESIÓN Y SUICIDIO
 ```{r}
 depr_y_suicidio <- right_join(union_depresion, suicidio2020, by = "document.id")
-
+depr_y_suicidio
 ```
 
 
