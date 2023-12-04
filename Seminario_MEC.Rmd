@@ -411,12 +411,14 @@ depr_y_suicidio
 UNION PIB Y DEPRESION + SUICIDIO
 ```{r}
 library(readr)
-PIB.csv <- read_delim(file = "Data/PIB.csv", delim = ";", show_col_types = FALSE, locale=locale(encoding = "UTF-8"))
+PIB.csv <- read_delim(file = "Data/PIB.csv", delim = ";", show_col_types = FALSE)
 PIB.csv
+
 ```
 
 ```{r}
-
+pib_deprSuic <- left_join(depr_y_suicidio, PIB.csv, by = "Comunidad")
+depr_y_suicidio
 ```
 
 
