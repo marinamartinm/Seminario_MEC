@@ -209,6 +209,13 @@ meta <- DepresionCCAA %>%
   spread_all
 ```
 
+
+```{r}
+union_depresion <- full_join(dataD,Depresion,by="document.id")
+  
+union_depresion
+```
+
 2º CONJUNTO DE DATOS
 Enfermedades Mentales por CCAA
 ```{r}
@@ -335,7 +342,7 @@ for (i in seq_along(PIB)) {
 Tras probar a utilizar el set de datos "PIB" con JSON, hemos comprobado que solo aparecen los datos que nos interesan (Anyo y Valor) en la primera fila, en cambio en el resto no existen estos valores, con lo cual, no tenemos otra opción que utilizar este set de datos en .csv.
 
 ```{r,echo=FALSE}
-knitr::include_graphics("C:/Users/Elena/Desktop/INGENIERÍA DE LA SALUD/CUARTO/FUENTES/SEMINARIO/Seminario_MEC/Data/CapturaSeminario.png")
+knitr::include_graphics("Data/CapturaSeminario.png")
 
 ```
 
@@ -416,23 +423,9 @@ suicidio2020
 ```
  El valor es el tanto por cien mil
 
-<<<<<<< HEAD
 
-Union data y TSuicido
-```{r}
-union_suicidio <- full_join(data,TasaSuicidio,by="document.id") %>%
-  relocate(Valor, .after = Prevalencia)
-union_suicidio
-=======
-### CASO 2: Depresión y Suicidio en España
 
-Union data y TSuicido
-```{r}
-#union_suicidio <- full_join(data,TasaSuicidio,by="document.id") %>%
-  #relocate(Valor, .after = Prevalencia)
-#union_suicidio
->>>>>>> e392712b1951bd702f5808f44adb0a4e680f0a0b
-```
+
 
 UNION DEPRESIÓN Y SUICIDIO
 ```{r}
