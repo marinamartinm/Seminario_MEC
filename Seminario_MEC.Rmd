@@ -436,6 +436,11 @@ ggplot(data = Suicidio, aes(x=AnoSuicidio, y = Valor_Suicidio)) +
   labs(title = "Gráfico de Barras de Suicidio", x = "Año de Suicidio", y = "Valor de Suicidio")
 ```
 
+```{r}
+ggplot(data = Suicidio, aes(x=Valor_Suicidio, y = Edad_Suicidio), fill="BLUE") +
+  geom_bar(stat = "identity") +
+  labs(title = "Gráfico de Barras de Suicidio", x = "Edad", y = "Valor de Suicidio")
+```
 
 
 
