@@ -395,6 +395,8 @@ suicidio2020
 
 ### CASO 1: Depresión y Suicidio en España
 
+
+
 Union data y TSuicido
 ```{r}
 union_suicidio <- full_join(data,TasaSuicidio,by="document.id") %>%
@@ -422,7 +424,17 @@ pib_deprSuic <- left_join(suicidio2020, pib2020, by = "Comunidad")
 pib_deprSuic
 ```
 
+### Caso 1 --> suicidio frente al tiempo
+```{r}
+Suicidio
+Suicidio$AnoSuicidio <- as.factor(Suicidio$AnoSuicidio)
+```
 
+```{r}
+ggplot(data = Suicidio, aes(x=AnoSuicidio, y = Valor_Suicidio)) +
+  geom_bar(stat = "identity") +
+  labs(title = "Gráfico de Barras de Suicidio", x = "Año de Suicidio", y = "Valor de Suicidio")
+```
 
 
 
