@@ -395,12 +395,9 @@ suicidio2020
 
 ### CASO 1: Depresión y Suicidio en España
 
-Union data y TSuicido
-```{r}
-union_suicidio <- full_join(data,TasaSuicidio,by="document.id") %>%
-  relocate(Valor, .after = Prevalencia)
-union_suicidio
-```
+
+
+
 
 UNION DEPRESIÓN Y SUICIDIO
 ```{r}
@@ -411,18 +408,41 @@ depr_y_suicidio
 UNION PIB Y DEPRESION + SUICIDIO
 ```{r}
 library(readr)
-PIB.csv <- read_delim(file = "Data/PIB.csv", delim = ";", show_col_types = FALSE, locale=locale(encoding = "UTF-8"))
+PIB.csv <- read_delim(file = "Data/PIB.csv", delim = ";", show_col_types = FALSE)
 PIB.csv
+pib2020 <- PIB.csv %>% filter(Periodo=="2020")
+pib2020
 ```
 
 ```{r}
+pib_deprSuic <- left_join(suicidio2020, pib2020, by = "Comunidad")
+pib_deprSuic
+```
 
+### Caso 1 --> suicidio frente al tiempo
+```{r}
+Suicidio
+Suicidio$AnoSuicidio <- as.factor(Suicidio$AnoSuicidio)
+```
+
+```{r}
+ggplot(data = Suicidio, aes(x=AnoSuicidio, y = Valor_Suicidio)) +
+  geom_bar(stat = "identity") +
+  labs(title = "Gráfico de Barras de Suicidio", x = "Año de Suicidio", y = "Valor de Suicidio")
 ```
 
 
+###CASO 2: Depresión y Suicidio
 
+```{r}
+levels(factor(Suicidio$Comunidad))
+levels(factor(union_depresion$Comunidad))
+```
 
-
+```{r}
+depre_suici <- full_join(Suicidio, union_depresion, by="Comunidad")
+depre_suici
+```
 
 
 
