@@ -406,6 +406,7 @@ UNION DEPRESIÓN Y SUICIDIO
 ```{r}
 depr_y_suicidio <- right_join(union_depresion, suicidio2020, by = "document.id")
 depr_y_suicidio
+
 ```
 
 
