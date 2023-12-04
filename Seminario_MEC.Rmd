@@ -413,12 +413,13 @@ UNION PIB Y DEPRESION + SUICIDIO
 library(readr)
 PIB.csv <- read_delim(file = "Data/PIB.csv", delim = ";", show_col_types = FALSE)
 PIB.csv
-
+pib2020 <- PIB.csv %>% filter(Periodo=="2020")
+pib2020
 ```
 
 ```{r}
-pib_deprSuic <- left_join(depr_y_suicidio, PIB.csv, by = "Comunidad")
-depr_y_suicidio
+pib_deprSuic <- left_join(suicidio2020, pib2020, by = "Comunidad")
+pib_deprSuic
 ```
 
 
