@@ -447,8 +447,8 @@ pib_deprSuic <- left_join(suicidio2020, pib2020, by = "Comunidad")
 pib_deprSuic
 ```
 
-<<<<<<< HEAD
-### CASO 1 --> suicidio frente al tiempo y suicidio por edades
+# Casos
+## CASO 1 --> suicidio frente al tiempo y suicidio por edades
 ```{r}
 Suicidio
 Suicidio$AnoSuicidio <- as.factor(Suicidio$AnoSuicidio)
@@ -465,7 +465,7 @@ ggplot(data = Suicidio, aes(x=AnoSuicidio, y = Valor_Suicidio)) +
 ```{r}
 Suicidio <- Suicidio %>%
   filter(Comunidad!="Total nacional")
-ggplot(data = Suicidio, aes(x=Valor_Suicidio, y = Comunidad), fill="BLUE") +
+ggplot(data = Suicidio, aes(x=Valor_Suicidio, y = Comunidad), fill="pink") +
   geom_bar(stat = "identity") +
   labs(title = "Gráfico recuento Suicidio por Comunidades", x = "Valor Suicidio", y = "Comunidad")
 ```
@@ -473,9 +473,11 @@ ggplot(data = Suicidio, aes(x=Valor_Suicidio, y = Comunidad), fill="BLUE") +
 
 
 ```{r}
-ggplot(data = Suicidio, aes(x=Valor_Suicidio, y = Edad_Suicidio), fill="BLUE") +
+ggplot(data = Suicidio, aes(x=Valor_Suicidio, y = Edad_Suicidio), fill="blue") +
   geom_bar(stat = "identity") +
   labs(title = "Gráfico recuento Suicidio por rango de Edades", x = "Valor Suicidio", y = "Rango de edad")
 ```
-### CASO 2 --> 
+## CASO 2 -->
+
+# Conlusión
 
