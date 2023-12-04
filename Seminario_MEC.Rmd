@@ -319,6 +319,37 @@ dataP <- pib %>%
 ```
 
 ```{r}
+for (i in seq_along(PIB)) {
+  # Verificar si Data existe y tiene al menos un elemento
+  if ("Data" %in% names(PIB[[i]]) && length(PIB[[i]]$Data) > 0) {
+    # Acceder a la información de la primera fila de Data
+    cod <- PIB[[i]]$COD
+    nombre <- PIB[[i]]$Nombre
+    anyo <- PIB[[i]]$Data[[1]]$Anyo
+    valor <- PIB[[i]]$Data[[1]]$Valor
+    
+    # Hacer algo con la información (puedes imprimir, almacenar en un data frame, etc.)
+    cat("Fila:", i, "\n")
+    cat("COD:", cod, "\n")
+    cat("Nombre:", nombre, "\n")
+    cat("Anyo:", anyo, "\n")
+    cat("Valor:", valor, "\n\n")
+  } else {
+    cat("No hay datos para la fila", i, "\n\n")
+  }
+}
+```
+
+Tras probar a utilizar el set de datos "PIB" con JSON, hemos comprobado que solo aparecen los datos que nos interesan (Anyo y Valor) en la primera fila, en cambio en el resto no existen estos valores, con lo cual, no tenemos otra opción que utilizar este set de datos en .csv.
+
+```{r,echo=FALSE}
+knitr::include_graphics("C:/Users/Elena/Desktop/INGENIERÍA DE LA SALUD/CUARTO/FUENTES/SEMINARIO/Seminario_MEC/Data/CapturaSeminario.png")
+
+```
+
+
+
+```{r}
 MetaP <- pib %>%
   enter_object(MetaData) %>%
   gather_array %>%
@@ -393,13 +424,13 @@ suicidio2020
 ```
  El valor es el tanto por cien mil
 
-### CASO 1: Depresión y Suicidio en España
+### CASO 2: Depresión y Suicidio en España
 
 Union data y TSuicido
 ```{r}
-union_suicidio <- full_join(data,TasaSuicidio,by="document.id") %>%
-  relocate(Valor, .after = Prevalencia)
-union_suicidio
+#union_suicidio <- full_join(data,TasaSuicidio,by="document.id") %>%
+  #relocate(Valor, .after = Prevalencia)
+#union_suicidio
 ```
 
 UNION DEPRESIÓN Y SUICIDIO
