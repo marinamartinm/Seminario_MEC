@@ -408,21 +408,16 @@ depr_y_suicidio <- right_join(union_depresion, suicidio2020, by = "document.id")
 depr_y_suicidio
 
 ```
+UNION PIB Y DEPRESION + SUICIDIO
+```{r}
+library(readr)
+PIB.csv <- read_delim(file = "Data/PIB.csv", delim = ";", show_col_types = FALSE, locale=locale(encoding = "UTF-8"))
+PIB.csv
+```
 
+```{r}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+```
 
 
 
