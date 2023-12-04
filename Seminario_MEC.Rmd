@@ -441,14 +441,16 @@ levels(factor(union_depresion$Comunidad))
 
 ```{r}
 table(union_depresion$Comunidad)
+str(union_depresion)
 ```
 
 ```{r}
-#union_depresion <- 
-  union_depresion %>%
-  recode(union_depresion$Comunidad, `Ceuta (Ciudad Autónoma de)` = "Ceuta")
-#Ver mas ejemplos de recode
 
+#union_depresion 
+  union_depresion %>%
+  mutate(comunidad =recode(Comunidad, `Ceuta (Ciudad Autónoma de)` = "Ceuta"))
+ 
+#terminar de meter las comunidades que quedan y unir las tablas con un full join para que las comunidades que no estan aparecan como NA
 ```
 
 ```{r}
