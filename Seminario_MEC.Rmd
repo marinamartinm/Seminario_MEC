@@ -37,11 +37,7 @@ output:
 </style>
 
 ```{r, echo = FALSE, message=FALSE, warning=FALSE}
-library(readr)
-library(ggplot2)
-library(dplyr)
 library(tidyverse)
-library(ggplot2)
 library(forcats)
 library(hrbrthemes)
 library(viridis)
@@ -50,7 +46,7 @@ library(XML)
 library(tidyjson)
 library(tidyr)
 ```
-
+Hay qye borrR LAS LIBERIAS QUE NO UTLICEMOS
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
@@ -444,17 +440,22 @@ levels(factor(union_depresion$Comunidad))
 ```
 
 ```{r}
+table(union_depresion$Comunidad)
+```
+
+```{r}
+#union_depresion <- 
+  union_depresion %>%
+  recode(union_depresion$Comunidad, `Ceuta (Ciudad Autónoma de)` = "Ceuta")
+#Ver mas ejemplos de recode
+
+```
+
+```{r}
 depre_suici <- full_join(Suicidio, union_depresion, by="Comunidad")
 depre_suici
-=======
->>>>>>> a936ea007d788ec3e17f3be0007b030091f50796
 ```
 
 
 
-<<<<<<< HEAD
-=======
 
-
-
->>>>>>> a936ea007d788ec3e17f3be0007b030091f50796
