@@ -395,10 +395,6 @@ suicidio2020
 
 ### CASO 1: Depresión y Suicidio en España
 
-
-
-
-
 UNION DEPRESIÓN Y SUICIDIO
 ```{r}
 depr_y_suicidio <- right_join(union_depresion, suicidio2020, by = "document.id")
@@ -442,7 +438,15 @@ levels(factor(union_depresion$Comunidad))
 ```{r}
 depre_suici <- full_join(Suicidio, union_depresion, by="Comunidad")
 depre_suici
+=======
+>>>>>>> a936ea007d788ec3e17f3be0007b030091f50796
 ```
 
 
 
+<<<<<<< HEAD
+=======
+
+
+
+>>>>>>> a936ea007d788ec3e17f3be0007b030091f50796
