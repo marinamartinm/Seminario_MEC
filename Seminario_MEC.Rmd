@@ -415,10 +415,13 @@ pib_deprSuic <- left_join(suicidio2020, pib2020, by = "Comunidad")
 pib_deprSuic
 ```
 
-### Caso 1 --> suicidio frente al tiempo
+### Caso 1 --> suicidio frente al tiempo y suicidio por edades
 ```{r}
 Suicidio
 Suicidio$AnoSuicidio <- as.factor(Suicidio$AnoSuicidio)
+levels(factor(Suicidio$Edad_Suicidio))
+Suicidio <- Suicidio %>%
+  filter(Suicidio$Edad_Suicidio==c(" 95 y más años"," De 90 a 94 años"," De 85 a 89 años"," De 80 a 84 años"," De 75 a 79 años"," De 70 a 74 años"," De 65 a 69 años"," De 60 a 64 años"," De 55 a 59 años"," De 50 a 54 años"," De 45 a 49 años"," De 40 a 44 años"," De 30 a 39 años"," De 15 a 29 años"," Menos de 15 años"))
 ```
 
 ```{r}
@@ -427,6 +430,11 @@ ggplot(data = Suicidio, aes(x=AnoSuicidio, y = Valor_Suicidio)) +
   labs(title = "Gráfico de Barras de Suicidio", x = "Año de Suicidio", y = "Valor de Suicidio")
 ```
 
+```{r}
+ggplot(data = Suicidio, aes(x=Valor_Suicidio, y = Edad_Suicidio), fill="BLUE") +
+  geom_bar(stat = "identity") +
+  labs(title = "Gráfico de Barras de Suicidio", x = "Valor Suicidio", y = "Rango de edad")
+```
 
 ###CASO 2: Depresión y Suicidio
 
