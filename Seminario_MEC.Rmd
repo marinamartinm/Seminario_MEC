@@ -459,22 +459,21 @@ Suicidio <- Suicidio %>%
 
 ```{r}
 ggplot(data = Suicidio, aes(x=AnoSuicidio, y = Valor_Suicidio)) +
-  geom_bar(stat = "identity") +
+  geom_bar(stat = "identity", fill = "thistle") +
   labs(title = "Gráfico de Barras de Suicidio por año", x = "Año de Suicidio", y = "Valor de Suicidio")
 ```
 ```{r}
 Suicidio <- Suicidio %>%
   filter(Comunidad!="Total nacional")
-ggplot(data = Suicidio, aes(x=Valor_Suicidio, y = Comunidad), fill="pink") +
-  geom_bar(stat = "identity") +
+ggplot(data = Suicidio, aes(x=Valor_Suicidio, y = Comunidad)) +
+  geom_bar(stat = "identity", fill = "chartreuse2") +
   labs(title = "Gráfico recuento Suicidio por Comunidades", x = "Valor Suicidio", y = "Comunidad")
 ```
 
 
-
 ```{r}
-ggplot(data = Suicidio, aes(x=Valor_Suicidio, y = Edad_Suicidio), fill="blue") +
-  geom_bar(stat = "identity") +
+ggplot(data = Suicidio, aes(x=Valor_Suicidio, y = Edad_Suicidio)) +
+  geom_bar(stat = "identity", fill="lightsalmon") +
   labs(title = "Gráfico recuento Suicidio por rango de Edades", x = "Valor Suicidio", y = "Rango de edad")
 ```
 ## CASO 2 -->
