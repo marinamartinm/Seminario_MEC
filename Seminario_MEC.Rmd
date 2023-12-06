@@ -530,6 +530,71 @@ depre_suici <- full_join(Suicidio, union_depresion, by="Comunidad")
 depre_suici
 ```
 
+```{r}
+Suicidio <- 
+  Suicidio %>%
+  rename("Periodo" = AnoSuicidio)
+```
 
 
+```{r}
+levels(factor(Suicidio$Periodo))
+levels(factor(PIB.csv$Periodo))
+# En en pib nos quedaremos con los años que aparecen tambien en suicidio (2018,2019,2020,2021)
+```
+
+
+```{r}
+PIB.csv <- 
+  PIB.csv %>%
+  filter(Periodo==c(2018,2019,2020,2021))
+levels(factor(PIB.csv$Periodo))
+class(PIB.csv)
+class(Suicidio)
+colnames(PIB.csv)
+colnames(Suicidio)
+
+```
+```{r}
+Suicidio$Periodo <- as.double(as.character(Suicidio$Periodo))
+
+```
+
+```{r}
+
+```
+
+```{r}
+pib_suici <- left_join(PIB.csv, Suicidio, by=c("Comunidad","Periodo"))
+#pib_suici <- left_join(PIB.csv,Suicidio, by="Periodo")
+pib_suici 
+pib_suici <- unique(pib_suici)
+pib_suici <- 
+  pib_suici %>%
+  drop_na()
+pib_suici
+```
+```{r}
+PIB.csv
+ggplot(data = PIB.csv, aes(x=as.factor(Periodo), y = Total, fill =Comunidad)) +
+  geom_bar(stat = "identity", position = "dodge") +
+  labs(title = "Gráfico de Barras de PIB", x = "Año", y = "Valor del PIB") +
+theme_minimal()
+```
+
+
+```{r}
+#PIB por comunidad
+PIB.csv <- PIB.csv %>%
+  drop_na()
+ggplot(data = PIB.csv, aes(x=Comunidad, y = Total)) +
+  geom_bar(stat = "identity", fill = "chartreuse2") +
+  labs(title = "Gráfico recuento PIB por Comunidades", x = "Valor PIB", y = "Comunidad")
+```
+
+```{r}
+ggplot(data = pib_suici, aes(x=Total, y = Valor_Suicidio)) +
+  geom_bar(stat = "identity", fill = "orange") +
+  labs(title = "Gráfico de Barras de Suicidio", x = "pib", y = "Valor de Suicidio")
+```
 
