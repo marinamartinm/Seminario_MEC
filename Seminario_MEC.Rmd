@@ -422,6 +422,7 @@ Suicidio <- Suicidio %>%
 
 ```{r}
 ggplot(data = Suicidio, aes(x=AnoSuicidio, y = Valor_Suicidio)) +
+<<<<<<< HEAD
   geom_bar(stat = "identity") +
   labs(title = "Gráfico de Barras de Suicidio", x = "Año de Suicidio", y = "Valor de Suicidio")
 ```
@@ -431,6 +432,47 @@ ggplot(data = Suicidio, aes(x=Valor_Suicidio, y = Edad_Suicidio), fill="BLUE") +
   geom_bar(stat = "identity") +
   labs(title = "Gráfico de Barras de Suicidio", x = "Valor Suicidio", y = "Rango de edad")
 ```
+=======
+  geom_bar(stat = "identity", fill = "thistle3") +
+  labs(title = "Gráfico de Barras de Suicidio por año", x = "Año de Suicidio", y = "Valor de Suicidio")
+```
+```{r}
+Suicidio <- Suicidio %>%
+  filter(Comunidad!="Total nacional")
+ggplot(data = Suicidio, aes(x=Valor_Suicidio, y = Comunidad)) +
+  geom_bar(stat = "identity", fill = "chartreuse2") +
+  labs(title = "Gráfico recuento Suicidio por Comunidades", x = "Valor Suicidio", y = "Comunidad")
+```
+```{r}
+# no hace nada
+Suicidio <- Suicidio %>%
+  filter(Sexo_Sui=="Mujeres")
+ggplot(data = Suicidio, aes(x=Sexo_Sui, y = Valor_Suicidio)) +
+  geom_bar(stat = "identity", fill = "thistle3") +
+  labs(title = "Gráfico de Barras de Depresión por sexo", x = "Sexo", y = "Valor")
+```
+
+
+
+```{r}
+ggplot(data = Suicidio, aes(x=Valor_Suicidio, y = Edad_Suicidio)) +
+  geom_bar(stat = "identity", fill="lightsalmon") +
+  labs(title = "Gráfico recuento Suicidio por rango de Edades", x = "Valor Suicidio", y = "Rango de edad")
+```
+## CASO 2 --> depresión frente al tiempo
+```{r}
+ggplot(data = union_depresion, aes(x=Sexo, y = Prevalencia)) +
+  geom_bar(stat = "identity", fill = "thistle3") +
+  labs(title = "Gráfico de Barras de Depresión por sexo", x = "Sexo", y = "Valor")
+```
+## CASO 3 --> enfermedades mentales
+
+
+
+
+## UNION
+
+>>>>>>> 0f4e3cfaaa4772f8e58e1959ee5a69f355acc80f
 
 ###CASO 2: Depresión y Suicidio
 
