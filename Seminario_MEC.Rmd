@@ -209,6 +209,7 @@ meta <- DepresionCCAA %>%
   spread_all
 ```
 
+
 2º CONJUNTO DE DATOS
 Enfermedades Mentales por CCAA
 ```{r}
@@ -416,22 +417,11 @@ suicidio2020
 ```
  El valor es el tanto por cien mil
 
-<<<<<<< HEAD
-
 Union data y TSuicido
 ```{r}
-union_suicidio <- full_join(data,TasaSuicidio,by="document.id") %>%
-  relocate(Valor, .after = Prevalencia)
-union_suicidio
-=======
-### CASO 2: Depresión y Suicidio en España
-
-Union data y TSuicido
-```{r}
-#union_suicidio <- full_join(data,TasaSuicidio,by="document.id") %>%
+union_suicidio <- full_join(data,TasaSuicidio,by="document.id")
   #relocate(Valor, .after = Prevalencia)
-#union_suicidio
->>>>>>> e392712b1951bd702f5808f44adb0a4e680f0a0b
+
 ```
 
 UNION DEPRESIÓN Y SUICIDIO
@@ -454,7 +444,7 @@ pib_deprSuic <- left_join(suicidio2020, pib2020, by = "Comunidad")
 pib_deprSuic
 ```
 
-<<<<<<< HEAD
+
 ### CASO 1 --> suicidio frente al tiempo y suicidio por edades
 ```{r}
 Suicidio
@@ -469,6 +459,7 @@ ggplot(data = Suicidio, aes(x=AnoSuicidio, y = Valor_Suicidio)) +
   geom_bar(stat = "identity") +
   labs(title = "Gráfico de Barras de Suicidio por año", x = "Año de Suicidio", y = "Valor de Suicidio")
 ```
+
 ```{r}
 Suicidio <- Suicidio %>%
   filter(Comunidad!="Total nacional")
@@ -484,5 +475,5 @@ ggplot(data = Suicidio, aes(x=Valor_Suicidio, y = Edad_Suicidio), fill="BLUE") +
   geom_bar(stat = "identity") +
   labs(title = "Gráfico recuento Suicidio por rango de Edades", x = "Valor Suicidio", y = "Rango de edad")
 ```
-### CASO 2 --> 
+
 
