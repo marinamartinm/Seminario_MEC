@@ -37,11 +37,7 @@ output:
 </style>
 
 ```{r, echo = FALSE, message=FALSE, warning=FALSE}
-library(readr)
-library(ggplot2)
-library(dplyr)
 library(tidyverse)
-library(ggplot2)
 library(forcats)
 library(hrbrthemes)
 library(viridis)
@@ -50,7 +46,7 @@ library(XML)
 library(tidyjson)
 library(tidyr)
 ```
-
+Hay qye borrR LAS LIBERIAS QUE NO UTLICEMOS
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
@@ -209,6 +205,16 @@ meta <- DepresionCCAA %>%
   spread_all
 ```
 
+<<<<<<< HEAD
+=======
+```{r}
+# Union tablas de depresion
+union_depresion <- full_join(dataD,Depresion,by="document.id")%>%
+  relocate(Valor, .after = Prevalencia)
+union_depresion
+```
+
+>>>>>>> 5ebfc4812b557e7a261f47baa67bab6fcdd022f5
 
 2º CONJUNTO DE DATOS
 Enfermedades Mentales por CCAA
@@ -312,37 +318,6 @@ dataP <- pib %>%
 ```
 
 ```{r}
-for (i in seq_along(PIB)) {
-  # Verificar si Data existe y tiene al menos un elemento
-  if ("Data" %in% names(PIB[[i]]) && length(PIB[[i]]$Data) > 0) {
-    # Acceder a la información de la primera fila de Data
-    cod <- PIB[[i]]$COD
-    nombre <- PIB[[i]]$Nombre
-    anyo <- PIB[[i]]$Data[[1]]$Anyo
-    valor <- PIB[[i]]$Data[[1]]$Valor
-    
-    # Hacer algo con la información (puedes imprimir, almacenar en un data frame, etc.)
-    cat("Fila:", i, "\n")
-    cat("COD:", cod, "\n")
-    cat("Nombre:", nombre, "\n")
-    cat("Anyo:", anyo, "\n")
-    cat("Valor:", valor, "\n\n")
-  } else {
-    cat("No hay datos para la fila", i, "\n\n")
-  }
-}
-```
-
-Tras probar a utilizar el set de datos "PIB" con JSON, hemos comprobado que solo aparecen los datos que nos interesan (Anyo y Valor) en la primera fila, en cambio en el resto no existen estos valores, con lo cual, no tenemos otra opción que utilizar este set de datos en .csv.
-
-```{r,echo=FALSE}
-knitr::include_graphics("C:/Users/Elena/Desktop/INGENIERÍA DE LA SALUD/CUARTO/FUENTES/SEMINARIO/Seminario_MEC/Data/CapturaSeminario.png")
-
-```
-
-
-
-```{r}
 MetaP <- pib %>%
   enter_object(MetaData) %>%
   gather_array %>%
@@ -417,12 +392,16 @@ suicidio2020
 ```
  El valor es el tanto por cien mil
 
+<<<<<<< HEAD
 Union data y TSuicido
 ```{r}
 union_suicidio <- full_join(data,TasaSuicidio,by="document.id")
   #relocate(Valor, .after = Prevalencia)
 
 ```
+=======
+### CASO 1: Depresión y Suicidio en España
+>>>>>>> 5ebfc4812b557e7a261f47baa67bab6fcdd022f5
 
 UNION DEPRESIÓN Y SUICIDIO
 ```{r}
@@ -444,8 +423,12 @@ pib_deprSuic <- left_join(suicidio2020, pib2020, by = "Comunidad")
 pib_deprSuic
 ```
 
+<<<<<<< HEAD
 
 ### CASO 1 --> suicidio frente al tiempo y suicidio por edades
+=======
+### Caso 1 --> suicidio frente al tiempo y suicidio por edades
+>>>>>>> 5ebfc4812b557e7a261f47baa67bab6fcdd022f5
 ```{r}
 Suicidio
 Suicidio$AnoSuicidio <- as.factor(Suicidio$AnoSuicidio)
@@ -456,24 +439,88 @@ Suicidio <- Suicidio %>%
 
 ```{r}
 ggplot(data = Suicidio, aes(x=AnoSuicidio, y = Valor_Suicidio)) +
+<<<<<<< HEAD
   geom_bar(stat = "identity") +
+  labs(title = "Gráfico de Barras de Suicidio", x = "Año de Suicidio", y = "Valor de Suicidio")
+```
+
+```{r}
+ggplot(data = Suicidio, aes(x=Valor_Suicidio, y = Edad_Suicidio), fill="BLUE") +
+  geom_bar(stat = "identity") +
+  labs(title = "Gráfico de Barras de Suicidio", x = "Valor Suicidio", y = "Rango de edad")
+```
+=======
+  geom_bar(stat = "identity", fill = "thistle3") +
   labs(title = "Gráfico de Barras de Suicidio por año", x = "Año de Suicidio", y = "Valor de Suicidio")
 ```
 
 ```{r}
 Suicidio <- Suicidio %>%
   filter(Comunidad!="Total nacional")
-ggplot(data = Suicidio, aes(x=Valor_Suicidio, y = Comunidad), fill="BLUE") +
-  geom_bar(stat = "identity") +
+ggplot(data = Suicidio, aes(x=Valor_Suicidio, y = Comunidad)) +
+  geom_bar(stat = "identity", fill = "chartreuse2") +
   labs(title = "Gráfico recuento Suicidio por Comunidades", x = "Valor Suicidio", y = "Comunidad")
+```
+```{r}
+# no hace nada
+Suicidio <- Suicidio %>%
+  filter(Sexo_Sui=="Mujeres")
+ggplot(data = Suicidio, aes(x=Sexo_Sui, y = Valor_Suicidio)) +
+  geom_bar(stat = "identity", fill = "thistle3") +
+  labs(title = "Gráfico de Barras de Depresión por sexo", x = "Sexo", y = "Valor")
 ```
 
 
 
 ```{r}
-ggplot(data = Suicidio, aes(x=Valor_Suicidio, y = Edad_Suicidio), fill="BLUE") +
-  geom_bar(stat = "identity") +
+ggplot(data = Suicidio, aes(x=Valor_Suicidio, y = Edad_Suicidio)) +
+  geom_bar(stat = "identity", fill="lightsalmon") +
   labs(title = "Gráfico recuento Suicidio por rango de Edades", x = "Valor Suicidio", y = "Rango de edad")
 ```
+<<<<<<< HEAD
+=======
+## CASO 2 --> depresión frente al tiempo
+```{r}
+ggplot(data = union_depresion, aes(x=Sexo, y = Prevalencia)) +
+  geom_bar(stat = "identity", fill = "thistle3") +
+  labs(title = "Gráfico de Barras de Depresión por sexo", x = "Sexo", y = "Valor")
+```
+## CASO 3 --> enfermedades mentales
+
+
+
+
+## UNION
+
+>>>>>>> 0f4e3cfaaa4772f8e58e1959ee5a69f355acc80f
+
+###CASO 2: Depresión y Suicidio
+
+```{r}
+levels(factor(Suicidio$Comunidad))
+levels(factor(union_depresion$Comunidad))
+```
+
+```{r}
+table(union_depresion$Comunidad)
+str(union_depresion)
+```
+
+```{r}
+
+#union_depresion 
+  union_depresion %>%
+  mutate(comunidad =recode(Comunidad, `Ceuta (Ciudad Autónoma de)` = "Ceuta"))
+ 
+#terminar de meter las comunidades que quedan y unir las tablas con un full join para que las comunidades que no estan aparecan como NA
+```
+
+```{r}
+depre_suici <- full_join(Suicidio, union_depresion, by="Comunidad")
+depre_suici
+```
+
+
+>>>>>>> 5ebfc4812b557e7a261f47baa67bab6fcdd022f5
 
 
