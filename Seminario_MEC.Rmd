@@ -434,21 +434,11 @@ Suicidio <- Suicidio %>%
 
 ```{r}
 ggplot(data = Suicidio, aes(x=AnoSuicidio, y = Valor_Suicidio)) +
-  geom_bar(stat = "identity") +
+  geom_bar(stat = "identity", fill = "thistle3") +
   labs(title = "Gráfico de Barras de Suicidio", x = "Año de Suicidio", y = "Valor de Suicidio")
 ```
 
-```{r}
-ggplot(data = Suicidio, aes(x=Valor_Suicidio, y = Edad_Suicidio), fill="BLUE") +
-  geom_bar(stat = "identity") +
-  labs(title = "Gráfico de Barras de Suicidio", x = "Valor Suicidio", y = "Rango de edad")
-```
 
-
-```{r}
-geom_bar(stat = "identity", fill = "thistle3") +
-  labs(title = "Gráfico de Barras de Suicidio por año", x = "Año de Suicidio", y = "Valor de Suicidio")
-```
 
 ```{r}
 Suicidio <- Suicidio %>%
@@ -458,14 +448,6 @@ ggplot(data = Suicidio, aes(x=Valor_Suicidio, y = Comunidad)) +
   labs(title = "Gráfico recuento Suicidio por Comunidades", x = "Valor Suicidio", y = "Comunidad")
 ```
 
-```{r}
-
-Suicidio <- Suicidio %>%
-  filter(Sexo_Sui=="Mujeres")
-ggplot(data = Suicidio, aes(x=Sexo_Sui, y = Valor_Suicidio)) +
-  geom_bar(stat = "identity", fill = "thistle3") +
-  labs(title = "Gráfico de Barras de Depresión por sexo", x = "Sexo", y = "Valor")
-```
 
 
 
