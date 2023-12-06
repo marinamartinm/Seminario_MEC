@@ -470,9 +470,15 @@ Ahora lo que vamos a hacer es estudiar otro conjunto de datos: la depresión en 
 Iremos estudiando la depresión con sus distintas variables y posteriormente, la estudiaremos frente al suicidio para ver como estos datos se relacionan entre sí.
 
 ```{r}
-ggplot(data = union_depresion, aes(x=Sexo, y = Prevalencia)) +
+union_depresion_f<- union_depresion %>%
+  filter(Prevalencia %in% c(" Cuadro depresivo mayor", " Otros cuadros depresivos"))
+union_depresion_f
+```
+
+```{r}
+ggplot(data = union_depresion_f, aes(x=Valor, y = Prevalencia)) +
   geom_bar(stat = "identity", fill = "thistle3") +
-  labs(title = "Gráfico de Barras de Depresión por sexo", x = "Sexo", y = "Valor")
+  labs(title = "Prevalencia de la depresión", x = "Valor", y = "Prevalencia")
 ```
 
 
