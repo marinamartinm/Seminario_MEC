@@ -469,21 +469,41 @@ ggplot(data = Suicidio, aes(x=Valor_Suicidio, y = Edad_Suicidio)) +
 Ahora lo que vamos a hacer es estudiar otro conjunto de datos: la depresión en España.
 Iremos estudiando la depresión con sus distintas variables y posteriormente, la estudiaremos frente al suicidio para ver como estos datos se relacionan entre sí.
 
+#### Prevalencia de la depresión
 ```{r}
 union_depresion_f<- union_depresion %>%
   filter(Prevalencia %in% c(" Cuadro depresivo mayor", " Otros cuadros depresivos"))
 union_depresion_f
 ```
-
+En esta gráfica podemos comprobar los distintos tipos de depresión:
 ```{r}
 ggplot(data = union_depresion_f, aes(x=Valor, y = Prevalencia)) +
   geom_bar(stat = "identity", fill = "thistle3") +
   labs(title = "Prevalencia de la depresión", x = "Valor", y = "Prevalencia")
 ```
 
+#### Depresión y sexo
 
-
-
+```{r}
+union_depresion_s<- union_depresion_f %>%
+  filter(Sexo %in% c("Hombres", "Mujeres"))
+union_depresion_s
+```
+Si comparamos ambos sexos, podemos ver que los hombres en España sufren más de depresión que las mujeres.
+```{r}
+ggplot(data = union_depresion_s, aes(x=Valor, y = Sexo)) +
+  geom_bar(stat = "identity", fill = "#BCEE68") +
+  labs(title = "Prevalencia de la depresión", x = "Valor", y = "Prevalencia")
+```
+#### Depresión por comunidad autónoma
+En cuanto a la depresión por comunidades, esta sería la distribución:
+```{r}
+union_depresion_f2 <- union_depresion_f %>%
+  filter(Comunidad!=" Total")
+ggplot(data = union_depresion_f2, aes(x=Valor, y = Comunidad)) +
+  geom_bar(stat = "identity", fill = "#CD00CD") +
+  labs(title = "Depresión por Comunidades", x = "Valor Depresion", y = "Comunidad")
+```
 ###CASO 2: Depresión y Suicidio
 
 ```{r}
