@@ -507,21 +507,20 @@ levels(factor(Suicidio_final$Comunidad))
 levels(factor(Depresion_final$Comunidad))
 ```
 
-```{r}
-table(Depresion_final$Comunidad)
-str(Depresion_final)
-str(Suicidio_final)
-```
 
 ```{r}
-Depresion_final %>%
-  mutate(Comunidad = case_when(Comunidad == 'Asturias (Principado de)' ~ 'Asturias'))
-
+Depresion_final <- Depresion_final %>%
+  mutate(Comunidad = ifelse(Comunidad == 'Asturias (Principado de)', 'Asturias', Comunidad))
   #mutate(Comunidad = gsub("Asturias (Principado de)", "Asturias", Comunidad))
   #mutate(Comunidad =recode(Comunidad, `Asturias (Principado de)` = "Asturias"))
+str(Depresion_final$Comunidad)
 levels(factor(Depresion_final$Comunidad))
-
 ```
+```{r}
+Depresion_final <- Depresion_final %>%
+  mutate(Comunidad = gsub("Asturias (Principado de)", "Asturias", Comunidad))
+```
+
 terminar de meter las comunidades que quedan y unir las tablas con un full join para que las comunidades que no estan aparecan como NA
 ```{r}
 depre_suici <- full_join(Suicidio, union_depresion, by="Comunidad")
