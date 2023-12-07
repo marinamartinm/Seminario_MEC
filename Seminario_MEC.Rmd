@@ -178,7 +178,7 @@ Depresion
 ```
 
 ```{r}
-depresionCCAA %>% 
+DepresionCCAA %>% 
   gather_object %>% 
   json_types %>% 
   count(name, type)
@@ -391,6 +391,11 @@ Suicidio_final
 
 UNION DEPRESIÓN Y SUICIDIO
 ```{r}
+suicidio2020 <- Suicidio_final %>%
+  filter(Año_Suicidio==2020)
+```
+
+```{r}
 depr_y_suicidio <- right_join(union_depresion, suicidio2020, by = "document.id")
 depr_y_suicidio
 
@@ -405,8 +410,8 @@ pib2020
 ```
 
 ```{r}
-pib_deprSuic <- left_join(suicidio2020, pib2020, by = "Comunidad")
-pib_deprSuic
+pib_Suic <- left_join(suicidio2020, pib2020, by = "Comunidad")
+pib_Suic
 ```
 
 
@@ -554,6 +559,10 @@ Suicidio_final$Periodo <- as.double(as.character(Suicidio_final$Periodo))
 
 
 ```{r}
+Suicidio_final <- Suicidio_final %>%
+  filter(Periodo!=2021)
+  unique(Suicidio_final)
+Suicidio_final
 pib_suici <- left_join(PIB.csv, Suicidio_final, by=c("Comunidad","Periodo"))
 #pib_suici <- left_join(PIB.csv,Suicidio, by="Periodo")
 pib_suici 
@@ -570,6 +579,24 @@ ggplot(data = PIB.csv, aes(x=as.factor(Periodo), y = Total, fill =Comunidad)) +
   geom_bar(stat = "identity", position = "dodge") +
   labs(title = "Gráfico de Barras de PIB", x = "Año", y = "Valor del PIB") +
 theme_minimal()
+```
+```{r}
+ggplot(pib_suici, aes(x = Total, y = Valor_Suicidio)) +
+  geom_point(aes(colour=Comunidad)) +
+  #geom_text(aes(label = Comunidad)) +
+  labs(title = "Relación entre PIB y Casos de Suicidio por Comunidad",
+       x = "PIB",
+       y = "Casos de Suicidio") +
+  theme_minimal()
+ggplot(pib_suici, aes(x = Total, y = Valor_Suicidio, label = Comunidad)) +
+  geom_point(color = "darkblue", size = 3) +
+  geom_text(aes(label = Comunidad)) +
+  geom_smooth(method = "lm", se = TRUE, color = "blue") +  # Línea de tendencia lineal con intervalo de confianza
+  labs(title = "Relación entre PIB y Casos de Suicidio por Comunidad",
+       x = "PIB",
+       y = "Casos de Suicidio") +
+  theme_minimal()
+
 ```
 
 
