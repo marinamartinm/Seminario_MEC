@@ -209,7 +209,7 @@ union_depresion <- full_join(dataD,Depresion,by="document.id")%>%
 union_depresion
 ```
 ```{r}
-Depresion_final <- rename (.data = union_depresion, 'CCAA'= Comunidad,
+Depresion_final <- rename (.data = union_depresion,
                     'Valor_Depresion'=Valor, 'Sexo_Depresion'=Sexo)
 Depresion_final
 ```
@@ -273,7 +273,7 @@ union_enfMentales <- full_join(dataM,EnfMentales,by="document.id") %>%
 union_enfMentales
 ```
 ```{r}
-EnferMentales_final <- rename (.data = union_enfMentales, 'CCAA'= Comunidad,
+EnfMentales_final <- rename (.data = union_enfMentales,
                     'Valor_EnfMental'=Valor, 'Enfermedad_Mental'= Enfermedad, 'Sexo_EnfMental'=Sexo)
 EnfMentales_final
 ```
@@ -427,17 +427,20 @@ Suicidio <- Suicidio_final %>%
 #### Suicidio frente al tiempo
 Como podemos observar, esta sería la evolución de la tasa de suicidio en España del año 2018 al año 2021.
 (casos por 100 000 habitantes)
-Podemos ver como hubo un pico en 2019, que disminuyó considerablemente al año siguiente, pero que en 2021 volvió a aumentar en un gran número de casos. Nosotros hemos deducido que esto se debe a la pandemia. Relacionandolo un poco con aquello con lo que queremos compararlo: el ocio y la vida social. Ya que creemos socializar y hacer planes fuera de la rutina aumenta las condiciones de vida de las personas, y como durante ese año, se nos impusieron ciertas normas que nos lo impedían, puede que un aumento de los casos se deba a este asunto.
+Creemos que socializar y hacer planes fuera de la rutina, como el ocio y el tiempo libre, aumenta el estado de animo y la calidad de vida de las personas, y como durante los años de pandemia, en los que se nos impusieron ciertas restricciones, nos lo impedían, pudo resultar que se diera un aumento en los casos de suicidio:
 ```{r}
 ggplot(data = Suicidio, aes(x=Año_Suicidio, y = Valor_Suicidio)) +
   geom_bar(stat = "identity", fill = "thistle3") +
   labs(title = "Gráfico de Barras de Suicidio", x = "Año de Suicidio", y = "Valor de Suicidio")
 ```
+No podemos afirmar que la pandemia fuera un factor directo en el aumento de los casos de suicidio, ya que en 2019 todavia no estabamos en esa situación y el repuente en los casos fue muy considerable respecto al año anterior. 
+Durente el año del confinamiento podemos ver como estos casos disminullen, pero al año siguiente (en 2021) los casos vuelven a aumnetar, por lo que la situación deribada del COVID si puede tener alguna relacion con el aumento en la tasa de suicidio.
+
 
 #### Suicidio por comunidad autónoma
 Tambien hemos querido comparar los casos de suicidio en las distintas comunidades autónomas, y nos ha sorprendido la cantidad de casos de Galicia o incluso de Canarias.
 ```{r}
-Suicidio <- Suicidio %>%
+Suicidio <- Suicidio_final %>%
   filter(Comunidad!="Total nacional")
 ggplot(data = Suicidio, aes(x=Valor_Suicidio, y = Comunidad)) +
   geom_bar(stat = "identity", fill = "chartreuse2") +
@@ -448,7 +451,7 @@ Algo que también nos ha sorprendido y que hemos creido conveniente estudiar es 
 
 #### Suicidio por rango de edad
 ```{r}
-ggplot(data = Suicidio, aes(x=Valor_Suicidio, y = Edad_Suicidio)) +
+ggplot(data = Suicidio_final, aes(x=Valor_Suicidio, y = Edad_Suicidio)) +
   geom_bar(stat = "identity", fill="lightsalmon") +
   labs(title = "Gráfico recuento Suicidio por rango de Edades", x = "Valor Suicidio", y = "Rango de edad")
 ```
@@ -459,13 +462,13 @@ Iremos estudiando la depresión con sus distintas variables y posteriormente, la
 
 #### Prevalencia de la depresión
 ```{r}
-union_depresion_f<- union_depresion %>%
+Depresion_filt<- Depresion_final %>%
   filter(Prevalencia %in% c(" Cuadro depresivo mayor", " Otros cuadros depresivos"))
-union_depresion_f
+Depresion_filt
 ```
 En esta gráfica podemos comprobar los distintos tipos de depresión:
 ```{r}
-ggplot(data = union_depresion_f, aes(x=Valor, y = Prevalencia)) +
+ggplot(data = Depresion_filt, aes(x=Valor_Depresion, y = Prevalencia)) +
   geom_bar(stat = "identity", fill = "thistle3") +
   labs(title = "Prevalencia de la depresión", x = "Valor", y = "Prevalencia")
 ```
@@ -473,43 +476,45 @@ ggplot(data = union_depresion_f, aes(x=Valor, y = Prevalencia)) +
 #### Depresión y sexo
 
 ```{r}
-union_depresion_s<- union_depresion_f %>%
-  filter(Sexo %in% c("Hombres", "Mujeres"))
-union_depresion_s
+Depresion_sex<- Depresion_filt %>%
+  filter(Sexo_Depresion %in% c("Hombres", "Mujeres"))
+Depresion_sex
 ```
 Si comparamos ambos sexos, podemos ver que los hombres en España sufren más de depresión que las mujeres.
 ```{r}
-ggplot(data = union_depresion_s, aes(x=Valor, y = Sexo)) +
+ggplot(data =Depresion_sex, aes(x=Valor_Depresion, y = Sexo_Depresion)) +
   geom_bar(stat = "identity", fill = "#BCEE68") +
   labs(title = "Prevalencia de la depresión", x = "Valor", y = "Prevalencia")
 ```
 #### Depresión por comunidad autónoma
 En cuanto a la depresión por comunidades, esta sería la distribución:
 ```{r}
-union_depresion_f2 <- union_depresion_f %>%
+Depresion_filt2 <- Depresion_filt %>%
   filter(Comunidad!=" Total")
-ggplot(data = union_depresion_f2, aes(x=Valor, y = Comunidad)) +
+ggplot(data = Depresion_filt2, aes(x=Valor_Depresion, y = Comunidad)) +
   geom_bar(stat = "identity", fill = "#CD00CD") +
   labs(title = "Depresión por Comunidades", x = "Valor Depresion", y = "Comunidad")
 ```
 ###CASO 2: Depresión y Suicidio
 
 ```{r}
-levels(factor(Suicidio$Comunidad))
-levels(factor(union_depresion$Comunidad))
+levels(factor(Suicidio_final$Comunidad))
+levels(factor(Depresion_final$Comunidad))
 ```
 
 ```{r}
-table(union_depresion$Comunidad)
-str(union_depresion)
+table(Depresion_final$Comunidad)
+str(Depresion_final)
+str(Suicidio_final)
 ```
 
 ```{r}
+Depresion_final %>%
+  mutate(Comunidad = case_when(Comunidad == 'Asturias (Principado de)' ~ 'Asturias'))
 
-union_depresion 
-  union_depresion %>%
-  mutate(comunidad =recode(Comunidad, `Ceuta (Ciudad Autónoma de)` = "Ceuta"))
- 
+  #mutate(Comunidad = gsub("Asturias (Principado de)", "Asturias", Comunidad))
+  #mutate(Comunidad =recode(Comunidad, `Asturias (Principado de)` = "Asturias"))
+levels(factor(Depresion_final$Comunidad))
 
 ```
 terminar de meter las comunidades que quedan y unir las tablas con un full join para que las comunidades que no estan aparecan como NA
@@ -519,14 +524,14 @@ depre_suici
 ```
 
 ```{r}
-Suicidio <- 
-  Suicidio %>%
-  rename("Periodo" = AnoSuicidio)
+Suicidio_final <- 
+  Suicidio_final %>%
+  rename("Periodo" = Año_Suicidio)
 ```
 
 
 ```{r}
-levels(factor(Suicidio$Periodo))
+levels(factor(Suicidio_final$Periodo))
 levels(factor(PIB.csv$Periodo))
 # En en pib nos quedaremos con los años que aparecen tambien en suicidio (2018,2019,2020,2021)
 ```
@@ -544,16 +549,12 @@ colnames(Suicidio)
 
 ```
 ```{r}
-Suicidio$Periodo <- as.double(as.character(Suicidio$Periodo))
-
+Suicidio_final$Periodo <- as.double(as.character(Suicidio_final$Periodo))
 ```
 
-```{r}
-
-```
 
 ```{r}
-pib_suici <- left_join(PIB.csv, Suicidio, by=c("Comunidad","Periodo"))
+pib_suici <- left_join(PIB.csv, Suicidio_final, by=c("Comunidad","Periodo"))
 #pib_suici <- left_join(PIB.csv,Suicidio, by="Periodo")
 pib_suici 
 pib_suici <- unique(pib_suici)
