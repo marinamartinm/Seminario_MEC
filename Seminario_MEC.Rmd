@@ -213,6 +213,22 @@ Depresion_final <- rename (.data = union_depresion,
                     'Valor_Depresion'=Valor, 'Sexo_Depresion'=Sexo)
 Depresion_final
 ```
+```{r}
+levels(factor(Suicidio_final$Comunidad))
+levels(factor(Depresion_final$Comunidad))
+```
+
+
+```{r}
+Depresion_final <- Depresion_final %>%
+  select(document.id, Sexo_Depresion, Prevalencia, Valor_Depresion)
+```
+
+```{r}
+Depresion_final <- Depresion_final %>%
+  mutate(Comunidad = rep(c('Total nacional', 'Andalucía', 'Aragón', 'Asturias', 'Balears', 'Canarias', 'Cantabria', 'Castilla y León','Castilla-La Mancha', 'Cataluña', 'Comunitat Valenciana', 'Extremadura', 'Galicia', 'Madrid', 'Murcia', 'Navarra', 'País Vasco', 'Rioja','Ceuta', 'Melilla'), each = 4, length.out = 240))
+Depresion_final
+```
 
 
 
@@ -396,7 +412,7 @@ suicidio2020 <- Suicidio_final %>%
 ```
 
 ```{r}
-depr_y_suicidio <- right_join(union_depresion, suicidio2020, by = "document.id")
+depr_y_suicidio <- right_join(Depresion_final, suicidio2020, by = "document.id")
 depr_y_suicidio
 
 ```
@@ -495,20 +511,16 @@ ggplot(data =Depresion_sex, aes(x=Valor_Depresion, y = Sexo_Depresion)) +
 En cuanto a la depresión por comunidades, esta sería la distribución:
 ```{r}
 Depresion_filt2 <- Depresion_filt %>%
-  filter(Comunidad!=" Total")
+  filter(Comunidad!=" Total nacional")
 ggplot(data = Depresion_filt2, aes(x=Valor_Depresion, y = Comunidad)) +
   geom_bar(stat = "identity", fill = "#CD00CD") +
   labs(title = "Depresión por Comunidades", x = "Valor Depresion", y = "Comunidad")
 ```
+
 ###CASO 2: Depresión y Suicidio
 
 ```{r}
-levels(factor(Suicidio_final$Comunidad))
-levels(factor(Depresion_final$Comunidad))
-```
-
-
-```{r}
+#NOOOO ya esta hecho arriba (En Depresion)
 Depresion_final <- Depresion_final %>%
   mutate(Comunidad = ifelse(Comunidad == 'Asturias (Principado de)', 'Asturias', Comunidad))
   #mutate(Comunidad = gsub("Asturias (Principado de)", "Asturias", Comunidad))
@@ -516,17 +528,19 @@ Depresion_final <- Depresion_final %>%
 str(Depresion_final$Comunidad)
 levels(factor(Depresion_final$Comunidad))
 ```
+
+
 ```{r}
-Depresion_final <- Depresion_final %>%
-  mutate(Comunidad = gsub("Asturias (Principado de)", "Asturias", Comunidad))
+depr_suicidio <- full_join(Depresion_sex, Suicidio_final, by = c("Comunidad"))
+depr_suicidio
+```
+```{r}
+ggplot(data = depr_suicidio, aes(x=Sexo_Depresion, y = Valor_Depresion)) +
+  geom_bar(stat = "identity", fill = "chartreuse2") +
+  labs(title = "Depresión vs Suicidio por sexo", x = "Sexo", y = "Valor suicidio")
 ```
 
-terminar de meter las comunidades que quedan y unir las tablas con un full join para que las comunidades que no estan aparecan como NA
-```{r}
-depre_suici <- full_join(Suicidio, union_depresion, by="Comunidad")
-depre_suici
-```
-
+###CASO 3
 ```{r}
 Suicidio_final <- 
   Suicidio_final %>%
