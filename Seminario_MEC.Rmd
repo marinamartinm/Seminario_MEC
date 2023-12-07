@@ -164,17 +164,13 @@ DepresionCCAA <- fromJSON(file = "Data/DepresionCCAA.json")
 ```
 
 ```{r}
-DepresionCCAAcsv <- read_delim("Data/DepresionCCAA.csv", delim = ";", show_col_types = FALSE)
-DepresionCCAAcsv
+#DepresionCCAAcsv <- read_delim("Data/DepresionCCAA.csv", delim = ";", show_col_types = FALSE)
+#DepresionCCAAcsv
 ```
 
-```{r}
-depresionCCAA <- spread_all(DepresionCCAA)
-#View(depresionCCAA)
-```
 
 ```{r}
-Depresion <- depresionCCAA %>%
+Depresion <- spread_all(DepresionCCAA) %>%
   separate(Nombre, into = c("Sexo", "Comunidad", "Prevalencia"), sep = ",") %>%
   select(document.id,Sexo,Comunidad,Prevalencia)
 
@@ -198,7 +194,7 @@ dataD
 ```
 
 ```{r}
-#no necesario
+#no lo necesitamos
 meta <- DepresionCCAA %>%
   enter_object(MetaData) %>%
   gather_array %>%
@@ -207,10 +203,15 @@ meta <- DepresionCCAA %>%
 
 
 ```{r}
-# Union tablas de depresion
+# Union tablas de depresion (Copleta)
 union_depresion <- full_join(dataD,Depresion,by="document.id")%>%
   relocate(Valor, .after = Prevalencia)
 union_depresion
+```
+```{r}
+Depresion_final <- rename (.data = union_depresion, 'CCAA'= Comunidad,
+                    'Valor_Depresion'=Valor, 'Sexo_Depresion'=Sexo)
+Depresion_final
 ```
 
 
@@ -258,7 +259,7 @@ dataM
 
 
 ```{r}
-#NOoo
+#No lo necesitamos
 metaM <- EnfermedadesMentales %>%
   enter_object(MetaData) %>%
   gather_array %>%
@@ -271,6 +272,11 @@ union_enfMentales <- full_join(dataM,EnfMentales,by="document.id") %>%
   relocate(Valor, .after = Enfermedad)
 union_enfMentales
 ```
+```{r}
+EnferMentales_final <- rename (.data = union_enfMentales, 'CCAA'= Comunidad,
+                    'Valor_EnfMental'=Valor, 'Enfermedad_Mental'= Enfermedad, 'Sexo_EnfMental'=Sexo)
+EnfMentales_final
+```
 
 
 
@@ -278,13 +284,11 @@ union_enfMentales
 PIB por CCAA
 ```{r}
 PIB <- fromJSON(file = "Data/PIB.json")
-#View(PIB)
 ```
 
 ```{r}
 #PIB.csv <- read_delim(file = "Data/PIB.csv", delim = ";", show_col_types = FALSE)
 #PIB.csv
-#str(PIB)
 ```
 
 ```{r}
@@ -334,7 +338,6 @@ union_pib
 4º CONJUNTO DE DATOS
 ```{r}
 Suicidio <- fromJSON(file = "Data/Suicidio.json")
-#Suicidio
 ```
 
 ```{r}
@@ -342,13 +345,9 @@ Suicidio <- fromJSON(file = "Data/Suicidio.json")
 #Suicidio.csv
 ```
 
-```{r}
-suicidio <- spread_all(Suicidio)
-```
-
 
 ```{r}
-TasaSuicidio <- suicidio %>%
+TasaSuicidio <- spread_all(Suicidio) %>%
   separate(Nombre, into = c("Comunidad", "Edad", "Sexo"), sep = ",") %>%
   select(document.id,Comunidad,Edad,Sexo)
 TasaSuicidio
@@ -356,7 +355,7 @@ TasaSuicidio
 
 
 ```{r}
-suicidio %>% 
+Suicidio %>% 
   gather_object %>% 
   json_types %>% 
   count(name, type)
@@ -366,10 +365,8 @@ suicidio %>%
 data <- Suicidio %>%
   enter_object(Data) %>%
   gather_array %>%
-  spread_all %>%   #para que lo reconozca y lo ponga como columnas(lo separa)
+  spread_all %>%   #para que lo reconozca como array y lo ponga como columnas(lo separa)
   select(document.id,NombrePeriodo,Valor)
-#s <- select(.data = data,c(document.id,NombrePeriodo,Valor))
-#s
 ```
 
 ```{r}
@@ -381,23 +378,14 @@ union_suicidio
 
 
 ```{r}
-# renombrar columnas
-Suicidio <- rename (.data = union_suicidio, 'AnoSuicidio'= NombrePeriodo,
-                    'Valor_Suicidio'=Valor, 'Edad_Suicidio'= Edad, 'Sexo_Sui'=Sexo)
-Suicidio
-
-suicidio2020 <- Suicidio %>% filter(AnoSuicidio=="2020")
-suicidio2020
+# Renombramos las columnas
+Suicidio_final <- rename (.data = union_suicidio, 'Año_Suicidio'= NombrePeriodo,
+                    'Valor_Suicidio'=Valor, 'Edad_Suicidio'= Edad, 'Sexo_Suicidio'=Sexo)
+Suicidio_final
 ```
  El valor es el tanto por cien mil
 
-<<<<<<< HEAD
-Union data y TSuicido
-```{r}
-union_suicidio <- full_join(data,TasaSuicidio,by="document.id")
-  #relocate(Valor, .after = Prevalencia)
 
-```
 
 ## CASO 1: Depresión y Suicidio en España
 
@@ -429,11 +417,11 @@ En primer lugar, convertimos la columna AnoSuicidio del dataframe Suicidio en un
 Esto lo hacemos para quedarnos solo con las filas que nos interesan (las correspondientes a edad).
 
 ```{r}
-Suicidio
-Suicidio$AnoSuicidio <- as.factor(Suicidio$AnoSuicidio)
+Suicidio_final
+Suicidio_final$Año_Suicidio <- as.factor(Suicidio_final$Año_Suicidio)
 levels(factor(Suicidio$Edad_Suicidio))
-Suicidio <- Suicidio %>%
-  filter(Suicidio$Edad_Suicidio==c(" 95 y más años"," De 90 a 94 años"," De 85 a 89 años"," De 80 a 84 años"," De 75 a 79 años"," De 70 a 74 años"," De 65 a 69 años"," De 60 a 64 años"," De 55 a 59 años"," De 50 a 54 años"," De 45 a 49 años"," De 40 a 44 años"," De 30 a 39 años"," De 15 a 29 años"," Menos de 15 años"))
+Suicidio <- Suicidio_final %>%
+  filter(Suicidio_final$Edad_Suicidio==c(" 95 y más años"," De 90 a 94 años"," De 85 a 89 años"," De 80 a 84 años"," De 75 a 79 años"," De 70 a 74 años"," De 65 a 69 años"," De 60 a 64 años"," De 55 a 59 años"," De 50 a 54 años"," De 45 a 49 años"," De 40 a 44 años"," De 30 a 39 años"," De 15 a 29 años"," Menos de 15 años"))
 ```
 
 #### Suicidio frente al tiempo
@@ -441,7 +429,7 @@ Como podemos observar, esta sería la evolución de la tasa de suicidio en Espa�
 (casos por 100 000 habitantes)
 Podemos ver como hubo un pico en 2019, que disminuyó considerablemente al año siguiente, pero que en 2021 volvió a aumentar en un gran número de casos. Nosotros hemos deducido que esto se debe a la pandemia. Relacionandolo un poco con aquello con lo que queremos compararlo: el ocio y la vida social. Ya que creemos socializar y hacer planes fuera de la rutina aumenta las condiciones de vida de las personas, y como durante ese año, se nos impusieron ciertas normas que nos lo impedían, puede que un aumento de los casos se deba a este asunto.
 ```{r}
-ggplot(data = Suicidio, aes(x=AnoSuicidio, y = Valor_Suicidio)) +
+ggplot(data = Suicidio, aes(x=Año_Suicidio, y = Valor_Suicidio)) +
   geom_bar(stat = "identity", fill = "thistle3") +
   labs(title = "Gráfico de Barras de Suicidio", x = "Año de Suicidio", y = "Valor de Suicidio")
 ```
