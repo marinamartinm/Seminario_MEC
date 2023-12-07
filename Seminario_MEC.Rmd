@@ -575,7 +575,8 @@ pib_suici <-
 pib_suici
 ```
 ```{r}
-PIB.csv
+PIB.csv <- PIB.csv %>%
+  filter(Periodo !=2021)
 ggplot(data = PIB.csv, aes(x=as.factor(Periodo), y = Total, fill =Comunidad)) +
   geom_bar(stat = "identity", position = "dodge") +
   labs(title = "Gráfico de Barras de PIB", x = "Año", y = "Valor del PIB") +
