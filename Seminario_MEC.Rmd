@@ -569,9 +569,11 @@ depr_suicidio
 
 
 ```{r}
-ggplot(data = depr_suicidio, aes(x=Sexo_Depresion, y = Valor_Suicidio)) +
+depr_suicidiosin_na <- na.omit(depr_suicidio)
+ggplot(data = depr_suicidio, aes(x=Valor_Suicidio, y = Sexo_Depresion)) +
   geom_bar(stat = "identity", fill = "chartreuse2") +
   labs(title = "Depresión vs Suicidio por sexo", x = "Sexo", y = "Valor suicidio")
+
 ```
 ```{r}
 grafico_Suicidio_Sexo <- ggplot(depr_suicidio, aes(x = Sexo_Depresion, y = Valor_Suicidio, fill = Sexo_Depresion)) +
@@ -713,7 +715,7 @@ EM_suicidio
 ```
 
 ```{r}
-ggplot(data = EnfMentales_final, aes(x=Comunidad, y = Valor_EnfMental, fill =Comunidad)) +
+ggplot(data = EnfMentales_final, aes(x=Valor_EnfMental, y = Comunidad, fill =Comunidad)) +
   geom_bar(stat = "identity", position = "dodge") +
   labs(title = "Gráfico de Barras de EM", x = "Comunidad", y = "Valor") +
 theme_minimal()
