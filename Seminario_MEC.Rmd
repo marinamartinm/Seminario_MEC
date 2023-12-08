@@ -286,14 +286,33 @@ union_enfMentales <- full_join(dataM,EnfMentales,by="document.id") %>%
   relocate(Valor, .after = Enfermedad)
 union_enfMentales
 ```
+
+
 ```{r}
 EnfMentales_final <- rename (.data = union_enfMentales,
                     'Valor_EnfMental'=Valor, 'Enfermedad_Mental'= Enfermedad, 'Sexo_EnfMental'=Sexo)
 EnfMentales_final
 ```
 ```{r}
-levels(factor(Depresion_final$Comunidad))
+levels(factor(EnfMentales_final$Comunidad))
 ```
+```{r}
+EnfMentales_final <- EnfMentales_final %>%
+  select(document.id, Sexo_EnfMental, Enfermedad_Mental, Valor_EnfMental)
+```
+
+```{r}
+EnfMentales_final <- EnfMentales_final %>%
+  mutate(Comunidad = rep(c('Total nacional', 'Andalucía', 'Aragón', 'Asturias', 'Balears', 'Canarias', 'Cantabria', 'Castilla y León','Castilla-La Mancha', 'Cataluña', 'Comunitat Valenciana', 'Extremadura', 'Galicia', 'Madrid', 'Murcia', 'Navarra', 'País Vasco', 'Rioja','Ceuta', 'Melilla'), each = 15, length.out = 300))
+EnfMentales_final
+```
+```{r}
+levels(factor(EnfMentales_final$Enfermedad_Mental))
+EnfMentales_final<- EnfMentales_final %>%
+  filter(Enfermedad_Mental %in% c(" Ansiedad crónica", " Depresión crónica", "Esquizofrenia", " Trastorno bipolar", " Trastornos del espectro del autismo"))
+EnfMentales_final
+```
+
 
 
 
@@ -534,6 +553,9 @@ Depresion_final <- Depresion_final %>%
   #mutate(Comunidad = gsub("Asturias (Principado de)", "Asturias", Comunidad))
   #mutate(Comunidad =recode(Comunidad, `Asturias (Principado de)` = "Asturias"))
 str(Depresion_final$Comunidad)
+```
+```{r}
+levels(factor(Suicidio_final$Comunidad))
 levels(factor(Depresion_final$Comunidad))
 ```
 
@@ -542,38 +564,44 @@ levels(factor(Depresion_final$Comunidad))
 depr_suicidio <- full_join(Depresion_sex, Suicidio_final, by = c("Comunidad"))
 depr_suicidio
 ```
+
+
 ```{r}
 ggplot(data = depr_suicidio, aes(x=Sexo_Depresion, y = Valor_Suicidio)) +
   geom_bar(stat = "identity", fill = "chartreuse2") +
   labs(title = "Depresión vs Suicidio por sexo", x = "Sexo", y = "Valor suicidio")
 ```
 ```{r}
-grafico <- ggplot(depr_suicidio, aes(x = Sexo_Depresion, y = Valor_Suicidio, fill = Sexo_Depresion)) +
-  geom_bar(stat = "identity", fill = "chartreuse2") +
-  labs(title = "Depresión vs Suicidio por sexo", x = "Sexo", y = "Valor suicidio")
-
-grafico + coord_polar(theta = "y")
-```
-
-```{r}
-# Crear un data frame con los datos
-datos_ideacion_suicida <- data.frame(
-  Categoria = c("Nunca", "Con cierta frecuencia", "Con mucha frecuencia o continuamente"),
-  Porcentaje = c(23.8, 11.3, 13.8)
-)
-grafico_Suicidio_Sexo <- ggplot(data = depr_suicidio, aes(x = "", y = Porcentaje, fill = Sexo_Depresion)) +
+grafico_Suicidio_Sexo <- ggplot(depr_suicidio, aes(x = Sexo_Depresion, y = Valor_Suicidio, fill = Sexo_Depresion)) +
   geom_bar(stat = "identity", width = 1) +
   coord_polar(theta = "y") +
-  labs(title = "Ideación Suicida en Jóvenes (2023)",
-       fill = "Frecuencia",
+  labs(title = "Depresión vs Suicidio por sexo",
+       fill = "Sexo_Depresion",
        x = NULL,
        y = NULL) +
   theme_minimal() +
-  theme(legend.position = "bottom")  # Mover la leyenda a la parte inferior
-
-# Mostrar el diagrama de tarta
-print(grafico_ideacion_suicida)
+  theme(legend.position = "bottom")
+  
+print(grafico_Suicidio_Sexo)
+  
 ```
+
+```{r}
+grafico_Suicidio_sexo <- ggplot(depr_suicidio, aes(x = Sexo_Depresion, y = 1, fill = Sexo_Depresion)) +
+  geom_bar(stat = "identity", width = 1, position = "fill") +
+  geom_bar(stat = "identity", width = 1, position = "fill") +
+  labs(title = "Depresión vs Suicidio por sexo",
+       fill = "Sexo_Depresion",
+       x = NULL,
+       y = NULL) +
+  theme_minimal() +
+  theme(legend.position = "bottom") +
+  coord_polar(theta = "y")
+
+print(grafico_Suicidio_sexo)
+```
+
+
 
 ###CASO 3
 ```{r}
@@ -637,15 +665,15 @@ ggplot(pib_suici, aes(x = Total, y = Valor_Suicidio)) +
        y = "Casos de Suicidio") +
   theme_minimal()
 ggplot(pib_suici, aes(x = Total, y = Valor_Suicidio, label = Comunidad)) +
-  geom_point(color = "darkblue", size = 3) +
+  geom_point(color = "darkblue", size = 1) +
   geom_text(aes(label = Comunidad)) +
   geom_smooth(method = "lm", se = TRUE, color = "blue") +  # Línea de tendencia lineal con intervalo de confianza
   labs(title = "Relación entre PIB y Casos de Suicidio por Comunidad",
        x = "PIB",
        y = "Casos de Suicidio") +
-  theme_minimal()
-
+  theme_minimal() 
 ```
+
 
 
 ```{r}
@@ -662,4 +690,56 @@ ggplot(data = pib_suici, aes(x=Total, y = Valor_Suicidio)) +
   geom_bar(stat = "identity", fill = "orange") +
   labs(title = "Gráfico de Barras de Suicidio", x = "pib", y = "Valor de Suicidio")
 ```
+## CASO 4
+
+Vamos a unir el conjunto de datos de enfermedades mentales, y de suicidio, para ver la relación que existe entre estas patologias y la tasa de suicidio:
+
+```{r}
+str(EnfMentales_final)
+EnfMentales_final
+```
+
+```{r}
+levels(factor(Suicidio_final$Comunidad))
+levels(factor(EnfMentales_final$Comunidad))
+```
+
+
+```{r}
+EM_suicidio <- full_join(EnfMentales_final, Suicidio_final, by = c("Comunidad"))
+EM_suicidio
+```
+
+```{r}
+ggplot(data = EnfMentales_final, aes(x=Comunidad, y = Valor_EnfMental, fill =Comunidad)) +
+  geom_bar(stat = "identity", position = "dodge") +
+  labs(title = "Gráfico de Barras de EM", x = "Comunidad", y = "Valor") +
+theme_minimal()
+```
+
+```{r}
+ggplot(data = EnfMentales_final, aes(x=Enfermedad_Mental, y = Valor_EnfMental, fill =Enfermedad_Mental)) +
+  geom_bar(stat = "identity", position = "dodge") +
+  labs(title = "Gráfico de Barras de EM", x = "Comunidad", y = "Valor") +
+theme_minimal()
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
