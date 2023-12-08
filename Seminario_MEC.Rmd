@@ -135,7 +135,7 @@ Por todo ello, hemos creido conveniente estudiar el caso. Esta vez vamos a cruza
 <br>
 -	Averiguar si existe relación entre el PIB con los datos sobre enfermedades mentales en España y estudiar si en aquellas comunidades autónomas en las que el PIB sea más bajo tienen influencia sobre la tasa de suicidio de estas.
 <br>
--	Estudiar la relación entre la tasa de sedentarismo y las enfermedades mentales por comunidad autónoma.
+-	Estudiar la relación entre la tasa de suicidio y las enfermedades mentales por comunidad autónoma.
 <br>
 -	Realizar un estudio general con todas las variables para encontrar una posible relación con la tasa de suicidio.
 
@@ -214,10 +214,8 @@ Depresion_final <- rename (.data = union_depresion,
 Depresion_final
 ```
 ```{r}
-levels(factor(Suicidio_final$Comunidad))
 levels(factor(Depresion_final$Comunidad))
 ```
-
 
 ```{r}
 Depresion_final <- Depresion_final %>%
@@ -292,6 +290,9 @@ union_enfMentales
 EnfMentales_final <- rename (.data = union_enfMentales,
                     'Valor_EnfMental'=Valor, 'Enfermedad_Mental'= Enfermedad, 'Sexo_EnfMental'=Sexo)
 EnfMentales_final
+```
+```{r}
+levels(factor(Depresion_final$Comunidad))
 ```
 
 
@@ -401,6 +402,14 @@ Suicidio_final
 ```
  El valor es el tanto por cien mil
 
+```{r}
+levels(factor(Suicidio_final$Edad_Suicidio))
+```
+```{r}
+Suicidio_final<- Suicidio_final %>%
+  filter(Edad_Suicidio %in% c(" Menos de 15 años", " De 15 a 29 años", " De 30 a 39 años", " De 40 a 44 años", " De 45 a 49 años", " De 50 a 54 años", " De 55 a 59 años", " De 60 a 64 años", " De 65 a 69 años", " De 70 a 74 años", " De 75 a 79 años", " De 80 a 84 años", " De 85 a 89 años", " De 90 a 94 años", "95 y más años"))
+Suicidio_final
+```
 
 
 ## CASO 1: Depresión y Suicidio en España
@@ -414,7 +423,6 @@ suicidio2020 <- Suicidio_final %>%
 ```{r}
 depr_y_suicidio <- right_join(Depresion_final, suicidio2020, by = "document.id")
 depr_y_suicidio
-
 ```
 UNION PIB Y DEPRESION + SUICIDIO
 ```{r}
@@ -487,7 +495,7 @@ Depresion_filt<- Depresion_final %>%
   filter(Prevalencia %in% c(" Cuadro depresivo mayor", " Otros cuadros depresivos"))
 Depresion_filt
 ```
-En esta gráfica podemos comprobar los distintos tipos de depresión:
+En esta gráfica podemos comprobar los distintos tipos de depresión: thistle3
 ```{r}
 ggplot(data = Depresion_filt, aes(x=Valor_Depresion, y = Prevalencia)) +
   geom_bar(stat = "identity", fill = "thistle3") +
@@ -535,9 +543,36 @@ depr_suicidio <- full_join(Depresion_sex, Suicidio_final, by = c("Comunidad"))
 depr_suicidio
 ```
 ```{r}
-ggplot(data = depr_suicidio, aes(x=Sexo_Depresion, y = Valor_Depresion)) +
+ggplot(data = depr_suicidio, aes(x=Sexo_Depresion, y = Valor_Suicidio)) +
   geom_bar(stat = "identity", fill = "chartreuse2") +
   labs(title = "Depresión vs Suicidio por sexo", x = "Sexo", y = "Valor suicidio")
+```
+```{r}
+grafico <- ggplot(depr_suicidio, aes(x = Sexo_Depresion, y = Valor_Suicidio, fill = Sexo_Depresion)) +
+  geom_bar(stat = "identity", fill = "chartreuse2") +
+  labs(title = "Depresión vs Suicidio por sexo", x = "Sexo", y = "Valor suicidio")
+
+grafico + coord_polar(theta = "y")
+```
+
+```{r}
+# Crear un data frame con los datos
+datos_ideacion_suicida <- data.frame(
+  Categoria = c("Nunca", "Con cierta frecuencia", "Con mucha frecuencia o continuamente"),
+  Porcentaje = c(23.8, 11.3, 13.8)
+)
+grafico_Suicidio_Sexo <- ggplot(data = depr_suicidio, aes(x = "", y = Porcentaje, fill = Sexo_Depresion)) +
+  geom_bar(stat = "identity", width = 1) +
+  coord_polar(theta = "y") +
+  labs(title = "Ideación Suicida en Jóvenes (2023)",
+       fill = "Frecuencia",
+       x = NULL,
+       y = NULL) +
+  theme_minimal() +
+  theme(legend.position = "bottom")  # Mover la leyenda a la parte inferior
+
+# Mostrar el diagrama de tarta
+print(grafico_ideacion_suicida)
 ```
 
 ###CASO 3
@@ -577,7 +612,7 @@ Suicidio_final <- Suicidio_final %>%
   unique(Suicidio_final)
 Suicidio_final
 pib_suici <- left_join(PIB.csv, Suicidio_final, by=c("Comunidad","Periodo"))
-#pib_suici <- left_join(PIB.csv,Suicidio, by="Periodo")
+
 pib_suici 
 pib_suici <- unique(pib_suici)
 pib_suici <- 
