@@ -476,9 +476,11 @@ ggplot(data = Suicidio, aes(x=Valor_Suicidio, y = Comunidad)) +
   labs(title = "Gráfico recuento Suicidio por Comunidades", x = "Valor Suicidio", y = "Comunidad")
 ```
 
-Algo que también nos ha sorprendido y que hemos creido conveniente estudiar es el análisis de estos datos por edad. Creemos que los resultados de esta gráfica también respaldan nuestra hipótesis de que el ocio y tiempo libre influyen directamente en las enfermedades mentales y el suicidio, puesto que la tasa de suicidio más alta en España se da en personas mayores de entre 80 y 84 años, creemos que se el hecho de que se sientan solas o no acompañadas y el hecho de que, al estar jubilados tengan tanto tiempo libre pero no socializando,puede influir en estos datos.
+
 
 #### Suicidio por rango de edad
+Algo que también nos ha sorprendido y que hemos creido conveniente estudiar es el análisis de estos datos por edad. Creemos que los resultados de esta gráfica también respaldan nuestra hipótesis de que el ocio y tiempo libre influyen directamente en las enfermedades mentales y el suicidio, puesto que la tasa de suicidio más alta en España se da en personas mayores de entre 80 y 84 años, creemos que se el hecho de que se sientan solas o no acompañadas y el hecho de que, al estar jubilados tengan tanto tiempo libre pero no socializando,puede influir en estos datos.
+
 ```{r}
 ggplot(data = Suicidio_final, aes(x=Valor_Suicidio, y = Edad_Suicidio)) +
   geom_bar(stat = "identity", fill="lightsalmon") +
@@ -495,7 +497,7 @@ Depresion_filt<- Depresion_final %>%
   filter(Prevalencia %in% c(" Cuadro depresivo mayor", " Otros cuadros depresivos"))
 Depresion_filt
 ```
-En esta gráfica podemos comprobar los distintos tipos de depresión: thistle3
+En esta gráfica podemos comprobar los distintos tipos de depresión:
 ```{r}
 ggplot(data = Depresion_filt, aes(x=Valor_Depresion, y = Prevalencia)) +
   geom_bar(stat = "identity", fill = "thistle3") +
