@@ -46,7 +46,6 @@ library(XML)
 library(tidyjson)
 library(tidyr)
 ```
-Hay qye borrR LAS LIBERIAS QUE NO UTLICEMOS
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
@@ -158,18 +157,20 @@ El formato de datos escogido son tanto .csv como .json.
 
 1º CONJUNTO DE DATOS
 Depresión por CCAA
-```{r}
+```{r, echo = FALSE, message=FALSE, warning=FALSE}
+
 DepresionCCAA <- fromJSON(file = "Data/DepresionCCAA.json")
 #DepresionCCAA
 ```
 
-```{r}
+```{r, echo = FALSE, message=FALSE, warning=FALSE}
 #DepresionCCAAcsv <- read_delim("Data/DepresionCCAA.csv", delim = ";", show_col_types = FALSE)
 #DepresionCCAAcsv
 ```
 
 
-```{r}
+```{r, echo = FALSE, message=FALSE, warning=FALSE}
+
 Depresion <- spread_all(DepresionCCAA) %>%
   separate(Nombre, into = c("Sexo", "Comunidad", "Prevalencia"), sep = ",") %>%
   select(document.id,Sexo,Comunidad,Prevalencia)
@@ -177,14 +178,14 @@ Depresion <- spread_all(DepresionCCAA) %>%
 Depresion
 ```
 
-```{r}
+```{r, echo = FALSE, message=FALSE, warning=FALSE}
 DepresionCCAA %>% 
   gather_object %>% 
   json_types %>% 
   count(name, type)
 ```
 
-```{r}
+```{r, echo = FALSE, message=FALSE, warning=FALSE}
 dataD <- DepresionCCAA %>%
   enter_object(Data) %>%
   gather_array %>%
@@ -193,7 +194,7 @@ dataD <- DepresionCCAA %>%
 dataD
 ```
 
-```{r}
+```{r, echo = FALSE, message=FALSE, warning=FALSE}
 #no lo necesitamos
 meta <- DepresionCCAA %>%
   enter_object(MetaData) %>%
@@ -202,27 +203,27 @@ meta <- DepresionCCAA %>%
 ```
 
 
-```{r}
+```{r, echo = FALSE, message=FALSE, warning=FALSE}
 # Union tablas de depresion (Copleta)
 union_depresion <- full_join(dataD,Depresion,by="document.id")%>%
   relocate(Valor, .after = Prevalencia)
 union_depresion
 ```
-```{r}
+```{r, echo = FALSE, message=FALSE, warning=FALSE}
 Depresion_final <- rename (.data = union_depresion,
                     'Valor_Depresion'=Valor, 'Sexo_Depresion'=Sexo)
 Depresion_final
 ```
-```{r}
+```{r, echo = FALSE, message=FALSE, warning=FALSE}
 levels(factor(Depresion_final$Comunidad))
 ```
 
-```{r}
+```{r, echo = FALSE, message=FALSE, warning=FALSE}
 Depresion_final <- Depresion_final %>%
   select(document.id, Sexo_Depresion, Prevalencia, Valor_Depresion)
 ```
 
-```{r}
+```{r, echo = FALSE, message=FALSE, warning=FALSE}
 Depresion_final <- Depresion_final %>%
   mutate(Comunidad = rep(c('Total nacional', 'Andalucía', 'Aragón', 'Asturias', 'Balears', 'Canarias', 'Cantabria', 'Castilla y León','Castilla-La Mancha', 'Cataluña', 'Comunitat Valenciana', 'Extremadura', 'Galicia', 'Madrid', 'Murcia', 'Navarra', 'País Vasco', 'Rioja','Ceuta', 'Melilla'), each = 4, length.out = 240))
 Depresion_final
@@ -232,21 +233,21 @@ Depresion_final
 
 2º CONJUNTO DE DATOS
 Enfermedades Mentales por CCAA
-```{r}
+```{r, echo = FALSE, message=FALSE, warning=FALSE}
 EnfermedadesMentales <- fromJSON(file = "Data/EnfermedadesMentales.json")
 
 ```
 
-```{r}
+```{r, echo = FALSE, message=FALSE, warning=FALSE}
 #EnfermedadesMentales.csv <- read_delim("Data/EnfermedadesMentales.csv", delim = ";", show_col_types = FALSE)
 #EnfermedadesMentales.csv
 ```
 
-```{r}
+```{r, echo = FALSE, message=FALSE, warning=FALSE}
 enfermedadesMentales <- spread_all(EnfermedadesMentales)
 enfermedadesMentales
 ```
-```{r}
+```{r, echo = FALSE, message=FALSE, warning=FALSE}
 EnfMentales <- enfermedadesMentales %>%
   separate(Nombre, into = c("Comunidad","Sexo","Enfermedad"), sep = ",") %>%
   select(document.id,Comunidad,Sexo,Enfermedad)
@@ -255,14 +256,14 @@ EnfMentales
 ```
 
 
-```{r}
+```{r, echo = FALSE, message=FALSE, warning=FALSE}
 enfermedadesMentales %>% 
   gather_object %>% 
   json_types %>% 
   count(name, type)
 ```
 
-```{r}
+```{r, echo = FALSE, message=FALSE, warning=FALSE}
 dataM <- EnfermedadesMentales %>%
   enter_object(Data) %>%
   gather_array %>%
@@ -272,7 +273,7 @@ dataM
 ```
 
 
-```{r}
+```{r, echo = FALSE, message=FALSE, warning=FALSE}
 #No lo necesitamos
 metaM <- EnfermedadesMentales %>%
   enter_object(MetaData) %>%
@@ -281,32 +282,32 @@ metaM <- EnfermedadesMentales %>%
 metaM
 ```
 
-```{r}
+```{r, echo = FALSE, message=FALSE, warning=FALSE}
 union_enfMentales <- full_join(dataM,EnfMentales,by="document.id") %>%
   relocate(Valor, .after = Enfermedad)
 union_enfMentales
 ```
 
 
-```{r}
+```{r, echo = FALSE, message=FALSE, warning=FALSE}
 EnfMentales_final <- rename (.data = union_enfMentales,
                     'Valor_EnfMental'=Valor, 'Enfermedad_Mental'= Enfermedad, 'Sexo_EnfMental'=Sexo)
 EnfMentales_final
 ```
-```{r}
+```{r, echo = FALSE, message=FALSE, warning=FALSE}
 levels(factor(EnfMentales_final$Comunidad))
 ```
-```{r}
+```{r, echo = FALSE, message=FALSE, warning=FALSE}
 EnfMentales_final <- EnfMentales_final %>%
   select(document.id, Sexo_EnfMental, Enfermedad_Mental, Valor_EnfMental)
 ```
 
-```{r}
+```{r, echo = FALSE, message=FALSE, warning=FALSE}
 EnfMentales_final <- EnfMentales_final %>%
   mutate(Comunidad = rep(c('Total nacional', 'Andalucía', 'Aragón', 'Asturias', 'Balears', 'Canarias', 'Cantabria', 'Castilla y León','Castilla-La Mancha', 'Cataluña', 'Comunitat Valenciana', 'Extremadura', 'Galicia', 'Madrid', 'Murcia', 'Navarra', 'País Vasco', 'Rioja','Ceuta', 'Melilla'), each = 15, length.out = 300))
 EnfMentales_final
 ```
-```{r}
+```{r, echo = FALSE, message=FALSE, warning=FALSE}
 levels(factor(EnfMentales_final$Enfermedad_Mental))
 EnfMentales_final<- EnfMentales_final %>%
   filter(Enfermedad_Mental %in% c(" Ansiedad crónica", " Depresión crónica", "Esquizofrenia", " Trastorno bipolar", " Trastornos del espectro del autismo"))
@@ -318,29 +319,29 @@ EnfMentales_final
 
 3º CONJUNTO DE DATOS
 PIB por CCAA
-```{r}
+```{r, echo = FALSE, message=FALSE, warning=FALSE}
 PIB <- fromJSON(file = "Data/PIB.json")
 ```
 
-```{r}
+```{r, echo = FALSE, message=FALSE, warning=FALSE}
 #PIB.csv <- read_delim(file = "Data/PIB.csv", delim = ";", show_col_types = FALSE)
 #PIB.csv
 ```
 
-```{r}
+```{r, echo = FALSE, message=FALSE, warning=FALSE}
 pib <- spread_all(PIB)
 pib
 ```
 
 
-```{r}
+```{r, echo = FALSE, message=FALSE, warning=FALSE}
 PIb <- pib %>%
   separate(Nombre, into = c("Comunidad","DB","Tasa de crecimiento"), sep = ". ")   %>% select(document.id,Comunidad)
 PIb
 ```
 
 
-```{r}
+```{r, echo = FALSE, message=FALSE, warning=FALSE}
 pib %>% 
   gather_object %>% 
   json_types %>% 
@@ -440,8 +441,30 @@ suicidio2020 <- Suicidio_final %>%
 ```
 
 ```{r}
-depr_y_suicidio <- right_join(Depresion_final, suicidio2020, by = "document.id")
+depr_y_suicidio <- right_join(Depresion_final, Suicidio_final, by = "Comunidad")
 depr_y_suicidio
+unique(depr_suicidio)
+depr_y_suicidio <- depr_y_suicidio[, c("Comunidad","Sexo_Depresion","Prevalencia","Valor_Depresion","Valor_Suicidio")] %>%
+  filter(depr_y_suicidio$Comunidad!="Total nacional")
+depr_y_suicidio 
+```
+
+
+```{r}
+depr_y_suicidio <- depr_y_suicidio %>%
+  group_by(Comunidad) %>%
+  summarise(vDepresion = mean(Valor_Depresion), vSuicidio = mean(Valor_Suicidio))
+```
+
+
+```{r}
+# Esto no se si está bien porque no se relacionar depresion y suicidio
+ggplot(depr_y_suicidio, aes(x = vDepresion, y = vSuicidio)) +
+  geom_point(aes(colour=Comunidad)) +
+  labs(title = "Relación entre la depresión y Casos de Suicidio por Comunidad",
+       x = "Depresion",
+       y = "Casos de Suicidio") +
+  theme_minimal()
 ```
 UNION PIB Y DEPRESION + SUICIDIO
 ```{r}
@@ -511,7 +534,7 @@ Ahora lo que vamos a hacer es estudiar otro conjunto de datos: la depresión en 
 Iremos estudiando la depresión con sus distintas variables y posteriormente, la estudiaremos frente al suicidio para ver como estos datos se relacionan entre sí.
 
 #### Prevalencia de la depresión
-```{r}
+```{r, echo = FALSE, message=FALSE, warning=FALSE}
 Depresion_filt<- Depresion_final %>%
   filter(Prevalencia %in% c(" Cuadro depresivo mayor", " Otros cuadros depresivos"))
 Depresion_filt
@@ -698,18 +721,18 @@ ggplot(data = pib_suici, aes(x=Total, y = Valor_Suicidio)) +
 
 Vamos a unir el conjunto de datos de enfermedades mentales, y de suicidio, para ver la relación que existe entre estas patologias y la tasa de suicidio:
 
-```{r}
+```{r, echo = FALSE, message=FALSE, warning=FALSE}
 str(EnfMentales_final)
 EnfMentales_final
 ```
 
-```{r}
+```{r, echo = FALSE, message=FALSE, warning=FALSE}
 levels(factor(Suicidio_final$Comunidad))
 levels(factor(EnfMentales_final$Comunidad))
 ```
 
 
-```{r}
+```{r, echo = FALSE, message=FALSE, warning=FALSE}
 EM_suicidio <- full_join(EnfMentales_final, Suicidio_final, by = c("Comunidad"))
 EM_suicidio
 ```
