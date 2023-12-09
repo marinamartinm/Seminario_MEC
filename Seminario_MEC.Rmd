@@ -368,6 +368,33 @@ MetaP
 union_pib <- full_join(dataP,PIb,by="document.id")
 union_pib
 ```
+```{r}
+
+for (i in seq_along(PIB)) {
+  # Verificar si Data existe y tiene al menos un elemento
+  if ("Data" %in% names(PIB[[i]]) && length(PIB[[i]]$Data) > 0) {
+    # Acceder a la información de la primera fila de Data
+    cod <- PIB[[i]]$COD
+    nombre <- PIB[[i]]$Nombre
+    anyo <- PIB[[i]]$Data[[1]]$Anyo
+    valor <- PIB[[i]]$Data[[1]]$Valor
+    
+    
+    cat("Fila:", i, "\n")
+    cat("COD:", cod, "\n")
+    cat("Nombre:", nombre, "\n")
+    cat("Anyo:", anyo, "\n")
+    cat("Valor:", valor, "\n\n")
+  } else {
+    cat("No hay datos para la fila", i, "\n\n")
+  }
+}
+
+```
+```{r}
+#library("knitr")
+#include_graphics("Seminario_MEC/Data/CapturaSeminario.png")
+```
 
 
 
@@ -621,7 +648,7 @@ Iremos estudiando la depresión con sus distintas variables y posteriormente, la
 
 #### Prevalencia de la depresión
 ```{r, echo = FALSE, message=FALSE, warning=FALSE}
-levels(factor(Depresion_final$))
+levels(factor(Depresion_final$Prevalencia))
 Depresion_filt<- Depresion_final %>%
   filter(Prevalencia %in% c(" Cuadro depresivo mayor", " Otros cuadros depresivos"))
 Depresion_filt
