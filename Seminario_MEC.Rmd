@@ -543,7 +543,6 @@ pib_Suic2020 <- pib_Suic2020 %>%
   group_by(Comunidad) %>%  #Agrupamos los datos por Comunidad.
   summarise(vSuicidio = mean(Valor_Suicidio), vPIB = mean(Total))
 pib_Suic2020
-
 ```
 
 
