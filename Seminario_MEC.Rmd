@@ -441,9 +441,16 @@ suicidio2020 <- Suicidio_final %>%
 ```
 
 ```{r}
-depr_y_suicidio <- right_join(Depresion_final, Suicidio_final, by = "Comunidad")  #Unimos los dataset Depresion_final y Suicidio_final mediante la columna común Cominudad.
+levels(factoresion_final$Prevalencia))
+Depresion_filt<- Depresion_final %>%
+  filter(Prevalencia %in% c(" Cuadro depresivo mayor", " Otros cuadros depresivos"))
+Depresion_filt
+```
+
+```{r}
+depr_y_suicidio <- right_join(Depresion_filt, Suicidio_final, by = "Comunidad")  #Unimos los dataset Depresion_final y Suicidio_final mediante la columna común Cominudad.
 depr_y_suicidio
-unique(depr_suicidio)  #Eliminamos filas duplicadas.
+unique(depr_y_suicidio)  #Eliminamos filas duplicadas.
 depr_y_suicidio <- depr_y_suicidio[, c("Comunidad","Sexo_Depresion","Prevalencia","Valor_Depresion","Valor_Suicidio")] %>%
   filter(depr_y_suicidio$Comunidad!="Total nacional")  #Filtramos para expluis las filas con el valor "Total Nacional".
 depr_y_suicidio 
@@ -466,6 +473,19 @@ ggplot(depr_y_suicidio, aes(x = vDepresion, y = vSuicidio)) +
        y = "Casos de Suicidio") +
   theme_minimal()
 ```
+```{r}
+levels(factor(depr_suicidio$Comunidad))
+
+ggplot(depr_y_suicidio, aes(x = Comunidad)) +
+  geom_bar(aes(y = vSuicidio, fill = "Suicidio"), position = "dodge", stat = "identity") +
+  geom_bar(aes(y = vDepresion, fill = "Depresion"), position = "dodge", stat = "identity") +
+  labs(title = "Relación entre la depresión y Casos de Suicidio por Comunidad",
+       x = "Comunidad",
+       y = "Valor") +
+  scale_fill_manual(values = c("Depresion" = "blue", "Suicidio" = "red")) +
+  theme_minimal()
+```
+
 
 
 UNION PIB Y DEPRESION + SUICIDIO
@@ -537,6 +557,7 @@ Iremos estudiando la depresión con sus distintas variables y posteriormente, la
 
 #### Prevalencia de la depresión
 ```{r, echo = FALSE, message=FALSE, warning=FALSE}
+levels(factor(Depresion_final$))
 Depresion_filt<- Depresion_final %>%
   filter(Prevalencia %in% c(" Cuadro depresivo mayor", " Otros cuadros depresivos"))
 Depresion_filt
