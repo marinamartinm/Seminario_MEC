@@ -495,7 +495,9 @@ UNION PIB Y DEPRESION + SUICIDIO
 library(readr)
 PIB.csv <- read_delim(file = "Data/PIB.csv", delim = ";", show_col_types = FALSE)
 PIB.csv
+levels(factor(PIB.csv$Comunidad))
 ```
+
 ```{r}
 levels(factor(PIB.csv$Comunidad))
 levels(factor(Suicidio_final$Comunidad))
@@ -503,14 +505,17 @@ levels(factor(Suicidio_final$Comunidad))
 levels(factor(PIB.csv$Periodo))
 ```
 
-```{r}
+
+```{r} 
+#Nos quedamos con los años que nos son de utildad para poder relacionar PIB.csv con el dataset de suicidio; 2021 también lo excluimos ya que todos sus valores son NAs.
 PIB.csv <- PIB.csv %>%
-  mutate(Comunidad = rep(c('Total nacional', 'Andalucía', 'Aragón', 'Asturias', 'Balears', 'Canarias', 'Cantabria', 'Castilla y León','Castilla-La Mancha', 'Cataluña', 'Comunitat Valenciana', 'Extremadura', 'Galicia', 'Madrid', 'Murcia', 'Navarra', 'País Vasco', 'Rioja','Ceuta', 'Melilla'), each = 7, length.out = 80))
+  filter(Periodo %in% c("2018", "2019", "2020"))
 ```
 ```{r}
 PIB.csv <- PIB.csv %>%
-  filter(Periodo %in% c("2018", "2019", "2020", "2021"))
+  mutate(Comunidad = rep(c('Total nacional', 'Andalucía', 'Aragón', 'Asturias', 'Balears', 'Canarias', 'Cantabria', 'Castilla y León','Castilla-La Mancha', 'Cataluña', 'Comunitat Valenciana', 'Extremadura', 'Galicia', 'Madrid', 'Murcia', 'Navarra', 'País Vasco', 'Rioja','Ceuta', 'Melilla'), each = 3, length.out = 60))
 ```
+
 
 ```{r}
 pib2020 <- PIB.csv %>% filter(Periodo=="2020")
@@ -527,20 +532,40 @@ ggplot(data = pib2020, aes(x=Comunidad, y = Total)) +
 
 
 ```{r}
-pib_Suic <- full_join(suicidio2020, pib2020, by = "Comunidad")
+levels(factor(pib2020$Comunidad))
+levels(factor(suicidio2020$Comunidad))
+
+pib_Suic2020 <- full_join(suicidio2020, pib2020, by = "Comunidad")
 pib_Suic
 ```
+```{r}
+pib_Suic2020 <- pib_Suic2020 %>%
+  group_by(Comunidad) %>%  #Agrupamos los datos por Comunidad.
+  summarise(vSuicidio = mean(Valor_Suicidio), vPIB = mean(Total))
+pib_Suic2020
+```
+
 
 ```{r}
 ggplot(pib_Suic, aes(x = Comunidad)) +
-  geom_bar(aes(y = vSuicidio, fill = "Suicidio"), position = "dodge", stat = "identity") +
-  geom_bar(aes(y = vDepresion, fill = "Depresion"), position = "dodge", stat = "identity") +
+  geom_bar(aes(y = Valor_Suicidio, fill = "Suicidio"), position = "dodge", stat = "identity") +
+  geom_bar(aes(y = Total, fill = "Depresion"), position = "dodge", stat = "identity") +
   labs(title = "Relación entre la depresión y Casos de Suicidio por Comunidad",
        x = "Comunidad",
        y = "Valor") +
-  scale_fill_manual(values = c("Depresion" = "blue", "Suicidio" = "red")) +
+  scale_fill_manual(values = c("Depresion" = "green", "Suicidio" = "brown")) +
   theme_minimal()
 ```
+
+
+```{r}
+levels(factor(PIB.csv$Comunidad))
+levels(factor(Suicidio_final$Comunidad))
+
+pib_suicidio <- full_join(Suicidio_final,PIB.csv, by = "Comunidad")
+```
+
+
 
 
 ### Suicidio
