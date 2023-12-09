@@ -170,32 +170,32 @@ DepresionCCAA <- fromJSON(file = "Data/DepresionCCAA.json")
 
 
 ```{r, echo = FALSE, message=FALSE, warning=FALSE}
-
-Depresion <- spread_all(DepresionCCAA) %>%
-  separate(Nombre, into = c("Sexo", "Comunidad", "Prevalencia"), sep = ",") %>%
-  select(document.id,Sexo,Comunidad,Prevalencia)
+# 
+Depresion <- spread_all(DepresionCCAA) %>%  #Extendemos todas las columnas del dataset.
+  separate(Nombre, into = c("Sexo", "Comunidad", "Prevalencia"), sep = ",") %>%  #Separamos columnas.
+  select(document.id,Sexo,Comunidad,Prevalencia)  #Seleccionamos las columnas que nos interesan.
 
 Depresion
 ```
 
 ```{r, echo = FALSE, message=FALSE, warning=FALSE}
 DepresionCCAA %>% 
-  gather_object %>% 
-  json_types %>% 
-  count(name, type)
+  gather_object %>%  #Agregamos un objeto JSON en pares de nombre-valor.
+  json_types %>%  #Determinamos los tipos de datos de los valores JSON.
+  count(name, type)  #Contamos el número de valores de cada tipo de datos.
 ```
 
 ```{r, echo = FALSE, message=FALSE, warning=FALSE}
 dataD <- DepresionCCAA %>%
-  enter_object(Data) %>%
-  gather_array %>%
-  spread_all %>%   #para que lo reconozca y lo ponga como columnas(lo separa)
-  select(document.id, Valor)
+  enter_object(Data) %>%  #Entramos en el objeto JSON "Data"
+  gather_array %>%  #Agrupamos los elementos de un array JSON en pares de índice-valor.
+  spread_all %>%   #Extendemos los elementos del array en columnas.
+  select(document.id, Valor)  #Seleccionamos columnas.
 dataD
 ```
 
 ```{r, echo = FALSE, message=FALSE, warning=FALSE}
-#no lo necesitamos
+#No lo necesitamos
 meta <- DepresionCCAA %>%
   enter_object(MetaData) %>%
   gather_array %>%
@@ -205,17 +205,17 @@ meta <- DepresionCCAA %>%
 
 ```{r, echo = FALSE, message=FALSE, warning=FALSE}
 # Union tablas de depresion (Copleta)
-union_depresion <- full_join(dataD,Depresion,by="document.id")%>%
-  relocate(Valor, .after = Prevalencia)
+union_depresion <- full_join(dataD,Depresion,by="document.id")%>%  #Unimos en función de una columna común.
+  relocate(Valor, .after = Prevalencia)  #Movemos la columna Valor detras de la de Prevalencia.
 union_depresion
 ```
 ```{r, echo = FALSE, message=FALSE, warning=FALSE}
 Depresion_final <- rename (.data = union_depresion,
-                    'Valor_Depresion'=Valor, 'Sexo_Depresion'=Sexo)
+                    'Valor_Depresion'=Valor, 'Sexo_Depresion'=Sexo)  #Renombramos columnas con los nombres que nos interesan.
 Depresion_final
 ```
 ```{r, echo = FALSE, message=FALSE, warning=FALSE}
-levels(factor(Depresion_final$Comunidad))
+levels(factor(Depresion_final$Comunidad))  #Comprobamos los valores de la columna Comunidad para ver si son compatibles con el resto de tablas que queremos unir. 
 ```
 
 ```{r, echo = FALSE, message=FALSE, warning=FALSE}
@@ -225,7 +225,7 @@ Depresion_final <- Depresion_final %>%
 
 ```{r, echo = FALSE, message=FALSE, warning=FALSE}
 Depresion_final <- Depresion_final %>%
-  mutate(Comunidad = rep(c('Total nacional', 'Andalucía', 'Aragón', 'Asturias', 'Balears', 'Canarias', 'Cantabria', 'Castilla y León','Castilla-La Mancha', 'Cataluña', 'Comunitat Valenciana', 'Extremadura', 'Galicia', 'Madrid', 'Murcia', 'Navarra', 'País Vasco', 'Rioja','Ceuta', 'Melilla'), each = 4, length.out = 240))
+  mutate(Comunidad = rep(c('Total nacional', 'Andalucía', 'Aragón', 'Asturias', 'Balears', 'Canarias', 'Cantabria', 'Castilla y León','Castilla-La Mancha', 'Cataluña', 'Comunitat Valenciana', 'Extremadura', 'Galicia', 'Madrid', 'Murcia', 'Navarra', 'País Vasco', 'Rioja','Ceuta', 'Melilla'), each = 4, length.out = 240))  #Creamos una nueva columna Comunidad, en la que aparecen los nombres de las CCAA que nos interesan, para que podamos unir dos tablas, pero siguiendo la misma distrubución que tenía la columna Comunidad atiaua para no alterar los datos. 
 Depresion_final
 ```
 
@@ -234,8 +234,7 @@ Depresion_final
 2º CONJUNTO DE DATOS
 Enfermedades Mentales por CCAA
 ```{r, echo = FALSE, message=FALSE, warning=FALSE}
-EnfermedadesMentales <- fromJSON(file = "Data/EnfermedadesMentales.json")
-
+EnfermedadesMentales <- fromJSON(file = "Data/EnfermedadesMentales.json")  #La importación de este dataset sigue el mismo procedimiento que el anterior.
 ```
 
 ```{r, echo = FALSE, message=FALSE, warning=FALSE}
@@ -310,7 +309,7 @@ EnfMentales_final
 ```{r, echo = FALSE, message=FALSE, warning=FALSE}
 levels(factor(EnfMentales_final$Enfermedad_Mental))
 EnfMentales_final<- EnfMentales_final %>%
-  filter(Enfermedad_Mental %in% c(" Ansiedad crónica", " Depresión crónica", "Esquizofrenia", " Trastorno bipolar", " Trastornos del espectro del autismo"))
+  filter(Enfermedad_Mental %in% c(" Ansiedad crónica", " Depresión crónica", "Esquizofrenia", " Trastorno bipolar", " Trastornos del espectro del autismo"))  #Filtamos la columna Enfermedad_Mental para que aparezcan unicamnete los valores deseados.
 EnfMentales_final
 ```
 
@@ -375,6 +374,7 @@ union_pib
 4º CONJUNTO DE DATOS
 ```{r}
 Suicidio <- fromJSON(file = "Data/Suicidio.json")
+#Este último dataset sigue los mismos pasos de importación y tratamiento que los datos anteriores.
 ```
 
 ```{r}
@@ -441,19 +441,19 @@ suicidio2020 <- Suicidio_final %>%
 ```
 
 ```{r}
-depr_y_suicidio <- right_join(Depresion_final, Suicidio_final, by = "Comunidad")
+depr_y_suicidio <- right_join(Depresion_final, Suicidio_final, by = "Comunidad")  #Unimos los dataset Depresion_final y Suicidio_final mediante la columna común Cominudad.
 depr_y_suicidio
-unique(depr_suicidio)
+unique(depr_suicidio)  #Eliminamos filas duplicadas.
 depr_y_suicidio <- depr_y_suicidio[, c("Comunidad","Sexo_Depresion","Prevalencia","Valor_Depresion","Valor_Suicidio")] %>%
-  filter(depr_y_suicidio$Comunidad!="Total nacional")
+  filter(depr_y_suicidio$Comunidad!="Total nacional")  #Filtramos para expluis las filas con el valor "Total Nacional".
 depr_y_suicidio 
 ```
 
 
 ```{r}
 depr_y_suicidio <- depr_y_suicidio %>%
-  group_by(Comunidad) %>%
-  summarise(vDepresion = mean(Valor_Depresion), vSuicidio = mean(Valor_Suicidio))
+  group_by(Comunidad) %>%  #Agrupamos los datos por Comunidad.
+  summarise(vDepresion = mean(Valor_Depresion), vSuicidio = mean(Valor_Suicidio))  #Calculamos la media de la Tasa de depresión y suicidio, para cada Comunidad.
 ```
 
 
@@ -466,6 +466,8 @@ ggplot(depr_y_suicidio, aes(x = vDepresion, y = vSuicidio)) +
        y = "Casos de Suicidio") +
   theme_minimal()
 ```
+
+
 UNION PIB Y DEPRESION + SUICIDIO
 ```{r}
 library(readr)
