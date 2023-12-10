@@ -758,9 +758,9 @@ print(grafico_Suicidio_sexo)
 
 ###CASO 3: Suicidio y PIB
 ```{r}
-#Suicidio_final <- 
-  #Suicidio_final %>%
-  #rename("Periodo" = Año_Suicidio)
+Suicidio_final <- 
+  Suicidio_final %>%
+  rename("Periodo" = Año_Suicidio)
 ```
 
 
