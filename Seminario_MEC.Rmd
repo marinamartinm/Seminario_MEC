@@ -155,7 +155,7 @@ El formato de datos escogido son tanto .csv como .json.
 
 ## Importación
 
-###1º CONJUNTO DE DATOS: Depresión por CCAA
+###1º Conjunto de datos: Depresión por CCAA
 ```{r, echo = FALSE, message=FALSE, warning=FALSE}
 
 DepresionCCAA <- fromJSON(file = "Data/DepresionCCAA.json")
@@ -230,7 +230,7 @@ Depresion_final
 
 
 
-### 2º CONJUNTO DE DATOS: Enfermedades Mentales por CCAA
+### 2º Conjunto de datos: Enfermedades Mentales por CCAA
 ```{r, echo = FALSE, message=FALSE, warning=FALSE}
 EnfermedadesMentales <- fromJSON(file = "Data/EnfermedadesMentales.json")  #La importación de este dataset sigue el mismo procedimiento que el anterior.
 ```
@@ -311,7 +311,7 @@ EnfMentales_final<- EnfMentales_final %>%
 EnfMentales_final
 ```
 
-### 3º CONJUNTO DE DATOS: PIB por CCAA
+### 3º Conjunto DE DATOS: PIB por CCAA
 ```{r, echo = FALSE, message=FALSE, warning=FALSE}
 PIB <- fromJSON(file = "Data/PIB.json")
 ```
@@ -391,7 +391,7 @@ include_graphics("Seminario_MEC/Data/CapturaSeminario.png")
 
 
 
-### 4º CONJUNTO DE DATOS: Suicidio
+### 4º Conjunto de datos: Suicidio
 ```{r}
 Suicidio <- fromJSON(file = "Data/Suicidio.json")
 #Este último dataset sigue los mismos pasos de importación y tratamiento que los datos anteriores.
@@ -758,7 +758,7 @@ ggplot(data = Depresion_filt2, aes(x=Valor_Depresion, y = Comunidad)) +
 ###CASO 2: Depresión y Suicidio
 
 ```{r}
-#NOOOO ya esta hecho arriba (En Depresion)
+
 Depresion_final <- Depresion_final %>%
   mutate(Comunidad = ifelse(Comunidad == 'Asturias (Principado de)', 'Asturias', Comunidad))
   #mutate(Comunidad = gsub("Asturias (Principado de)", "Asturias", Comunidad))
