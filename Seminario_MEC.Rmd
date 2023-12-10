@@ -606,6 +606,7 @@ Antes de realizar el planteamineto de los resultados, me gustaria explicar porqu
 Como podemos ver, tanto en las tablas, como en las gráficas obtenidas, no se aprecia una relación directa entre la Tasa de Suicidio y el Producto Interior Bruto de de cada Comunidad Autónoma, al igual que tampoco existe ninguna relación en como varian estos valores a lo largo de estos 3 años que comparamos, ya que en cada conjunto de datos o en cada gráfica, cada vez toman valores totalmente diferentes tanto para los casos de Suicidio, como del PIB, por lo tanto podemos confirmar que no existe ningina relación, ni nigún tipo de vinculo que nos ayude a explicar como el PIB de cada Comunidad Autonoma influye en el número de suicidios que se dan en cada una de ellas.  
 
 
+
 ### Suicidio
 Vamos a empezar analizando los datos relacionados con el suicidio en nuestr país para ponernos un poco en contexto de cómo está la situación y partir de una base.
 En primer lugar, convertimos la columna AnoSuicidio del dataframe Suicidio en un factor. Después, mostramos los niveles de la variable Edad_Suicidio y filtramos las filas del dataframe donde la variable Edad_Suicidio coincide con una de las edades especificadas en el vector de caracteres.
