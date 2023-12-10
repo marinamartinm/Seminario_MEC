@@ -229,89 +229,7 @@ Depresion_final
 ```
 
 
-
-### 2º Conjunto de datos: Enfermedades Mentales por CCAA
-```{r, echo = FALSE, message=FALSE, warning=FALSE}
-EnfermedadesMentales <- fromJSON(file = "Data/EnfermedadesMentales.json")  #La importación de este dataset sigue el mismo procedimiento que el anterior.
-```
-
-```{r, echo = FALSE, message=FALSE, warning=FALSE}
-#EnfermedadesMentales.csv <- read_delim("Data/EnfermedadesMentales.csv", delim = ";", show_col_types = FALSE)
-#EnfermedadesMentales.csv
-```
-
-```{r, echo = FALSE, message=FALSE, warning=FALSE}
-enfermedadesMentales <- spread_all(EnfermedadesMentales)
-enfermedadesMentales
-```
-```{r, echo = FALSE, message=FALSE, warning=FALSE}
-EnfMentales <- enfermedadesMentales %>%
-  separate(Nombre, into = c("Comunidad","Sexo","Enfermedad"), sep = ",") %>%
-  select(document.id,Comunidad,Sexo,Enfermedad)
-
-EnfMentales
-```
-
-
-```{r, echo = FALSE, message=FALSE, warning=FALSE}
-enfermedadesMentales %>% 
-  gather_object %>% 
-  json_types %>% 
-  count(name, type)
-```
-
-```{r, echo = FALSE, message=FALSE, warning=FALSE}
-dataM <- EnfermedadesMentales %>%
-  enter_object(Data) %>%
-  gather_array %>%
-  spread_all %>%   #para que lo reconozca y lo ponga como columnas(lo separa)
-  select(document.id, Valor)
-dataM
-```
-
-
-```{r, echo = FALSE, message=FALSE, warning=FALSE}
-#No lo necesitamos
-metaM <- EnfermedadesMentales %>%
-  enter_object(MetaData) %>%
-  gather_array %>%
-  spread_all
-metaM
-```
-
-```{r, echo = FALSE, message=FALSE, warning=FALSE}
-union_enfMentales <- full_join(dataM,EnfMentales,by="document.id") %>%
-  relocate(Valor, .after = Enfermedad)
-union_enfMentales
-```
-
-
-```{r, echo = FALSE, message=FALSE, warning=FALSE}
-EnfMentales_final <- rename (.data = union_enfMentales,
-                    'Valor_EnfMental'=Valor, 'Enfermedad_Mental'= Enfermedad, 'Sexo_EnfMental'=Sexo)
-EnfMentales_final
-```
-```{r, echo = FALSE, message=FALSE, warning=FALSE}
-levels(factor(EnfMentales_final$Comunidad))
-```
-```{r, echo = FALSE, message=FALSE, warning=FALSE}
-EnfMentales_final <- EnfMentales_final %>%
-  select(document.id, Sexo_EnfMental, Enfermedad_Mental, Valor_EnfMental)
-```
-
-```{r, echo = FALSE, message=FALSE, warning=FALSE}
-EnfMentales_final <- EnfMentales_final %>%
-  mutate(Comunidad = rep(c('Total nacional', 'Andalucía', 'Aragón', 'Asturias', 'Balears', 'Canarias', 'Cantabria', 'Castilla y León','Castilla-La Mancha', 'Cataluña', 'Comunitat Valenciana', 'Extremadura', 'Galicia', 'Madrid', 'Murcia', 'Navarra', 'País Vasco', 'Rioja','Ceuta', 'Melilla'), each = 15, length.out = 300))
-EnfMentales_final
-```
-```{r, echo = FALSE, message=FALSE, warning=FALSE}
-levels(factor(EnfMentales_final$Enfermedad_Mental))
-EnfMentales_final<- EnfMentales_final %>%
-  filter(Enfermedad_Mental %in% c(" Ansiedad crónica", " Depresión crónica", "Esquizofrenia", " Trastorno bipolar", " Trastornos del espectro del autismo"))  #Filtamos la columna Enfermedad_Mental para que aparezcan unicamnete los valores deseados.
-EnfMentales_final
-```
-
-### 3º Conjunto DE DATOS: PIB por CCAA
+### 3º Conjunto de datos: PIB por CCAA
 ```{r, echo = FALSE, message=FALSE, warning=FALSE}
 PIB <- fromJSON(file = "Data/PIB.json")
 ```
@@ -818,9 +736,9 @@ print(grafico_Suicidio_sexo)
 
 ###CASO 3: Suicidio y PIB
 ```{r}
-Suicidio_final <- 
-  Suicidio_final %>%
-  rename("Periodo" = Año_Suicidio)
+#Suicidio_final <- 
+  #Suicidio_final %>%
+  #rename("Periodo" = Año_Suicidio)
 ```
 
 
