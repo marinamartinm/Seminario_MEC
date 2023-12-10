@@ -128,15 +128,15 @@ Por todo ello, hemos creido conveniente estudiar el caso. Esta vez vamos a cruza
 
 # Objetivos
 
-<br>
-<div class="column-left">
+
 -	Estudiar la relación entre la aparición de enfermedades frente al sexo. 
-<br>
+
 -	Averiguar si existe relación entre el PIB con los datos sobre enfermedades mentales en España y estudiar si en aquellas comunidades autónomas en las que el PIB sea más bajo tienen influencia sobre la tasa de suicidio de estas.
-<br>
--	Estudiar la relación entre la tasa de suicidio y las enfermedades mentales por comunidad autónoma.
-<br>
+
+-	Estudiar la relación entre la tasa de suicidio y el producto interior bruto por comunidad autónoma.
+
 -	Realizar un estudio general con todas las variables para encontrar una posible relación con la tasa de suicidio.
+
 
 </div class="column-left"></font>
 ![](https://amiif.org/wp-content/uploads/2022/02/depresion.png){width=350px}
@@ -146,7 +146,6 @@ Por todo ello, hemos creido conveniente estudiar el caso. Esta vez vamos a cruza
 # Datos
 
 - PIB por CCAA: "https://www.ine.es/jaxiT3/Datos.htm?t=45599" (Json)
-- Enfermedades Mentales por CCAA: "https://www.ine.es/jaxiT3/Datos.htm?tpx=51400" (Json)
 - Tasa de suicidio por CCAA: "https://www.ine.es/jaxiT3/Datos.htm?tpx=46688" (Json)
 - Depresión por CCAA: "https://datos.gob.es/es/catalogo/ea0010587-prevalencia-de-cuadros-depresivos-activos-segun-sexo-y-comunidad-autonoma-poblacion-de-15-y-mas-anos-identificador-api-t15-p420-a2019-p04-l0-13010-px1" (Json)
 
@@ -229,7 +228,7 @@ Depresion_final
 ```
 
 
-### 3º Conjunto de datos: PIB por CCAA
+### 2º Conjunto de datos: PIB por CCAA
 ```{r, echo = FALSE, message=FALSE, warning=FALSE}
 PIB <- fromJSON(file = "Data/PIB.json")
 ```
@@ -268,7 +267,7 @@ dataP <- pib %>%
 #dataP
 ```
 
-```{r}
+```{r, echo = FALSE, message=FALSE, warning=FALSE}
 MetaP <- pib %>%
   enter_object(MetaData) %>%
   gather_array %>%
@@ -276,13 +275,13 @@ MetaP <- pib %>%
   #select(document.id, Valor)
 MetaP
 ```
-```{r}
+```{r, echo = FALSE, message=FALSE, warning=FALSE}
 union_pib <- full_join(dataP,PIb,by="document.id")
 union_pib
 ```
 Con este conjunto de datos hemos tenido un problema, porque después de hacer todo el tratamiento de los datos e intentar acceder a aquellos valores que nos interesan, nos hemos dado cuenta de que hay error, procedente de la fuente de la que hemos sacado los datos y solo hay valores para la primera fila del conjunto. Cosa que podemos demostrar a través de este bucle en el que accedemos a todos los valores de este conjunto:
 
-```{r}
+```{r, echo = FALSE, message=FALSE, warning=FALSE}
 for (i in seq_along(PIB)) {
   # Verificar si Data existe y tiene al menos un elemento
   if ("Data" %in% names(PIB[[i]]) && length(PIB[[i]]$Data) > 0) {
@@ -304,15 +303,26 @@ for (i in seq_along(PIB)) {
 }
 
 ```
-Como podemos observar, es imposible realizar el estudio con este conjunto de datos en formato Json, por ello, hemos tenido que hacerlo con csv.
+Como podemos observar, es imposible realizar el estudio con este conjunto de datos en formato JSON, por ello, hemos tenido que hacerlo mediante el formato CSV.
+
 ```{r}
-library("knitr")
-include_graphics("C:/MARINA/UBU 2023-2024/FUENTES DE DATOS BIOMEDICAS/SEMINARIO/Seminario_MEC/Data/jsonPIB.jpg")
+install.packages("jpeg")
+library(jpeg)
+
+PIB_json <- readPNG("Data\Fotos\CapturaSeminario.PNG")
+```
+
+```{r}
+PIB.csv <- read_delim(file = "Data/PIB.csv", delim = ";", show_col_types = FALSE)
+PIB.csv
+```
+```{r}
+
 ```
 
 
 
-### 4º Conjunto de datos: Suicidio
+### 3º Conjunto de datos: Suicidio
 ```{r}
 Suicidio <- fromJSON(file = "Data/Suicidio.json")
 #Este último dataset sigue los mismos pasos de importación y tratamiento que los datos anteriores.
