@@ -517,15 +517,15 @@ Podemos ver, tanto en las graficas anteriores, como en la tabla que muestra las 
 No es igualmente proporcional para todas las comunidades, pero como podemos observar en la última gráfica, existe una relación directa en que entre el 20-40% del total de valor de suicidio, se corresponde con los valores de Depresión, por lo que podemos considerar esta enfermedad mental como un factor que influye en los casos de suicidio.
 
 
-UNION PIB Y DEPRESION + SUICIDIO
+UNION PIB Y SUICIDIO
 ```{r}
 library(readr)
 PIB.csv <- read_delim(file = "Data/PIB.csv", delim = ";", show_col_types = FALSE)
 PIB.csv
-levels(factor(PIB.csv$Comunidad))
 ```
 
 ```{r}
+#Comprobamos los valores que se encuentan dentro de nuestro dataset PIB para ver si nos son todos de utilidad.
 levels(factor(PIB.csv$Comunidad))
 levels(factor(Suicidio_final$Comunidad))
 
@@ -539,27 +539,41 @@ PIB.csv <- PIB.csv %>%
   filter(Periodo %in% c("2018", "2019", "2020"))
 ```
 ```{r}
+#También modififcamos la columna de Comunidad para que tenga unos valores similares a los del dataset de Suicidio, y así poder unirlas mediante esta etiqueta.
 PIB.csv <- PIB.csv %>%
   mutate(Comunidad = rep(c('Total nacional', 'Andalucía', 'Aragón', 'Asturias', 'Balears', 'Canarias', 'Cantabria', 'Castilla y León','Castilla-La Mancha', 'Cataluña', 'Comunitat Valenciana', 'Extremadura', 'Galicia', 'Madrid', 'Murcia', 'Navarra', 'País Vasco', 'Rioja','Ceuta', 'Melilla'), each = 3, length.out = 60))
 ```
 
 
 ```{r}
+#Filtramos cada PIB por su año para poder compararlos.
 pib2020 <- PIB.csv %>% filter(Periodo=="2020")
 pib2020
+
+pib2019 <- PIB.csv %>% filter(Periodo=="2019")
+pib2019
+
+pib2018 <- PIB.csv %>% filter(Periodo=="2018")
+pib2018
 ```
 
 ```{r}
 levels(factor(PIB.csv$Comunidad))
 
 ggplot(data = pib2020, aes(x=Comunidad, y = Total)) +
-  geom_bar(stat = "identity", fill = "blue") +
+  geom_bar(stat = "identity", fill = "green") +
   labs(title = "PIB en 2020", x = "Comunidad", y = "PIB")
 
-ggplot(data = pib2020, aes(x=Comunidad, y = Total)) +
-  geom_bar(stat = "identity", fill = "blue") +
-  labs(title = "PIB en 2020", x = "Comunidad", y = "PIB")
+ggplot(data = pib2019, aes(x=Comunidad, y = Total)) +
+  geom_bar(stat = "identity", fill = "purple") +
+  labs(title = "PIB en 2019", x = "Comunidad", y = "PIB")
+
+ggplot(data = pib2018, aes(x=Comunidad, y = Total)) +
+  geom_bar(stat = "identity", fill = "yellow") +
+  labs(title = "PIB en 2018", x = "Comunidad", y = "PIB")
 ```
+Si comparamos los datos de la tabla oiginal PIB y los de los años que nos interesan (interpretando también sus graficas), podemos ver como el producto interior bruto de cada Comunidad Autonoma se mantenia en un constante crecimiento o disminuía ligeramente ,pero en 2020, a causa de la pandemia, este PIB cayó en picado debido a la crisis inseperada que sufrimos por esa situación. 
+Hay que tener en cuenta que los valores muestran el porcentaje de crecimiento y decrecimiento que sufrió cada CCAA en ralcion a PIB.
 
 
 ```{r}
@@ -568,31 +582,14 @@ levels(factor(suicidio2020$Comunidad))
 
 pib_Suic2020 <- full_join(suicidio2020, pib2020, by = "Comunidad")
 pib_Suic2020
-```
-```{r}
+
 pib_Suic2020 <- pib_Suic2020 %>%
   group_by(Comunidad) %>%  #Agrupamos los datos por Comunidad.
   summarise(vSicidio = mean(Valor_Suicidio), Total)
 pib_Suic2020
-
 ```
 
 
-```{r}
-pib_Suic2020$vSicidio <- factor(pib_Suic2020$vSicidio)
-pib_Suic2020$Total <- factor(pib_Suic2020$Total)
-
-levels(factor(pib_Suic2020$Comunidad))
-
-ggplot(pib_Suic2020, aes(x = Comunidad)) +
-  geom_col(aes(y = vSicidio, fill = "Suicidio"), position = "dodge") +
-  geom_col(aes(y = Total, fill = "PIB"), position = "dodge") +
-  labs(title = "Relación entre los Casos de Suicidio y el PIB por Comunidad",
-       x = "Comunidad",
-       y = "Valor") +
-  scale_fill_manual(values = c("green", "brown")) +
-  theme_minimal()
-```
 ```{r}
 pib2018 <- PIB.csv %>% filter(Periodo=="2018")
 suicidio2018 <- Suicidio_final %>% filter(Año_Suicidio==2018)
@@ -603,21 +600,6 @@ pib_Suic2018 <- pib_Suic2018 %>%
   group_by(Comunidad) %>%  #Agrupamos los datos por Comunidad.
   summarise(vSuicidio = mean(Valor_Suicidio), Total)
 pib_Suic2018
-```
-```{r}
-pib_Suic2018$vSuicidio <- factor(pib_Suic2018$vSuicidio)
-pib_Suic2018$Total <- factor(pib_Suic2018$Total)
-
-levels(factor(pib_Suic2018$Comunidad))
-
-ggplot(pib_Suic2018, aes(x = Comunidad)) +
-  geom_col(aes(y = vSuicidio, fill = "Suicidio"), position = "dodge") +
-  geom_col(aes(y = Total, fill = "PIB"), position = "dodge") +
-  labs(title = "Relación entre los Casos de Suicidio y el PIB por Comunidad",
-       x = "Comunidad",
-       y = "Valor") +
-  scale_fill_manual(values = c("yellow", "gray")) +
-  theme_minimal()
 ```
 
 
@@ -633,6 +615,21 @@ pib_Suic2019 <- pib_Suic2019 %>%
 pib_Suic2019
 ```
 ```{r}
+pib_Suic2020$vSicidio <- factor(pib_Suic2020$vSicidio)
+pib_Suic2020$Total <- factor(pib_Suic2020$Total)
+
+levels(factor(pib_Suic2020$Comunidad))
+
+ggplot(pib_Suic2020, aes(x = Comunidad)) +
+  geom_col(aes(y = vSicidio, fill = "Suicidio"), position = "dodge") +
+  geom_col(aes(y = Total, fill = "PIB"), position = "dodge") +
+  labs(title = "Relación entre los Casos de Suicidio y el PIB en 2020",
+       x = "Comunidad",
+       y = "Valor") +
+  scale_fill_manual(values = c("green", "brown")) +
+  theme_minimal()
+
+
 pib_Suic2019$vSuicidio <- factor(pib_Suic2019$vSuicidio)
 pib_Suic2019$Total <- factor(pib_Suic2019$Total)
 
@@ -641,10 +638,25 @@ levels(factor(pib_Suic2019$Comunidad))
 ggplot(pib_Suic2019, aes(x = Comunidad)) +
   geom_col(aes(y = vSuicidio, fill = "Suicidio"), position = "dodge") +
   geom_col(aes(y = Total, fill = "PIB"), position = "dodge") +
-  labs(title = "Relación entre los Casos de Suicidio y el PIB por Comunidad",
+  labs(title = "Relación entre los Casos de Suicidio y el PIB en 2019",
        x = "Comunidad",
        y = "Valor") +
   scale_fill_manual(values = c("purple", "orange")) +
+  theme_minimal()
+
+
+pib_Suic2018$vSuicidio <- factor(pib_Suic2018$vSuicidio)
+pib_Suic2018$Total <- factor(pib_Suic2018$Total)
+
+levels(factor(pib_Suic2018$Comunidad))
+
+ggplot(pib_Suic2018, aes(x = Comunidad)) +
+  geom_col(aes(y = vSuicidio, fill = "Suicidio"), position = "dodge") +
+  geom_col(aes(y = Total, fill = "PIB"), position = "dodge") +
+  labs(title = "Relación entre los Casos de Suicidio y el PIB en 2018",
+       x = "Comunidad",
+       y = "Valor") +
+  scale_fill_manual(values = c("yellow", "gray")) +
   theme_minimal()
 ```
 Al comparar los resultados de las tablas y los graficos 
