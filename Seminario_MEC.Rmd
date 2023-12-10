@@ -816,7 +816,7 @@ print(grafico_Suicidio_sexo)
 
 
 
-###CASO 3
+###CASO 3: Suicidio y PIB
 ```{r}
 Suicidio_final <- 
   Suicidio_final %>%
