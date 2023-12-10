@@ -280,6 +280,8 @@ MetaP
 union_pib <- full_join(dataP,PIb,by="document.id")
 union_pib
 ```
+Con este conjunto de datos hemos tenido un problema, porque después de hacer todo el tratamiento de los datos e intentar acceder a aquellos valores que nos interesan, nos hemos dado cuenta de que hay error, procedente de la fuente de la que hemos sacado los datos y solo hay valores para la primera fila del conjunto. Cosa que podemos demostrar a través de este bucle en el que accedemos a todos los valores de este conjunto:
+
 ```{r}
 for (i in seq_along(PIB)) {
   # Verificar si Data existe y tiene al menos un elemento
@@ -302,6 +304,7 @@ for (i in seq_along(PIB)) {
 }
 
 ```
+Como podemos observar, es imposible realizar el estudio con este conjunto de datos en formato Json, por ello, hemos tenido que hacerlo con csv.
 ```{r}
 library("knitr")
 include_graphics("Seminario_MEC/Data/CapturaSeminario.png")
@@ -369,10 +372,15 @@ Suicidio_final<- Suicidio_final %>%
 Suicidio_final
 ```
 
+# Casos
+A continuación vamos a presentar el desarrollo de los distintos casos de estudio.
 
 ## CASO 1: Depresión y Suicidio en España
 
 UNION DEPRESIÓN Y SUICIDIO
+El tratamiento de estos datos ha consistido en filtrar por el año en primer lugar, quedándonos sólo con el 2020. En cuanto al conjunto datos de depresión, de la varibale de prevalencia solo nos quedamos con los valores " Cuadro depresivo mayor" y " Otros cuadros depresivos", porque las otras varibles son aquellos ciudadanos que no presentan este tipo de transtornos y el total, cosa que no nos interesa estudiar, porque queremos saber cuál es la relación con aquellos que si que padecen de depresión.
+Luego, se eliminan las filas duplicadas, se seleccionan ciertas columnas y se filtran las filas donde el valor de Comunidad no es "Total nacional", porque queremos estudiar las comunidades por separado y el valor total sería redundante.
+
 ```{r}
 suicidio2020 <- Suicidio_final %>%
   filter(Año_Suicidio==2020)
@@ -401,13 +409,13 @@ depr_y_suicidio <- depr_y_suicidio %>%
   summarise(vDepresion = mean(Valor_Depresion), vSuicidio = mean(Valor_Suicidio))  #Calculamos la media de la Tasa de depresión y suicidio, para cada Comunidad.
 depr_y_suicidio
 ```
-
+Este código agrupa los datos en depr_y_suicidio por la columna Comunidad y calcula la media de las columnas Valor_Depresion y Valor_Suicidio para cada grupo, almacenando los resultados en las columnas vDepresion y vSuicidio respectivamente. El resultado es un dataframe con la media de estas variables para cada comunidad.
 
 ```{r}
 # Esto no se si está bien porque no se relacionar depresion y suicidio
 ggplot(depr_y_suicidio, aes(x = vDepresion, y = vSuicidio)) +
   geom_point(aes(colour=Comunidad)) +
-  labs(title = "Relación entre la depresión y Casos de Suicidio por Comunidad",
+  labs(title = "Depresión y Casos de Suicidio por Comunidad",
        x = "Depresion",
        y = "Casos de Suicidio") +
   theme_minimal()
