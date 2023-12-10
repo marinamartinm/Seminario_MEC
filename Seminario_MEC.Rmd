@@ -155,8 +155,7 @@ El formato de datos escogido son tanto .csv como .json.
 
 ## Importación
 
-1º CONJUNTO DE DATOS
-Depresión por CCAA
+###1º CONJUNTO DE DATOS: Depresión por CCAA
 ```{r, echo = FALSE, message=FALSE, warning=FALSE}
 
 DepresionCCAA <- fromJSON(file = "Data/DepresionCCAA.json")
@@ -231,8 +230,7 @@ Depresion_final
 
 
 
-2º CONJUNTO DE DATOS
-Enfermedades Mentales por CCAA
+### 2º CONJUNTO DE DATOS: Enfermedades Mentales por CCAA
 ```{r, echo = FALSE, message=FALSE, warning=FALSE}
 EnfermedadesMentales <- fromJSON(file = "Data/EnfermedadesMentales.json")  #La importación de este dataset sigue el mismo procedimiento que el anterior.
 ```
@@ -313,11 +311,7 @@ EnfMentales_final<- EnfMentales_final %>%
 EnfMentales_final
 ```
 
-
-
-
-3º CONJUNTO DE DATOS
-PIB por CCAA
+### 3º CONJUNTO DE DATOS: PIB por CCAA
 ```{r, echo = FALSE, message=FALSE, warning=FALSE}
 PIB <- fromJSON(file = "Data/PIB.json")
 ```
@@ -369,7 +363,6 @@ union_pib <- full_join(dataP,PIb,by="document.id")
 union_pib
 ```
 ```{r}
-
 for (i in seq_along(PIB)) {
   # Verificar si Data existe y tiene al menos un elemento
   if ("Data" %in% names(PIB[[i]]) && length(PIB[[i]]$Data) > 0) {
@@ -392,13 +385,13 @@ for (i in seq_along(PIB)) {
 
 ```
 ```{r}
-#library("knitr")
-#include_graphics("Seminario_MEC/Data/CapturaSeminario.png")
+library("knitr")
+include_graphics("Seminario_MEC/Data/CapturaSeminario.png")
 ```
 
 
 
-4º CONJUNTO DE DATOS
+### 4º CONJUNTO DE DATOS: Suicidio
 ```{r}
 Suicidio <- fromJSON(file = "Data/Suicidio.json")
 #Este último dataset sigue los mismos pasos de importación y tratamiento que los datos anteriores.
@@ -627,7 +620,10 @@ ggplot(pib_Suic2020, aes(x = Comunidad)) +
        x = "Comunidad",
        y = "Valor") +
   scale_fill_manual(values = c("green", "brown")) +
-  theme_minimal()
+  theme_minimal()+
+  theme(axis.text.x = element_text(angle = 65, hjust = 1),
+        axis.text.y = element_blank())
+#Valor maximo del pib = 5.857, valor mínimo = -10.381
 
 
 pib_Suic2019$vSuicidio <- factor(pib_Suic2019$vSuicidio)
@@ -638,11 +634,14 @@ levels(factor(pib_Suic2019$Comunidad))
 ggplot(pib_Suic2019, aes(x = Comunidad)) +
   geom_col(aes(y = vSuicidio, fill = "Suicidio"), position = "dodge") +
   geom_col(aes(y = Total, fill = "PIB"), position = "dodge") +
-  labs(title = "Relación entre los Casos de Suicidio y el PIB en 2019",
+  labs(title = "Casos de Suicidio y el PIB en 2019",
        x = "Comunidad",
        y = "Valor") +
   scale_fill_manual(values = c("purple", "orange")) +
-  theme_minimal()
+  theme_minimal()+
+  theme(axis.text.x = element_text(angle = 65, hjust = 1),
+        axis.text.y = element_blank())
+#Valor maximo del pib = 9,0175, valor mínimo = 0,41
 
 
 pib_Suic2018$vSuicidio <- factor(pib_Suic2018$vSuicidio)
@@ -650,6 +649,8 @@ pib_Suic2018$Total <- factor(pib_Suic2018$Total)
 
 levels(factor(pib_Suic2018$Comunidad))
 
+```
+```{r}
 ggplot(pib_Suic2018, aes(x = Comunidad)) +
   geom_col(aes(y = vSuicidio, fill = "Suicidio"), position = "dodge") +
   geom_col(aes(y = Total, fill = "PIB"), position = "dodge") +
@@ -657,7 +658,10 @@ ggplot(pib_Suic2018, aes(x = Comunidad)) +
        x = "Comunidad",
        y = "Valor") +
   scale_fill_manual(values = c("yellow", "gray")) +
-  theme_minimal()
+  theme_minimal()+
+  theme(axis.text.x = element_text(angle = 65, hjust = 1),
+        axis.text.y = element_blank())
+#Valor maximo del pib = 9,6039, valor mínimo = -0,41
 ```
 Al comparar los resultados de las tablas y los graficos 
 
