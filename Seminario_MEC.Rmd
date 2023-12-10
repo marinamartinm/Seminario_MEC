@@ -146,12 +146,11 @@ Por todo ello, hemos creido conveniente estudiar el caso. Esta vez vamos a cruza
 # Datos
 
 - PIB por CCAA: "https://www.ine.es/jaxiT3/Datos.htm?t=45599" (Json)
-- Enfermedades Mentales por CCAA: "https://www.ine.es/jaxiT3/Datos.htm?tpx=51400" (Json)
 - Tasa de suicidio por CCAA: "https://www.ine.es/jaxiT3/Datos.htm?tpx=46688" (Json)
 - Depresión por CCAA: "https://datos.gob.es/es/catalogo/ea0010587-prevalencia-de-cuadros-depresivos-activos-segun-sexo-y-comunidad-autonoma-poblacion-de-15-y-mas-anos-identificador-api-t15-p420-a2019-p04-l0-13010-px1" (Json)
 
 Los archivos escogidos pertenecen a dos fuentes de datos: el Instituto Nacional de Estadística (INE) y la página oficial del Gobierno de España (gob.es)
-El formato de datos escogido son tanto .csv como .json.
+El formato de datos escogido son tanto .csv como .json; aunque en un principio trabajaremos únicamente con los datos en formato JSON.
 
 ## Importación
 
@@ -229,14 +228,9 @@ Depresion_final
 ```
 
 
-### 3º Conjunto de datos: PIB por CCAA
+### 2º Conjunto de datos: PIB por CCAA
 ```{r, echo = FALSE, message=FALSE, warning=FALSE}
 PIB <- fromJSON(file = "Data/PIB.json")
-```
-
-```{r, echo = FALSE, message=FALSE, warning=FALSE}
-#PIB.csv <- read_delim(file = "Data/PIB.csv", delim = ";", show_col_types = FALSE)
-#PIB.csv
 ```
 
 ```{r, echo = FALSE, message=FALSE, warning=FALSE}
@@ -309,10 +303,13 @@ Como podemos observar, es imposible realizar el estudio con este conjunto de dat
 library("knitr")
 include_graphics("Seminario_MEC/Data/CapturaSeminario.png")
 ```
+```{r, echo = FALSE, message=FALSE, warning=FALSE}
+PIB.csv <- read_delim(file = "Data/PIB.csv", delim = ";", show_col_types = FALSE)
+PIB.csv
+```
 
 
-
-### 4º Conjunto de datos: Suicidio
+### 3º Conjunto de datos: Tasa de Suicidio por CCAA
 ```{r}
 Suicidio <- fromJSON(file = "Data/Suicidio.json")
 #Este último dataset sigue los mismos pasos de importación y tratamiento que los datos anteriores.
@@ -372,6 +369,7 @@ Suicidio_final<- Suicidio_final %>%
 Suicidio_final
 ```
 
+
 # Casos
 A continuación vamos a presentar el desarrollo de los distintos casos de estudio.
 
@@ -381,10 +379,6 @@ UNION DEPRESIÓN Y SUICIDIO
 El tratamiento de estos datos ha consistido en filtrar por el año en primer lugar, quedándonos sólo con el 2020. En cuanto al conjunto datos de depresión, de la varibale de prevalencia solo nos quedamos con los valores " Cuadro depresivo mayor" y " Otros cuadros depresivos", porque las otras varibles son aquellos ciudadanos que no presentan este tipo de transtornos y el total, cosa que no nos interesa estudiar, porque queremos saber cuál es la relación con aquellos que si que padecen de depresión.
 Luego, se eliminan las filas duplicadas, se seleccionan ciertas columnas y se filtran las filas donde el valor de Comunidad no es "Total nacional", porque queremos estudiar las comunidades por separado y el valor total sería redundante.
 
-```{r}
-suicidio2020 <- Suicidio_final %>%
-  filter(Año_Suicidio==2020)
-```
 
 ```{r}
 levels(factor(Depresion_final$Prevalencia))
@@ -430,7 +424,8 @@ ggplot(depr_y_suicidio, aes(x = Comunidad)) +
        x = "Comunidad",
        y = "Valor") +
   scale_fill_manual(values = c("Depresion" = "blue", "Suicidio" = "red")) +
-  theme_minimal()
+  theme(axis.text.x = element_text(angle = 65, hjust = 1),
+        axis.text.y = element_blank()) 
 ```
 Podemos ver, tanto en las graficas anteriores, como en la tabla que muestra las medias de los valores de depresión y suicidio, que existe una proporcionalidad en relación con estos valores, ya que cuanto menor es el indice de depresión en una determinada CCAA, también lo es su tasa de suicidio. 
 No es igualmente proporcional para todas las comunidades, pero como podemos observar en la última gráfica, existe una relación directa en que entre el 20-40% del total de valor de suicidio, se corresponde con los valores de Depresión, por lo que podemos considerar esta enfermedad mental como un factor que influye en los casos de suicidio.
@@ -504,7 +499,7 @@ ggplot(data = pib2018, aes(x=Comunidad, y = Total)) +
         axis.text.y = element_blank())
 ```
 Si comparamos los datos de la tabla oiginal PIB y los de los años que nos interesan (interpretando también sus graficas), podemos ver como el producto interior bruto de cada Comunidad Autonoma se mantenia en un constante crecimiento o disminuía ligeramente ,pero en 2020, a causa de la pandemia, este PIB cayó en picado debido a la crisis inseperada que sufrimos por esa situación. 
-Hay que tener en cuenta que los valores muestran el porcentaje de crecimiento y decrecimiento que sufrió cada CCAA en relacion a PIB.
+Hay que tener en cuenta que los valores muestran el porcentaje de crecimiento y decrecimiento que sufrió cada CCAA en relación a el PIB.
 
 
 ```{r}
@@ -513,6 +508,8 @@ levels(factor(suicidio2020$Comunidad))
 
 pib_Suic2020 <- full_join(suicidio2020, pib2020, by = "Comunidad")
 pib_Suic2020
+
+suicidio2020 <- Suicidio_final %>% filter(Año_Suicidio==2020)
 
 pib_Suic2020 <- pib_Suic2020 %>%
   group_by(Comunidad) %>%  #Agrupamos los datos por Comunidad.
@@ -545,6 +542,7 @@ pib_Suic2019 <- pib_Suic2019 %>%
   summarise(vSuicidio = mean(Valor_Suicidio), Total)
 pib_Suic2019
 ```
+
 ```{r}
 pib_Suic2020$vSicidio <- factor(pib_Suic2020$vSicidio)
 pib_Suic2020$Total <- factor(pib_Suic2020$Total)
@@ -562,6 +560,7 @@ ggplot(pib_Suic2020, aes(x = Comunidad)) +
   theme(axis.text.x = element_text(angle = 65, hjust = 1),
         axis.text.y = element_blank())
 #Valor maximo del pib = 5.857, valor mínimo = -10.381
+
 
 
 pib_Suic2019$vSuicidio <- factor(pib_Suic2019$vSuicidio)
@@ -582,13 +581,14 @@ ggplot(pib_Suic2019, aes(x = Comunidad)) +
 #Valor maximo del pib = 9,0175, valor mínimo = 0,41
 
 
+
 pib_Suic2018$vSuicidio <- factor(pib_Suic2018$vSuicidio)
 pib_Suic2018$Total <- factor(pib_Suic2018$Total)
 
 levels(factor(pib_Suic2018$Comunidad))
 
-```
-```{r}
+pib_Suic2018
+
 ggplot(pib_Suic2018, aes(x = Comunidad)) +
   geom_col(aes(y = vSuicidio, fill = "Suicidio"), position = "dodge") +
   geom_col(aes(y = Total, fill = "PIB"), position = "dodge") +
@@ -599,10 +599,11 @@ ggplot(pib_Suic2018, aes(x = Comunidad)) +
   theme_minimal()+
   theme(axis.text.x = element_text(angle = 65, hjust = 1),
         axis.text.y = element_blank())
-#Valor maximo del pib = 9,6039, valor mínimo = -0,41
-```
-Al comparar los resultados de las tablas y los graficos 
 
+```
+Antes de realizar el planteamineto de los resultados, me gustaria explicar porque hay 6 comunidades que no muestran los casos de suicidio, estas comunidades son Aragón, Asturias, Balears, Madrid, Murcia y Navarra. Para estas comunidades el PIB no es mayor que la media de suicidios, sino que al hacer la media de los casos de suicidio para estas comunidades devolvió NAs, en vez de un valor, y por lo tanto no aparecen dos colores como en el resto de comunidades. Para la gráfica de 2018 se suman alguna barra más con un único color, pero en esta última gráfica las comunidades con valores aunsentes siguen siendo las mismas,  aunque a la hora de ser representadas mo se muestran los casos de suicidio, como pueden ser Castilla la Mancha o Castilla y León.
+
+Como podemos ver, tanto en las tablas, como en las gráficas obtenidas, no se aprecia una relación directa entre la Tasa de Suicidio y el Producto Interior Bruto de de cada Comunidad Autónoma, al igual que tampoco existe ninguna relación en como varian estos valores a lo largo de estos 3 años que comparamos, ya que en cada conjunto de datos o en cada gráfica, cada vez toman valores totalmente diferentes tanto para los casos de Suicidio, como del PIB, por lo tanto podemos confirmar que no existe ningina relación, ni nigún tipo de vinculo que nos ayude a explicar como el PIB de cada Comunidad Autonoma influye en el número de suicidios que se dan en cada una de ellas.  
 
 
 ### Suicidio
