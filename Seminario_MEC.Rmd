@@ -307,9 +307,11 @@ Como podemos observar, es imposible realizar el estudio con este conjunto de dat
 
 ```{r}
 install.packages("jpeg")
+install.packages("png")
 library(jpeg)
+library(png)
 
-PIB_json <- readPNG("Data\Fotos\CapturaSeminario.PNG")
+pib_imagen <- readPNG("Data/Fotos/CapturaSeminario.png")
 ```
 
 ```{r}
@@ -725,57 +727,13 @@ depr_suicidio
 ```
 
 
-```{r}
-depr_suicidiosin_na <- na.omit(depr_suicidio)
-ggplot(data = depr_suicidio, aes(x=Valor_Suicidio, y = Sexo_Depresion)) +
-  geom_bar(stat = "identity", fill = "chartreuse2") +
-  labs(title = "Depresión vs Suicidio por sexo", x = "Sexo", y = "Valor suicidio")
 
-```
-```{r}
-grafico_Suicidio_Sexo <- ggplot(depr_suicidio, aes(x = Sexo_Depresion, y = Valor_Suicidio, fill = Sexo_Depresion)) +
-  geom_bar(stat = "identity", width = 1) +
-  coord_polar(theta = "y") +
-  labs(title = "Depresión vs Suicidio por sexo",
-       fill = "Sexo_Depresion",
-       x = NULL,
-       y = NULL) +
-  theme_minimal() +
-  theme(legend.position = "bottom")
-  
-print(grafico_Suicidio_Sexo)
-  
-```
+
+###CASO 3: Depresión y PIB
 
 ```{r}
-grafico_Suicidio_sexo <- ggplot(depr_suicidio, aes(x = Sexo_Depresion, y = 1, fill = Sexo_Depresion)) +
-  geom_bar(stat = "identity", width = 1, position = "fill") +
-  geom_bar(stat = "identity", width = 1, position = "fill") +
-  labs(title = "Depresión vs Suicidio por sexo",
-       fill = "Sexo_Depresion",
-       x = NULL,
-       y = NULL) +
-  theme_minimal() +
-  theme(legend.position = "bottom") +
-  coord_polar(theta = "y")
-
-print(grafico_Suicidio_sexo)
-```
-
-
-
-###CASO 3: Suicidio y PIB
-```{r}
-#Suicidio_final <- 
-  #Suicidio_final %>%
-  #rename("Periodo" = Año_Suicidio)
-```
-
-
-```{r}
-levels(factor(Suicidio_final$Periodo))
-levels(factor(PIB.csv$Periodo))
-# En en pib nos quedaremos con los años que aparecen tambien en suicidio (2018,2019,2020,2021)
+levels(factor(Depresion_final$Comunidad))
+levels(factor(PIB.csv$Comunidad))
 ```
 
 
