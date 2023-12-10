@@ -881,7 +881,7 @@ ggplot(pib_suici, aes(x = Total, y = Valor_Suicidio, label = Comunidad)) +
   geom_point(color = "darkblue", size = 1) +
   geom_text(aes(label = Comunidad)) +
   geom_smooth(method = "lm", se = TRUE, color = "blue") +  # Línea de tendencia lineal con intervalo de confianza
-  labs(title = "Relación entre PIB y Casos de Suicidio por Comunidad",
+  labs(title = "PIB y Casos de Suicidio por Comunidad",
        x = "PIB",
        y = "Casos de Suicidio") +
   theme_minimal() 
@@ -903,39 +903,7 @@ ggplot(data = pib_suici, aes(x=Total, y = Valor_Suicidio)) +
   geom_bar(stat = "identity", fill = "orange") +
   labs(title = "Gráfico de Barras de Suicidio", x = "pib", y = "Valor de Suicidio")
 ```
-## CASO 4
 
-Vamos a unir el conjunto de datos de enfermedades mentales, y de suicidio, para ver la relación que existe entre estas patologias y la tasa de suicidio:
-
-```{r, echo = FALSE, message=FALSE, warning=FALSE}
-str(EnfMentales_final)
-EnfMentales_final
-```
-
-```{r, echo = FALSE, message=FALSE, warning=FALSE}
-levels(factor(Suicidio_final$Comunidad))
-levels(factor(EnfMentales_final$Comunidad))
-```
-
-
-```{r, echo = FALSE, message=FALSE, warning=FALSE}
-EM_suicidio <- full_join(EnfMentales_final, Suicidio_final, by = c("Comunidad"))
-EM_suicidio
-```
-
-```{r}
-ggplot(data = EnfMentales_final, aes(x=Valor_EnfMental, y = Comunidad, fill =Comunidad)) +
-  geom_bar(stat = "identity", position = "dodge") +
-  labs(title = "Gráfico de Barras de EM", x = "Comunidad", y = "Valor") +
-theme_minimal()
-```
-
-```{r}
-ggplot(data = EnfMentales_final, aes(x=Enfermedad_Mental, y = Valor_EnfMental, fill =Enfermedad_Mental)) +
-  geom_bar(stat = "identity", position = "dodge") +
-  labs(title = "Gráfico de Barras de EM", x = "Comunidad", y = "Valor") +
-theme_minimal()
-```
 
 
 
