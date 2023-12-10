@@ -412,7 +412,7 @@ depr_y_suicidio
 Este código agrupa los datos en depr_y_suicidio por la columna Comunidad y calcula la media de las columnas Valor_Depresion y Valor_Suicidio para cada grupo, almacenando los resultados en las columnas vDepresion y vSuicidio respectivamente. El resultado es un dataframe con la media de estas variables para cada comunidad.
 
 ```{r}
-# Esto no se si está bien porque no se relacionar depresion y suicidio
+
 ggplot(depr_y_suicidio, aes(x = vDepresion, y = vSuicidio)) +
   geom_point(aes(colour=Comunidad)) +
   labs(title = "Depresión y Casos de Suicidio por Comunidad",
@@ -481,18 +481,30 @@ levels(factor(PIB.csv$Comunidad))
 
 ggplot(data = pib2020, aes(x=Comunidad, y = Total)) +
   geom_bar(stat = "identity", fill = "green") +
-  labs(title = "PIB en 2020", x = "Comunidad", y = "PIB")
+  labs(title = "PIB en 2020", x = "Comunidad", y = "PIB")+
+  theme(axis.text.x = element_text(angle = 65, hjust = 1),
+        axis.text.y = element_blank())
+```
 
+```{r}
 ggplot(data = pib2019, aes(x=Comunidad, y = Total)) +
   geom_bar(stat = "identity", fill = "purple") +
-  labs(title = "PIB en 2019", x = "Comunidad", y = "PIB")
+  labs(title = "PIB en 2019", x = "Comunidad", y = "PIB")+
+  theme(axis.text.x = element_text(angle = 65, hjust = 1),
+        axis.text.y = element_blank())
+```
 
+
+  
+```{r}
 ggplot(data = pib2018, aes(x=Comunidad, y = Total)) +
   geom_bar(stat = "identity", fill = "yellow") +
-  labs(title = "PIB en 2018", x = "Comunidad", y = "PIB")
+  labs(title = "PIB en 2018", x = "Comunidad", y = "PIB")+
+  theme(axis.text.x = element_text(angle = 65, hjust = 1),
+        axis.text.y = element_blank())
 ```
 Si comparamos los datos de la tabla oiginal PIB y los de los años que nos interesan (interpretando también sus graficas), podemos ver como el producto interior bruto de cada Comunidad Autonoma se mantenia en un constante crecimiento o disminuía ligeramente ,pero en 2020, a causa de la pandemia, este PIB cayó en picado debido a la crisis inseperada que sufrimos por esa situación. 
-Hay que tener en cuenta que los valores muestran el porcentaje de crecimiento y decrecimiento que sufrió cada CCAA en ralcion a PIB.
+Hay que tener en cuenta que los valores muestran el porcentaje de crecimiento y decrecimiento que sufrió cada CCAA en relacion a PIB.
 
 
 ```{r}
