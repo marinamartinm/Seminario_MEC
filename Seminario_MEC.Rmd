@@ -128,18 +128,16 @@ Por todo ello, hemos creido conveniente estudiar el caso. Esta vez vamos a cruza
 
 # Objetivos
 
--	Estudiar la relación entre la aparición de enfermedades frente al sexo. 
+-	Estudiar la relación entre la aparición de enfermedades mentales frente a diferentes factores y su derivación en el suicidio.
 
--	Averiguar si existe relación entre el PIB con los datos sobre enfermedades mentales en España y estudiar si en aquellas comunidades autónomas en las que el PIB sea más bajo tienen influencia sobre la tasa de suicidio de estas.
-
--	Estudiar la relación entre la tasa de suicidio y el producto interior bruto por comunidad autónoma.
+-	Averiguar si existe relación entre el PIB con los datos sobre transtornos mentales en España y estudiar si en aquellas comunidades autónomas en las que el PIB sea más bajo tienen influencia sobre la tasa de suicidio de estas.
 
 -	Realizar un estudio general con todas las variables para encontrar una posible relación con la tasa de suicidio.
 
 
 # Datos
 
-- PIB por CCAA: "https://www.ine.es/jaxiT3/Datos.htm?t=45599" (Json)
+- PIB por CCAA: "https://www.ine.es/jaxiT3/Datos.htm?t=45599" (Csv)
 - Tasa de suicidio por CCAA: "https://www.ine.es/jaxiT3/Datos.htm?tpx=46688" (Json)
 - Depresión por CCAA: "https://datos.gob.es/es/catalogo/ea0010587-prevalencia-de-cuadros-depresivos-activos-segun-sexo-y-comunidad-autonoma-poblacion-de-15-y-mas-anos-identificador-api-t15-p420-a2019-p04-l0-13010-px1" (Json)
 
