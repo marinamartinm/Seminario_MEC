@@ -536,15 +536,21 @@ No es igualmente proporcional para todas las comunidades, pero como podemos obse
 
 
 
-## CASO 2: Depresión y PIB en España
+## CASO 2: Suicidio y PIB en España
 UNION PIB Y SUICIDIO
-```{r}
+
+En segundo lugar, como caso de estudio, vamos a analizar la relación entre el suicidio y el producto interior bruto de nuestro país, para ver si es una posible causa.
+Como hemos mencionado anteriormente, hemos tenido que utilizar .csv, ya que con JSON no era posible el estudio.
+
+```{r, echo = FALSE, message=FALSE, warning=FALSE}
 library(readr)
 PIB.csv <- read_delim(file = "Data/PIB.csv", delim = ";", show_col_types = FALSE)
 PIB.csv
 ```
 
-```{r}
+Comprobamos los valores que se encuentan dentro de nuestro dataset PIB para ver si nos son todos de utilidad.Comprobamos los valores que se encuentan dentro de nuestro dataset PIB para ver si nos son todos de utilidad.
+
+```{r, echo = FALSE, message=FALSE, warning=FALSE}
 #Comprobamos los valores que se encuentan dentro de nuestro dataset PIB para ver si nos son todos de utilidad.
 levels(factor(PIB.csv$Comunidad))
 levels(factor(Suicidio_final$Comunidad))
@@ -553,7 +559,11 @@ levels(factor(PIB.csv$Periodo))
 ```
 
 
-```{r} 
+Nos quedamos con los años que nos son de utildad para poder relacionar PIB.csv con el dataset de suicidio; 2021 también lo excluimos ya que todos sus valores son NAs.
+
+También modififcamos la columna de Comunidad para que tenga unos valores similares a los del dataset de Suicidio, y así poder unirlas mediante esta etiqueta.
+
+```{r, echo = FALSE, message=FALSE, warning=FALSE}
 #Nos quedamos con los años que nos son de utildad para poder relacionar PIB.csv con el dataset de suicidio; 2021 también lo excluimos ya que todos sus valores son NAs.
 PIB.csv <- PIB.csv %>%
   filter(Periodo %in% c("2018", "2019", "2020"))
@@ -564,6 +574,7 @@ PIB.csv <- PIB.csv %>%
   mutate(Comunidad = rep(c('Total nacional', 'Andalucía', 'Aragón', 'Asturias', 'Balears', 'Canarias', 'Cantabria', 'Castilla y León','Castilla-La Mancha', 'Cataluña', 'Comunitat Valenciana', 'Extremadura', 'Galicia', 'Madrid', 'Murcia', 'Navarra', 'País Vasco', 'Rioja','Ceuta', 'Melilla'), each = 3, length.out = 60))
 ```
 
+Filtramos cada PIB por su año para poder compararlos.
 
 ```{r}
 #Filtramos cada PIB por su año para poder compararlos.
@@ -577,35 +588,46 @@ pib2018 <- PIB.csv %>% filter(Periodo=="2018")
 pib2018
 ```
 
+En 2020, el valor máximo del PIB fue de -9.59 y el mínimo de -10.381.
 ```{r}
 levels(factor(PIB.csv$Comunidad))
 
+maximos <- aggregate(Total~Comunidad, pib2020, max)
+
 ggplot(data = pib2020, aes(x=Comunidad, y = Total)) +
   geom_bar(stat = "identity", fill = "green") +
+  geom_text(data = maximos, aes(label = Total, y = Total), vjust = -0.5,size=2)+
   labs(title = "PIB en 2020", x = "Comunidad", y = "PIB")+
   theme(axis.text.x = element_text(angle = 65, hjust = 1),
         axis.text.y = element_blank())
 ```
 
+El PIB máximo en 2019 fue de 2.254 y el mínimo de 0.42.
 ```{r}
+
+maximos2019 <- aggregate(Total~Comunidad, pib2019, max)
 ggplot(data = pib2019, aes(x=Comunidad, y = Total)) +
   geom_bar(stat = "identity", fill = "purple") +
+  geom_text(data = maximos2019, aes(label = Total, y = Total), vjust = -0.5,size=2)+
   labs(title = "PIB en 2019", x = "Comunidad", y = "PIB")+
   theme(axis.text.x = element_text(angle = 65, hjust = 1),
         axis.text.y = element_blank())
 ```
 
-
+En 2018, el PIB máximo fue de 3.446 y el mínimo de -0.41.
   
 ```{r}
+maximos2018 <- aggregate(Total~Comunidad, pib2018, max)
+
 ggplot(data = pib2018, aes(x=Comunidad, y = Total)) +
   geom_bar(stat = "identity", fill = "yellow") +
+  geom_text(data = maximos2018, aes(label = Total, y = Total), vjust = -0.5,size=2)+
   labs(title = "PIB en 2018", x = "Comunidad", y = "PIB")+
   theme(axis.text.x = element_text(angle = 65, hjust = 1),
         axis.text.y = element_blank())
 ```
 Si comparamos los datos de la tabla oiginal PIB y los de los años que nos interesan (interpretando también sus graficas), podemos ver como el producto interior bruto de cada Comunidad Autonoma se mantenia en un constante crecimiento o disminuía ligeramente ,pero en 2020, a causa de la pandemia, este PIB cayó en picado debido a la crisis inseperada que sufrimos por esa situación. 
-Hay que tener en cuenta que los valores muestran el porcentaje de crecimiento y decrecimiento que sufrió cada CCAA en relacion a PIB.
+Hay que tener en cuenta que los valores muestran el porcentaje de crecimiento y decrecimiento que sufrió cada CCAA en relación a PIB.
 
 
 ```{r}
