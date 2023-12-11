@@ -273,7 +273,7 @@ union_pib
 ```
 Con este conjunto de datos hemos tenido un problema, porque después de hacer todo el tratamiento de los datos e intentar acceder a aquellos valores que nos interesan, nos hemos dado cuenta de que hay error, procedente de la fuente de la que hemos sacado los datos y solo hay valores para la primera fila del conjunto. Cosa que podemos demostrar a través de este bucle en el que accedemos a todos los valores de este conjunto:
 
-```{r, echo = FALSE, message=FALSE, warning=FALSE}
+```{r, echo = TRUE}
 for (i in seq_along(PIB)) {
   # Verificar si Data existe y tiene al menos un elemento
   if ("Data" %in% names(PIB[[i]]) && length(PIB[[i]]$Data) > 0) {
@@ -398,12 +398,12 @@ ggplot(data = Suicidio, aes(x=Año_Suicidio, y = Valor_Suicidio)) +
   geom_bar(stat = "identity", fill = "thistle3") +
   labs(title = "Gráfico de Barras de Suicidio", x = "Año de Suicidio", y = "Valor de Suicidio")
 ```
-No podemos afirmar que la pandemia fuera un factor directo en el aumento de los casos de suicidio, ya que en 2019 todavia no estabamos en esa situación y el repuente en los casos fue muy considerable respecto al año anterior. 
-Durente el año del confinamiento podemos ver como estos casos disminullen, pero al año siguiente (en 2021) los casos vuelven a aumnetar, por lo que la situación deribada del COVID si puede tener alguna relacion con el aumento en la tasa de suicidio.
+No podemos afirmar que la pandemia fuera un factor directo en el aumento de los casos de suicidio, ya que en 2019 todavia no estábamos en esa situación y el repuente en los casos fue muy considerable respecto al año anterior. 
+Durente el año del confinamiento podemos ver como estos casos disminuyen, pero al año siguiente (en 2021) los casos vuelven a aumentar, por lo que la situación derivada del COVID si puede tener alguna relación con el aumento en la tasa de suicidio.
 
 
 ### Suicidio por comunidad autónoma
-Tambien hemos querido comparar los casos de suicidio en las distintas comunidades autónomas, y nos ha sorprendido la cantidad de casos de Galicia o incluso de Canarias.
+También hemos querido comparar los casos de suicidio en las distintas comunidades autónomas, y nos ha sorprendido la cantidad de casos de Galicia o incluso de Canarias.
 ```{r}
 Suicidio <- Suicidio_final %>%
   filter(Comunidad!="Total nacional")
@@ -415,7 +415,8 @@ ggplot(data = Suicidio, aes(x=Valor_Suicidio, y = Comunidad)) +
 
 
 ### Suicidio por rango de edad
-Algo que también nos ha sorprendido y que hemos creido conveniente estudiar es el análisis de estos datos por edad. Creemos que los resultados de esta gráfica también respaldan nuestra hipótesis de que el ocio y tiempo libre influyen directamente en las enfermedades mentales y el suicidio, puesto que la tasa de suicidio más alta en España se da en personas mayores de entre 80 y 84 años, creemos que se el hecho de que se sientan solas o no acompañadas y el hecho de que, al estar jubilados tengan tanto tiempo libre pero no socializando,puede influir en estos datos.
+Algo que también nos ha sorprendido y que hemos creido conveniente estudiar es el análisis de estos datos por edad. Creemos que los resultados de esta gráfica también respaldan nuestra hipótesis de que el ocio y tiempo libre influyen directamente en las enfermedades mentales y el suicidio, puesto que la tasa de suicidio más alta en España se da en personas mayores de entre 90 y 94 años, creemos que se el hecho de que se sientan solas o no acompañadas y el hecho de que, al estar jubilados tengan tanto tiempo libre pero no socializando, puede influir en estos datos.
+A su vez, creemos que un aumento de los casos de suicidio en este rango de edad se debe al suicidio aistido o eutanasia, ya que hay personas mayores que deben de permanecer en los hospitales de forma continua por su estado de salud y en numerosas ocasiones se recurre a este método para acabar con su sufrimiento.
 
 ```{r}
 ggplot(data = Suicidio_final, aes(x=Valor_Suicidio, y = Edad_Suicidio)) +
