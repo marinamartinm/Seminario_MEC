@@ -425,10 +425,12 @@ ggplot(data = Suicidio_final, aes(x=Valor_Suicidio, y = Edad_Suicidio)) +
 ```
 
 ## Depresión
-Ahora lo que vamos a hacer es estudiar otro conjunto de datos: la depresión en España.
+En segundo lugar, analizaremos la depresión en España.
 Iremos estudiando la depresión con sus distintas variables y posteriormente, la estudiaremos frente al suicidio para ver como estos datos se relacionan entre sí.
 
 ### Prevalencia de la depresión
+
+En el caso de este conjunto, en la columna de "Prevalencia" hemos filtrado por aquellas celdas en las que se presente el transtorno, que consiste en los valores " Cuadro depresivo mayor" y " Otros cuadros depresivos", ya que las otras posibles combinaciones eran "Sin cuadro depresivo" o "Total" y debemos de descartarlo porque nuestro interés es saber la relacion de aquellos que si que lo padecen.
 ```{r, echo = FALSE, message=FALSE, warning=FALSE}
 levels(factor(Depresion_final$Prevalencia))
 Depresion_filt<- Depresion_final %>%
@@ -444,7 +446,9 @@ ggplot(data = Depresion_filt, aes(x=Valor_Depresion, y = Prevalencia)) +
 
 ### Depresión y sexo
 
-```{r}
+Hemos filtrado por "Hombres" y "Mujeres" porque la otra posible variable era "Total" e iba a ser redundante para el estudio.
+
+```{r, echo = FALSE, message=FALSE, warning=FALSE}
 Depresion_sex<- Depresion_filt %>%
   filter(Sexo_Depresion %in% c("Hombres", "Mujeres"))
 Depresion_sex
@@ -455,7 +459,9 @@ ggplot(data =Depresion_sex, aes(x=Valor_Depresion, y = Sexo_Depresion)) +
   geom_bar(stat = "identity", fill = "#BCEE68") +
   labs(title = "Prevalencia de la depresión", x = "Valor", y = "Prevalencia")
 ```
+
 ### Depresión por comunidad autónoma
+
 En cuanto a la depresión por comunidades, esta sería la distribución:
 ```{r}
 Depresion_filt2 <- Depresion_filt %>%
@@ -473,19 +479,19 @@ UNION DEPRESIÓN Y SUICIDIO
 El tratamiento de estos datos ha consistido en filtrar por el año en primer lugar, quedándonos sólo con el 2020. En cuanto al conjunto datos de depresión, de la varibale de prevalencia solo nos quedamos con los valores " Cuadro depresivo mayor" y " Otros cuadros depresivos", porque las otras varibles son aquellos ciudadanos que no presentan este tipo de transtornos y el total, cosa que no nos interesa estudiar, porque queremos saber cuál es la relación con aquellos que si que padecen de depresión.
 Luego, se eliminan las filas duplicadas, se seleccionan ciertas columnas y se filtran las filas donde el valor de Comunidad no es "Total nacional", porque queremos estudiar las comunidades por separado y el valor total sería redundante.
 
-```{r}
+```{r, echo = FALSE, message=FALSE, warning=FALSE}
 suicidio2020 <- Suicidio_final %>%
   filter(Año_Suicidio==2020)
 ```
 
-```{r}
+```{r, echo = FALSE, message=FALSE, warning=FALSE}
 levels(factor(Depresion_final$Prevalencia))
 Depresion_filt<- Depresion_final %>%
   filter(Prevalencia %in% c(" Cuadro depresivo mayor", " Otros cuadros depresivos"))
 Depresion_filt
 ```
 
-```{r}
+```{r, echo = FALSE, message=FALSE, warning=FALSE}
 depr_y_suicidio <- right_join(Depresion_filt, Suicidio_final, by = "Comunidad")  #Unimos los dataset Depresion(filtrado) y Suicidio_final mediante la columna común Cominudad.
 depr_y_suicidio
 unique(depr_y_suicidio)  #Eliminamos filas duplicadas.
@@ -495,7 +501,7 @@ depr_y_suicidio
 ```
 
 
-```{r}
+```{r, echo = FALSE, message=FALSE, warning=FALSE}
 depr_y_suicidio <- depr_y_suicidio %>%
   group_by(Comunidad) %>%  #Agrupamos los datos por Comunidad.
   summarise(vDepresion = mean(Valor_Depresion), vSuicidio = mean(Valor_Suicidio))  #Calculamos la media de la Tasa de depresión y suicidio, para cada Comunidad.
