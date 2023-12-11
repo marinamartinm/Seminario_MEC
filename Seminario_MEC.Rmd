@@ -128,7 +128,6 @@ Por todo ello, hemos creido conveniente estudiar el caso. Esta vez vamos a cruza
 
 # Objetivos
 
-
 -	Estudiar la relación entre la aparición de enfermedades frente al sexo. 
 
 -	Averiguar si existe relación entre el PIB con los datos sobre enfermedades mentales en España y estudiar si en aquellas comunidades autónomas en las que el PIB sea más bajo tienen influencia sobre la tasa de suicidio de estas.
@@ -136,11 +135,6 @@ Por todo ello, hemos creido conveniente estudiar el caso. Esta vez vamos a cruza
 -	Estudiar la relación entre la tasa de suicidio y el producto interior bruto por comunidad autónoma.
 
 -	Realizar un estudio general con todas las variables para encontrar una posible relación con la tasa de suicidio.
-
-
-</div class="column-left"></font>
-![](https://amiif.org/wp-content/uploads/2022/02/depresion.png){width=350px}
-
 
 
 # Datos
@@ -154,7 +148,7 @@ El formato de datos escogido son tanto .csv como .json.
 
 ## Importación
 
-###1º Conjunto de datos: Depresión por CCAA
+### 1º Conjunto de datos: Depresión por CCAA
 ```{r, echo = FALSE, message=FALSE, warning=FALSE}
 
 DepresionCCAA <- fromJSON(file = "Data/DepresionCCAA.json")
@@ -384,7 +378,7 @@ Suicidio_final
 A continuación vamos a presentar el desarrollo de los distintos casos de estudio.
 
 
-### Suicidio
+## Suicidio
 Vamos a empezar analizando los datos relacionados con el suicidio en nuestr país para ponernos un poco en contexto de cómo está la situación y partir de una base.
 En primer lugar, convertimos la columna AnoSuicidio del dataframe Suicidio en un factor. Después, mostramos los niveles de la variable Edad_Suicidio y filtramos las filas del dataframe donde la variable Edad_Suicidio coincide con una de las edades especificadas en el vector de caracteres.
 Esto lo hacemos para quedarnos solo con las filas que nos interesan (las correspondientes a edad).
@@ -397,7 +391,7 @@ Suicidio <- Suicidio_final %>%
   filter(Suicidio_final$Edad_Suicidio==c(" 95 y más años"," De 90 a 94 años"," De 85 a 89 años"," De 80 a 84 años"," De 75 a 79 años"," De 70 a 74 años"," De 65 a 69 años"," De 60 a 64 años"," De 55 a 59 años"," De 50 a 54 años"," De 45 a 49 años"," De 40 a 44 años"," De 30 a 39 años"," De 15 a 29 años"," Menos de 15 años"))
 ```
 
-#### Suicidio frente al tiempo
+### Suicidio frente al tiempo
 Como podemos observar, esta sería la evolución de la tasa de suicidio en España del año 2018 al año 2021.
 (casos por 100 000 habitantes)
 Creemos que socializar y hacer planes fuera de la rutina, como el ocio y el tiempo libre, aumenta el estado de animo y la calidad de vida de las personas, y como durante los años de pandemia, en los que se nos impusieron ciertas restricciones, nos lo impedían, pudo resultar que se diera un aumento en los casos de suicidio:
@@ -410,7 +404,7 @@ No podemos afirmar que la pandemia fuera un factor directo en el aumento de los 
 Durente el año del confinamiento podemos ver como estos casos disminullen, pero al año siguiente (en 2021) los casos vuelven a aumnetar, por lo que la situación deribada del COVID si puede tener alguna relacion con el aumento en la tasa de suicidio.
 
 
-#### Suicidio por comunidad autónoma
+### Suicidio por comunidad autónoma
 Tambien hemos querido comparar los casos de suicidio en las distintas comunidades autónomas, y nos ha sorprendido la cantidad de casos de Galicia o incluso de Canarias.
 ```{r}
 Suicidio <- Suicidio_final %>%
@@ -422,7 +416,7 @@ ggplot(data = Suicidio, aes(x=Valor_Suicidio, y = Comunidad)) +
 
 
 
-#### Suicidio por rango de edad
+### Suicidio por rango de edad
 Algo que también nos ha sorprendido y que hemos creido conveniente estudiar es el análisis de estos datos por edad. Creemos que los resultados de esta gráfica también respaldan nuestra hipótesis de que el ocio y tiempo libre influyen directamente en las enfermedades mentales y el suicidio, puesto que la tasa de suicidio más alta en España se da en personas mayores de entre 80 y 84 años, creemos que se el hecho de que se sientan solas o no acompañadas y el hecho de que, al estar jubilados tengan tanto tiempo libre pero no socializando,puede influir en estos datos.
 
 ```{r}
@@ -431,11 +425,11 @@ ggplot(data = Suicidio_final, aes(x=Valor_Suicidio, y = Edad_Suicidio)) +
   labs(title = "Gráfico recuento Suicidio por rango de Edades", x = "Valor Suicidio", y = "Rango de edad")
 ```
 
-### Depresión
+## Depresión
 Ahora lo que vamos a hacer es estudiar otro conjunto de datos: la depresión en España.
 Iremos estudiando la depresión con sus distintas variables y posteriormente, la estudiaremos frente al suicidio para ver como estos datos se relacionan entre sí.
 
-#### Prevalencia de la depresión
+### Prevalencia de la depresión
 ```{r, echo = FALSE, message=FALSE, warning=FALSE}
 levels(factor(Depresion_final$Prevalencia))
 Depresion_filt<- Depresion_final %>%
@@ -449,7 +443,7 @@ ggplot(data = Depresion_filt, aes(x=Valor_Depresion, y = Prevalencia)) +
   labs(title = "Prevalencia de la depresión", x = "Valor", y = "Prevalencia")
 ```
 
-#### Depresión y sexo
+### Depresión y sexo
 
 ```{r}
 Depresion_sex<- Depresion_filt %>%
@@ -462,7 +456,7 @@ ggplot(data =Depresion_sex, aes(x=Valor_Depresion, y = Sexo_Depresion)) +
   geom_bar(stat = "identity", fill = "#BCEE68") +
   labs(title = "Prevalencia de la depresión", x = "Valor", y = "Prevalencia")
 ```
-#### Depresión por comunidad autónoma
+### Depresión por comunidad autónoma
 En cuanto a la depresión por comunidades, esta sería la distribución:
 ```{r}
 Depresion_filt2 <- Depresion_filt %>%
@@ -709,7 +703,7 @@ Ahora bien, si comaparamos los resultados obtenidos a la hora de cruzar los dato
 
 
 
-###CASO 3: Depresión y PIB
+## CASO 3: Depresión y PIB
 
 ```{r}
 PIB.csv <- read_delim(file = "Data/PIB.csv", delim = ";", show_col_types = FALSE)
