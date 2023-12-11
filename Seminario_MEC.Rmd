@@ -133,6 +133,14 @@ Por todo ello, hemos creido conveniente estudiar el caso. Esta vez vamos a cruza
 -	Averiguar si existe relación entre el PIB con los datos sobre transtornos mentales en España y estudiar si en aquellas comunidades autónomas en las que el PIB sea más bajo tienen influencia sobre la tasa de suicidio de estas.
 
 -	Realizar un estudio general con todas las variables para encontrar una posible relación con la tasa de suicidio.
+```{r, echo=FALSE, out.width='100%'}
+library(knitr)
+knitr::include_graphics("Data\\Fotos\\depresion.jpg")
+
+```
+
+
+
 
 
 # Datos
@@ -296,6 +304,10 @@ for (i in seq_along(PIB)) {
 
 ```
 Como podemos observar, es imposible realizar el estudio con este conjunto de datos en formato JSON, por ello, hemos tenido que hacerlo mediante el formato CSV.
+```{r}
+library(knitr)
+knitr::include_graphics("Data\\Fotos\\jsonPIB.jpg")
+```
 
 ```{r}
 #install.packages("jpeg")
@@ -774,7 +786,7 @@ ggplot(Dep_pib, aes(x = Comunidad)) +
   labs(title = "Relación entre los Casos de Depresion y el PIB",
        x = "Comunidad",
        y = "Valor") +
-  scale_fill_manual(values = c("pink", "gray")) +
+  scale_fill_manual(values = c("pink", "#CAE1FF")) +
   theme_minimal()+
   theme(axis.text.x = element_text(angle = 65, hjust = 1),
         axis.text.y = element_blank())
@@ -796,12 +808,8 @@ PIB.csv <- PIB.csv %>%
 PIB_filt <- PIB.csv %>%
   filter(Periodo %in% c("2018", "2019", "2020"))
 ```
-```{r}
-Dep_pib <- full_join(Depresion_final, PIBMedio, by = "Comunidad")
-Dep_pib <- Dep_pib %>%
-  select(Valor_Depresion,Comunidad,MediaPIB)
 
-```
+
 
 ```{r, echo = FALSE, message=FALSE, warning=FALSE}
 PIB.csv <- 
@@ -819,57 +827,6 @@ Suicidio_final$Año_Suicidio <- as.double(as.character(Suicidio_final$Año_Suici
 ```
 
 
-```{r, echo = FALSE, message=FALSE, warning=FALSE}
-Suicidio_final <- Suicidio_final %>%
-  filter(Año_Suicidio!=2021)
-  unique(Suicidio_final)
-Suicidio_final
-
-PIB.csv <- rename(PIB.csv,"Año_Suicidio"=Periodo)
-pib_suici <- left_join(PIB.csv, Suicidio_final, by=c("Comunidad","Año_Suicidio"))
-
-pib_suici 
-pib_suici <- unique(pib_suici)
-pib_suici <- 
-  pib_suici %>%
-  drop_na()
-pib_suici
-```
-```{r}
-PIB.csv <- PIB.csv %>%
-  filter(Año_Suicidio !=2021)
-ggplot(data = PIB.csv, aes(x=as.factor(Año_Suicidio), y = Total, fill =Comunidad)) +
-  geom_bar(stat = "identity", position = "dodge") +
-  labs(title = "Gráfico de Barras de PIB", x = "Año", y = "Valor del PIB") +
-theme_minimal()
-```
-```{r}
-ggplot(pib_suici, aes(x = Total, y = Valor_Suicidio)) +
-  geom_point(aes(colour=Comunidad)) +
-  #geom_text(aes(label = Comunidad)) +
-  labs(title = "Relación entre PIB y Casos de Suicidio por Comunidad",
-       x = "PIB",
-       y = "Casos de Suicidio") +
-  theme_minimal()
-
-```
-
-
-
-```{r}
-#PIB por comunidad
-PIB.csv <- PIB.csv %>%
-  drop_na()
-ggplot(data = PIB.csv, aes(x=Comunidad, y = Total)) +
-  geom_bar(stat = "identity", fill = "chartreuse2") +
-  labs(title = "Gráfico recuento PIB por Comunidades", x = "Valor PIB", y = "Comunidad")
-```
-
-```{r}
-ggplot(data = pib_suici, aes(x=Total, y = Valor_Suicidio)) +
-  geom_bar(stat = "identity", fill = "orange") +
-  labs(title = "Gráfico de Barras de Suicidio", x = "pib", y = "Valor de Suicidio")
-```
 
 
 
