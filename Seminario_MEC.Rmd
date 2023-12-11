@@ -387,6 +387,97 @@ Suicidio_final
 # Casos
 A continuación vamos a presentar el desarrollo de los distintos casos de estudio.
 
+
+### Suicidio
+Vamos a empezar analizando los datos relacionados con el suicidio en nuestr país para ponernos un poco en contexto de cómo está la situación y partir de una base.
+En primer lugar, convertimos la columna AnoSuicidio del dataframe Suicidio en un factor. Después, mostramos los niveles de la variable Edad_Suicidio y filtramos las filas del dataframe donde la variable Edad_Suicidio coincide con una de las edades especificadas en el vector de caracteres.
+Esto lo hacemos para quedarnos solo con las filas que nos interesan (las correspondientes a edad).
+
+```{r}
+Suicidio_final
+Suicidio_final$Año_Suicidio <- as.factor(Suicidio_final$Año_Suicidio)
+levels(factor(Suicidio$Edad_Suicidio))
+Suicidio <- Suicidio_final %>%
+  filter(Suicidio_final$Edad_Suicidio==c(" 95 y más años"," De 90 a 94 años"," De 85 a 89 años"," De 80 a 84 años"," De 75 a 79 años"," De 70 a 74 años"," De 65 a 69 años"," De 60 a 64 años"," De 55 a 59 años"," De 50 a 54 años"," De 45 a 49 años"," De 40 a 44 años"," De 30 a 39 años"," De 15 a 29 años"," Menos de 15 años"))
+```
+
+#### Suicidio frente al tiempo
+Como podemos observar, esta sería la evolución de la tasa de suicidio en España del año 2018 al año 2021.
+(casos por 100 000 habitantes)
+Creemos que socializar y hacer planes fuera de la rutina, como el ocio y el tiempo libre, aumenta el estado de animo y la calidad de vida de las personas, y como durante los años de pandemia, en los que se nos impusieron ciertas restricciones, nos lo impedían, pudo resultar que se diera un aumento en los casos de suicidio:
+```{r}
+ggplot(data = Suicidio, aes(x=Año_Suicidio, y = Valor_Suicidio)) +
+  geom_bar(stat = "identity", fill = "thistle3") +
+  labs(title = "Gráfico de Barras de Suicidio", x = "Año de Suicidio", y = "Valor de Suicidio")
+```
+No podemos afirmar que la pandemia fuera un factor directo en el aumento de los casos de suicidio, ya que en 2019 todavia no estabamos en esa situación y el repuente en los casos fue muy considerable respecto al año anterior. 
+Durente el año del confinamiento podemos ver como estos casos disminullen, pero al año siguiente (en 2021) los casos vuelven a aumnetar, por lo que la situación deribada del COVID si puede tener alguna relacion con el aumento en la tasa de suicidio.
+
+
+#### Suicidio por comunidad autónoma
+Tambien hemos querido comparar los casos de suicidio en las distintas comunidades autónomas, y nos ha sorprendido la cantidad de casos de Galicia o incluso de Canarias.
+```{r}
+Suicidio <- Suicidio_final %>%
+  filter(Comunidad!="Total nacional")
+ggplot(data = Suicidio, aes(x=Valor_Suicidio, y = Comunidad)) +
+  geom_bar(stat = "identity", fill = "chartreuse2") +
+  labs(title = "Gráfico recuento Suicidio por Comunidades", x = "Valor Suicidio", y = "Comunidad")
+```
+
+
+
+#### Suicidio por rango de edad
+Algo que también nos ha sorprendido y que hemos creido conveniente estudiar es el análisis de estos datos por edad. Creemos que los resultados de esta gráfica también respaldan nuestra hipótesis de que el ocio y tiempo libre influyen directamente en las enfermedades mentales y el suicidio, puesto que la tasa de suicidio más alta en España se da en personas mayores de entre 80 y 84 años, creemos que se el hecho de que se sientan solas o no acompañadas y el hecho de que, al estar jubilados tengan tanto tiempo libre pero no socializando,puede influir en estos datos.
+
+```{r}
+ggplot(data = Suicidio_final, aes(x=Valor_Suicidio, y = Edad_Suicidio)) +
+  geom_bar(stat = "identity", fill="lightsalmon") +
+  labs(title = "Gráfico recuento Suicidio por rango de Edades", x = "Valor Suicidio", y = "Rango de edad")
+```
+
+### Depresión
+Ahora lo que vamos a hacer es estudiar otro conjunto de datos: la depresión en España.
+Iremos estudiando la depresión con sus distintas variables y posteriormente, la estudiaremos frente al suicidio para ver como estos datos se relacionan entre sí.
+
+#### Prevalencia de la depresión
+```{r, echo = FALSE, message=FALSE, warning=FALSE}
+levels(factor(Depresion_final$Prevalencia))
+Depresion_filt<- Depresion_final %>%
+  filter(Prevalencia %in% c(" Cuadro depresivo mayor", " Otros cuadros depresivos"))
+Depresion_filt
+```
+En esta gráfica podemos comprobar los distintos tipos de depresión:
+```{r}
+ggplot(data = Depresion_filt, aes(x=Valor_Depresion, y = Prevalencia)) +
+  geom_bar(stat = "identity", fill = "thistle3") +
+  labs(title = "Prevalencia de la depresión", x = "Valor", y = "Prevalencia")
+```
+
+#### Depresión y sexo
+
+```{r}
+Depresion_sex<- Depresion_filt %>%
+  filter(Sexo_Depresion %in% c("Hombres", "Mujeres"))
+Depresion_sex
+```
+Si comparamos ambos sexos, podemos ver que los hombres en España sufren más de depresión que las mujeres.
+```{r}
+ggplot(data =Depresion_sex, aes(x=Valor_Depresion, y = Sexo_Depresion)) +
+  geom_bar(stat = "identity", fill = "#BCEE68") +
+  labs(title = "Prevalencia de la depresión", x = "Valor", y = "Prevalencia")
+```
+#### Depresión por comunidad autónoma
+En cuanto a la depresión por comunidades, esta sería la distribución:
+```{r}
+Depresion_filt2 <- Depresion_filt %>%
+  filter(Comunidad!=" Total nacional")
+ggplot(data = Depresion_filt2, aes(x=Valor_Depresion, y = Comunidad)) +
+  geom_bar(stat = "identity", fill = "#CD00CD") +
+  labs(title = "Depresión por Comunidades", x = "Valor Depresion", y = "Comunidad")
+```
+
+
+
 ## CASO 1: Depresión y Suicidio en España
 
 UNION DEPRESIÓN Y SUICIDIO
@@ -442,12 +533,15 @@ ggplot(depr_y_suicidio, aes(x = Comunidad)) +
        x = "Comunidad",
        y = "Valor") +
   scale_fill_manual(values = c("Depresion" = "blue", "Suicidio" = "red")) +
-  theme_minimal()
+  theme(axis.text.x = element_text(angle = 65, hjust = 1),
+        axis.text.y = element_blank())
 ```
 Podemos ver, tanto en las graficas anteriores, como en la tabla que muestra las medias de los valores de depresión y suicidio, que existe una proporcionalidad en relación con estos valores, ya que cuanto menor es el indice de depresión en una determinada CCAA, también lo es su tasa de suicidio. 
 No es igualmente proporcional para todas las comunidades, pero como podemos observar en la última gráfica, existe una relación directa en que entre el 20-40% del total de valor de suicidio, se corresponde con los valores de Depresión, por lo que podemos considerar esta enfermedad mental como un factor que influye en los casos de suicidio.
 
 
+
+## CASO 2: Depresión y PIB en España
 UNION PIB Y SUICIDIO
 ```{r}
 library(readr)
@@ -599,8 +693,7 @@ pib_Suic2018$Total <- factor(pib_Suic2018$Total)
 
 levels(factor(pib_Suic2018$Comunidad))
 
-```
-```{r}
+
 ggplot(pib_Suic2018, aes(x = Comunidad)) +
   geom_col(aes(y = vSuicidio, fill = "Suicidio"), position = "dodge") +
   geom_col(aes(y = Total, fill = "PIB"), position = "dodge") +
@@ -612,120 +705,11 @@ ggplot(pib_Suic2018, aes(x = Comunidad)) +
   theme(axis.text.x = element_text(angle = 65, hjust = 1),
         axis.text.y = element_blank())
 #Valor maximo del pib = 9,6039, valor mínimo = -0,41
+
 ```
-Al comparar los resultados de las tablas y los graficos 
+Antes de iniciar el planteamiento de los resultados, me gustaria comentar porque hay columnas en las graficas que solo tienen un color. Esto no se debe a que el valor del PIB solape a los valores de suicidio, sino que hay 6 comunidades auntonomas que a la hora de calcular su media de casos de suicidio nos devolvieron valores NAs, estas comunidades son Asturias, Balears, Madrid, Murcia, Navarra y Rioja. En el caso de la última gráfica, la de 2018, podemos ver como hay alguna columna más que solo presenta un único color, esto se debe a un problema a la hora de graficar, y no de datos, ya que si revisamos la tabla de datos de la que sacamos dicha grafica comunidades por ejemplo como Andalucía o Castilla y León si presentan valores para suicidio.
 
-
-
-### Suicidio
-Vamos a empezar analizando los datos relacionados con el suicidio en nuestr país para ponernos un poco en contexto de cómo está la situación y partir de una base.
-En primer lugar, convertimos la columna AnoSuicidio del dataframe Suicidio en un factor. Después, mostramos los niveles de la variable Edad_Suicidio y filtramos las filas del dataframe donde la variable Edad_Suicidio coincide con una de las edades especificadas en el vector de caracteres.
-Esto lo hacemos para quedarnos solo con las filas que nos interesan (las correspondientes a edad).
-
-```{r}
-Suicidio_final
-Suicidio_final$Año_Suicidio <- as.factor(Suicidio_final$Año_Suicidio)
-levels(factor(Suicidio$Edad_Suicidio))
-Suicidio <- Suicidio_final %>%
-  filter(Suicidio_final$Edad_Suicidio==c(" 95 y más años"," De 90 a 94 años"," De 85 a 89 años"," De 80 a 84 años"," De 75 a 79 años"," De 70 a 74 años"," De 65 a 69 años"," De 60 a 64 años"," De 55 a 59 años"," De 50 a 54 años"," De 45 a 49 años"," De 40 a 44 años"," De 30 a 39 años"," De 15 a 29 años"," Menos de 15 años"))
-```
-
-#### Suicidio frente al tiempo
-Como podemos observar, esta sería la evolución de la tasa de suicidio en España del año 2018 al año 2021.
-(casos por 100 000 habitantes)
-Creemos que socializar y hacer planes fuera de la rutina, como el ocio y el tiempo libre, aumenta el estado de animo y la calidad de vida de las personas, y como durante los años de pandemia, en los que se nos impusieron ciertas restricciones, nos lo impedían, pudo resultar que se diera un aumento en los casos de suicidio:
-```{r}
-ggplot(data = Suicidio, aes(x=Año_Suicidio, y = Valor_Suicidio)) +
-  geom_bar(stat = "identity", fill = "thistle3") +
-  labs(title = "Gráfico de Barras de Suicidio", x = "Año de Suicidio", y = "Valor de Suicidio")
-```
-No podemos afirmar que la pandemia fuera un factor directo en el aumento de los casos de suicidio, ya que en 2019 todavia no estabamos en esa situación y el repuente en los casos fue muy considerable respecto al año anterior. 
-Durente el año del confinamiento podemos ver como estos casos disminullen, pero al año siguiente (en 2021) los casos vuelven a aumnetar, por lo que la situación deribada del COVID si puede tener alguna relacion con el aumento en la tasa de suicidio.
-
-
-#### Suicidio por comunidad autónoma
-Tambien hemos querido comparar los casos de suicidio en las distintas comunidades autónomas, y nos ha sorprendido la cantidad de casos de Galicia o incluso de Canarias.
-```{r}
-Suicidio <- Suicidio_final %>%
-  filter(Comunidad!="Total nacional")
-ggplot(data = Suicidio, aes(x=Valor_Suicidio, y = Comunidad)) +
-  geom_bar(stat = "identity", fill = "chartreuse2") +
-  labs(title = "Gráfico recuento Suicidio por Comunidades", x = "Valor Suicidio", y = "Comunidad")
-```
-
-
-
-#### Suicidio por rango de edad
-Algo que también nos ha sorprendido y que hemos creido conveniente estudiar es el análisis de estos datos por edad. Creemos que los resultados de esta gráfica también respaldan nuestra hipótesis de que el ocio y tiempo libre influyen directamente en las enfermedades mentales y el suicidio, puesto que la tasa de suicidio más alta en España se da en personas mayores de entre 80 y 84 años, creemos que se el hecho de que se sientan solas o no acompañadas y el hecho de que, al estar jubilados tengan tanto tiempo libre pero no socializando,puede influir en estos datos.
-
-```{r}
-ggplot(data = Suicidio_final, aes(x=Valor_Suicidio, y = Edad_Suicidio)) +
-  geom_bar(stat = "identity", fill="lightsalmon") +
-  labs(title = "Gráfico recuento Suicidio por rango de Edades", x = "Valor Suicidio", y = "Rango de edad")
-```
-
-### Depresión
-Ahora lo que vamos a hacer es estudiar otro conjunto de datos: la depresión en España.
-Iremos estudiando la depresión con sus distintas variables y posteriormente, la estudiaremos frente al suicidio para ver como estos datos se relacionan entre sí.
-
-#### Prevalencia de la depresión
-```{r, echo = FALSE, message=FALSE, warning=FALSE}
-levels(factor(Depresion_final$Prevalencia))
-Depresion_filt<- Depresion_final %>%
-  filter(Prevalencia %in% c(" Cuadro depresivo mayor", " Otros cuadros depresivos"))
-Depresion_filt
-```
-En esta gráfica podemos comprobar los distintos tipos de depresión:
-```{r}
-ggplot(data = Depresion_filt, aes(x=Valor_Depresion, y = Prevalencia)) +
-  geom_bar(stat = "identity", fill = "thistle3") +
-  labs(title = "Prevalencia de la depresión", x = "Valor", y = "Prevalencia")
-```
-
-#### Depresión y sexo
-
-```{r}
-Depresion_sex<- Depresion_filt %>%
-  filter(Sexo_Depresion %in% c("Hombres", "Mujeres"))
-Depresion_sex
-```
-Si comparamos ambos sexos, podemos ver que los hombres en España sufren más de depresión que las mujeres.
-```{r}
-ggplot(data =Depresion_sex, aes(x=Valor_Depresion, y = Sexo_Depresion)) +
-  geom_bar(stat = "identity", fill = "#BCEE68") +
-  labs(title = "Prevalencia de la depresión", x = "Valor", y = "Prevalencia")
-```
-#### Depresión por comunidad autónoma
-En cuanto a la depresión por comunidades, esta sería la distribución:
-```{r}
-Depresion_filt2 <- Depresion_filt %>%
-  filter(Comunidad!=" Total nacional")
-ggplot(data = Depresion_filt2, aes(x=Valor_Depresion, y = Comunidad)) +
-  geom_bar(stat = "identity", fill = "#CD00CD") +
-  labs(title = "Depresión por Comunidades", x = "Valor Depresion", y = "Comunidad")
-```
-
-###CASO 2: Depresión y Suicidio
-
-```{r}
-
-Depresion_final <- Depresion_final %>%
-  mutate(Comunidad = ifelse(Comunidad == 'Asturias (Principado de)', 'Asturias', Comunidad))
-  #mutate(Comunidad = gsub("Asturias (Principado de)", "Asturias", Comunidad))
-  #mutate(Comunidad =recode(Comunidad, `Asturias (Principado de)` = "Asturias"))
-str(Depresion_final$Comunidad)
-```
-```{r}
-levels(factor(Suicidio_final$Comunidad))
-levels(factor(Depresion_final$Comunidad))
-```
-
-
-```{r}
-depr_suicidio <- full_join(Depresion_sex, Suicidio_final, by = c("Comunidad"))
-depr_suicidio
-```
-
+Ahora bien, si comaparamos los resultados obtenidos a la hora de cruzar los datos del Producto Interior Bruto y de Casos de Suicidio por Comunidad Autónoma,  podemos observar en cualquiera de los años que estudiamos, como no hay ninguna relación aparente entre estas dos variables estudiadas; de la misma forma, si comaparamos los 3 años y nos fijamos en si las barras de cada comunudad sigue un patrón relacional que no ayude a formular alguna relación, podemos apreciar como en cada año toman valores diferentes, por lo que hemos concluido que no hay relación entre las varibles PIB y Tasa de Suicidio por Comunidad Autónoma, al igual que no existe relación entre la variación del PIB con el paso de los años y el aumento o descenso de los casos de suicidio, por lo tanto el PIB nos esta asociado con la variable Suicidio.
 
 
 
@@ -734,6 +718,7 @@ depr_suicidio
 ```{r}
 levels(factor(Depresion_final$Comunidad))
 levels(factor(PIB.csv$Comunidad))
+PIB.csv
 ```
 
 
