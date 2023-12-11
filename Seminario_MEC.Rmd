@@ -318,10 +318,6 @@ pib_imagen <- readPNG("Data/Fotos/CapturaSeminario.png")
 PIB.csv <- read_delim(file = "Data/PIB.csv", delim = ";", show_col_types = FALSE)
 PIB.csv
 ```
-```{r}
-
-```
-
 
 
 ### 3º Conjunto de datos: Suicidio
@@ -716,11 +712,24 @@ Ahora bien, si comaparamos los resultados obtenidos a la hora de cruzar los dato
 ###CASO 3: Depresión y PIB
 
 ```{r}
+PIB.csv <- read_delim(file = "Data/PIB.csv", delim = ";", show_col_types = FALSE)
+
 levels(factor(Depresion_final$Comunidad))
 levels(factor(PIB.csv$Comunidad))
-PIB.csv
+
+PIB.csv <- PIB.csv %>% 
+  select(Periodo, Total)
+PIB.csv <- PIB.csv %>%
+  mutate(Comunidad = rep(c('Total nacional', 'Andalucía', 'Aragón', 'Asturias', 'Balears', 'Canarias', 'Cantabria', 'Castilla y León','Castilla-La Mancha', 'Cataluña', 'Comunitat Valenciana', 'Extremadura', 'Galicia', 'Madrid', 'Murcia', 'Navarra', 'País Vasco', 'Rioja','Ceuta', 'Melilla'), each = 7, length.out = 140)) #Creamos una nueva columna Comunidad, en la que aparecen los nombres de las CCAA que nos interesan, para que podamos unir con la tabla Depresion. 
 ```
 
+```{r}
+depr_pib <- full_join(PIB.csv, Depresion_final, by="Comunidad")
+depr_pib
+```
+```{r}
+
+```
 
 ```{r}
 PIB.csv <- 
