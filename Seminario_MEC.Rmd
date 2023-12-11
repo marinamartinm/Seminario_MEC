@@ -731,6 +731,53 @@ Ahora bien, si comaparamos los resultados obtenidos a la hora de cruzar los dato
 
 
 ## CASO 3: Depresión y PIB
+```{r}
+
+str(PIB.csv)
+PIB3 <- PIB.csv %>%
+  mutate(Total = as.numeric(gsub(",", "", Total)))
+PIB3 <- PIB.csv %>%
+  select(Total,Comunidad) %>%
+  drop_na()
+
+
+  
+```
+
+
+```{r}
+
+PIB.csv$Total <- as.numeric(gsub("[^0-9-]", "", as.character(PIB.csv$Total)))
+#PIB.csv$Total <- as.numeric(gsub("[^0-9-]", "", gsub(",", "", as.character(PIB.csv$Total))))
+
+PIBMedio <- PIB.csv %>%
+  group_by(Comunidad) %>%
+  summarise(MediaPIB = mean(Total, na.rm=TRUE)) %>%
+  mutate (Media = MediaPIB/100) %>%
+  select(Media,Comunidad)
+
+
+```
+
+```{r}
+Depresion_filt_3 <- Depresion_filt %>%
+  group_by(Comunidad) %>%
+    summarise(sumaDepr = sum(Valor_Depresion, na.rm=TRUE))
+
+```
+```{r}
+Dep_pib <- full_join(Depresion_filt_3, PIBMedio, by = "Comunidad")
+ggplot(Dep_pib, aes(x = Comunidad)) +
+  geom_col(aes(y = sumaDepr, fill = "Depresion"), position = "dodge") +
+  geom_col(aes(y = Media, fill = "PIB"), position = "dodge") +
+  labs(title = "Relación entre los Casos de Depresion y el PIB",
+       x = "Comunidad",
+       y = "Valor") +
+  scale_fill_manual(values = c("pink", "gray")) +
+  theme_minimal()+
+  theme(axis.text.x = element_text(angle = 65, hjust = 1),
+        axis.text.y = element_blank())
+```
 
 ```{r}
 PIB.csv <- read_delim(file = "Data/PIB.csv", delim = ";", show_col_types = FALSE)
@@ -749,8 +796,10 @@ PIB_filt <- PIB.csv %>%
   filter(Periodo %in% c("2018", "2019", "2020"))
 ```
 ```{r}
-Dep_pib <- full_join(Depresion_final, PIB_filt, by = "Comunidad")
-Dep_pib
+Dep_pib <- full_join(Depresion_final, PIBMedio, by = "Comunidad")
+Dep_pib <- Dep_pib %>%
+  select(Valor_Depresion,Comunidad,MediaPIB)
+
 ```
 
 ```{r}
