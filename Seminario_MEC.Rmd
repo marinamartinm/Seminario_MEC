@@ -306,12 +306,12 @@ for (i in seq_along(PIB)) {
 Como podemos observar, es imposible realizar el estudio con este conjunto de datos en formato JSON, por ello, hemos tenido que hacerlo mediante el formato CSV.
 
 ```{r}
-install.packages("jpeg")
-install.packages("png")
-library(jpeg)
-library(png)
+#install.packages("jpeg")
+#install.packages("png")
+#library(jpeg)
+#library(png)
 
-pib_imagen <- readPNG("Data/Fotos/CapturaSeminario.png")
+#pib_imagen <- readPNG("Data/Fotos/CapturaSeminario.png")
 ```
 
 ```{r}
@@ -744,16 +744,18 @@ colnames(Suicidio)
 
 ```
 ```{r}
-Suicidio_final$Periodo <- as.double(as.character(Suicidio_final$Periodo))
+Suicidio_final$Año_Suicidio <- as.double(as.character(Suicidio_final$Año_Suicidio))
 ```
 
 
 ```{r}
 Suicidio_final <- Suicidio_final %>%
-  filter(Periodo!=2021)
+  filter(Año_Suicidio!=2021)
   unique(Suicidio_final)
 Suicidio_final
-pib_suici <- left_join(PIB.csv, Suicidio_final, by=c("Comunidad","Periodo"))
+
+PIB.csv <- rename(PIB.csv,"Año_Suicidio"=Periodo)
+pib_suici <- left_join(PIB.csv, Suicidio_final, by=c("Comunidad","Año_Suicidio"))
 
 pib_suici 
 pib_suici <- unique(pib_suici)
@@ -764,8 +766,8 @@ pib_suici
 ```
 ```{r}
 PIB.csv <- PIB.csv %>%
-  filter(Periodo !=2021)
-ggplot(data = PIB.csv, aes(x=as.factor(Periodo), y = Total, fill =Comunidad)) +
+  filter(Año_Suicidio !=2021)
+ggplot(data = PIB.csv, aes(x=as.factor(Año_Suicidio), y = Total, fill =Comunidad)) +
   geom_bar(stat = "identity", position = "dodge") +
   labs(title = "Gráfico de Barras de PIB", x = "Año", y = "Valor del PIB") +
 theme_minimal()
@@ -778,14 +780,7 @@ ggplot(pib_suici, aes(x = Total, y = Valor_Suicidio)) +
        x = "PIB",
        y = "Casos de Suicidio") +
   theme_minimal()
-ggplot(pib_suici, aes(x = Total, y = Valor_Suicidio, label = Comunidad)) +
-  geom_point(color = "darkblue", size = 1) +
-  geom_text(aes(label = Comunidad)) +
-  geom_smooth(method = "lm", se = TRUE, color = "blue") +  # Línea de tendencia lineal con intervalo de confianza
-  labs(title = "PIB y Casos de Suicidio por Comunidad",
-       x = "PIB",
-       y = "Casos de Suicidio") +
-  theme_minimal() 
+
 ```
 
 
