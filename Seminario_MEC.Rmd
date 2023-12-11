@@ -724,11 +724,12 @@ PIB.csv <- PIB.csv %>%
 ```
 
 ```{r}
-depr_pib <- full_join(PIB.csv, Depresion_final, by="Comunidad")
-depr_pib
+PIB_filt <- PIB.csv %>%
+  filter(Periodo %in% c("2018", "2019", "2020"))
 ```
 ```{r}
-
+Dep_pib <- full_join(Depresion_final, PIB_filt, by = "Comunidad")
+Dep_pib
 ```
 
 ```{r}
