@@ -596,7 +596,7 @@ maximos <- aggregate(Total~Comunidad, pib2020, max)
 
 ggplot(data = pib2020, aes(x=Comunidad, y = Total)) +
   geom_bar(stat = "identity", fill = "green") +
-  geom_text(data = maximos, aes(label = Total, y = Total), vjust = -0.5,size=2)+
+  geom_text(data = maximos, aes(label = Total, y = Total), vjust = -0.5,size=2.5)+
   labs(title = "PIB en 2020", x = "Comunidad", y = "PIB")+
   theme(axis.text.x = element_text(angle = 65, hjust = 1),
         axis.text.y = element_blank())
@@ -608,7 +608,7 @@ El PIB máximo en 2019 fue de 2.254 y el mínimo de 0.42.
 maximos2019 <- aggregate(Total~Comunidad, pib2019, max)
 ggplot(data = pib2019, aes(x=Comunidad, y = Total)) +
   geom_bar(stat = "identity", fill = "purple") +
-  geom_text(data = maximos2019, aes(label = Total, y = Total), vjust = -0.5,size=2)+
+  geom_text(data = maximos2019, aes(label = Total, y = Total), vjust = -0.5,size=2.5)+
   labs(title = "PIB en 2019", x = "Comunidad", y = "PIB")+
   theme(axis.text.x = element_text(angle = 65, hjust = 1),
         axis.text.y = element_blank())
@@ -621,11 +621,12 @@ maximos2018 <- aggregate(Total~Comunidad, pib2018, max)
 
 ggplot(data = pib2018, aes(x=Comunidad, y = Total)) +
   geom_bar(stat = "identity", fill = "yellow") +
-  geom_text(data = maximos2018, aes(label = Total, y = Total), vjust = -0.5,size=2)+
+  geom_text(data = maximos2018, aes(label = Total, y = Total), vjust = -0.5,size=2.5)+
   labs(title = "PIB en 2018", x = "Comunidad", y = "PIB")+
   theme(axis.text.x = element_text(angle = 65, hjust = 1),
         axis.text.y = element_blank())
 ```
+
 Si comparamos los datos de la tabla oiginal PIB y los de los años que nos interesan (interpretando también sus graficas), podemos ver como el producto interior bruto de cada Comunidad Autonoma se mantenia en un constante crecimiento o disminuía ligeramente ,pero en 2020, a causa de la pandemia, este PIB cayó en picado debido a la crisis inseperada que sufrimos por esa situación. 
 Hay que tener en cuenta que los valores muestran el porcentaje de crecimiento y decrecimiento que sufrió cada CCAA en relación a PIB.
 
@@ -779,7 +780,7 @@ ggplot(Dep_pib, aes(x = Comunidad)) +
         axis.text.y = element_blank())
 ```
 
-```{r}
+```{r, echo = FALSE, message=FALSE, warning=FALSE}
 PIB.csv <- read_delim(file = "Data/PIB.csv", delim = ";", show_col_types = FALSE)
 
 levels(factor(Depresion_final$Comunidad))
@@ -791,7 +792,7 @@ PIB.csv <- PIB.csv %>%
   mutate(Comunidad = rep(c('Total nacional', 'Andalucía', 'Aragón', 'Asturias', 'Balears', 'Canarias', 'Cantabria', 'Castilla y León','Castilla-La Mancha', 'Cataluña', 'Comunitat Valenciana', 'Extremadura', 'Galicia', 'Madrid', 'Murcia', 'Navarra', 'País Vasco', 'Rioja','Ceuta', 'Melilla'), each = 7, length.out = 140)) #Creamos una nueva columna Comunidad, en la que aparecen los nombres de las CCAA que nos interesan, para que podamos unir con la tabla Depresion. 
 ```
 
-```{r}
+```{r, echo = FALSE, message=FALSE, warning=FALSE}
 PIB_filt <- PIB.csv %>%
   filter(Periodo %in% c("2018", "2019", "2020"))
 ```
@@ -802,7 +803,7 @@ Dep_pib <- Dep_pib %>%
 
 ```
 
-```{r}
+```{r, echo = FALSE, message=FALSE, warning=FALSE}
 PIB.csv <- 
   PIB.csv %>%
   filter(Periodo==c(2018,2019,2020,2021))
@@ -818,7 +819,7 @@ Suicidio_final$Año_Suicidio <- as.double(as.character(Suicidio_final$Año_Suici
 ```
 
 
-```{r}
+```{r, echo = FALSE, message=FALSE, warning=FALSE}
 Suicidio_final <- Suicidio_final %>%
   filter(Año_Suicidio!=2021)
   unique(Suicidio_final)
